@@ -26,16 +26,16 @@ body {
     border: 1px solid black;
 }
 
-h3 {
+p {
+    font-size: 2em;
+}
+
+.start-welcome {
     font-size: 6em;
 }
 
-h1 {
+.start-title {
     font-size: 10em;
-}
-
-p {
-    font-size: 2em;
 }
 
 .start-message {
