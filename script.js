@@ -56,8 +56,6 @@ class Character {
 
 // Player Class
 
-// NOTE: build battle messages into methods
-
 class Player extends Character {
   constructor(name, attack, defense, hitPoints, attackAcc, buffAcc, useAct1, useAct2, useAct3, useAct4) {
     super(name, attack, defense, hitPoints, attackAcc, buffAcc, useAct1, useAct2, useAct3, useAct4)
@@ -66,41 +64,81 @@ class Player extends Character {
   bark() {
     fightRound()
     if (this.useAct1 > 0) {
-      if (Math.random() < this.buffAcc) {
-        this.attack = this.attack + randomizer(1, 3)
-        this.useAct1 = this.useAct1 - 1
-      } else {...}  
-    } else {...}
+      if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        if (Math.random() < this.buffAcc){
+          let attackIncrease = randomizer(1, 3)
+          this.attack = this.attack + attackIncrease
+          playerRaiseAttackCounter = 3
+          this.useAct1 = this.useAct1 - 1
+          battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
+        }  else {
+            battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
+        }
+      } else {return}
+    } else {
+      preventDefault()
+      battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
+    }
   }
 
   bite(target) {
     fightRound()
     if (this.useAct2 > 0){
-      if (Math.random() < this.attackAcc) {
-        target.hitPoints = target.hitPoints - randomizer(this.attack + 2, this.attack + 4)
-        this.useAct2 = this.useAct2 - 1
-      } else {...}
-    } else {...}
+      if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        if (Math.random() < this.attackAcc) {
+          let attackDamage = randomizer(this.attack + 2, this.attack + 4)
+          target.hitPoints = target.hitPoints - attackDamage
+          this.useAct2 = this.useAct2 - 1
+          battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} worth of damage.`
+        } else {
+          battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
+        }
+      } else {return}
+    } else {
+      preventDefault()
+      battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
+    }
   }
 
   dash(target) {
     fightRound()
     if (this.useAct3 > 0) {
-      if (Math.random() < this.attackAcc) {
-        target.hitPoints = target.hitPoints - randomizer (this.attack, this.attack + 2)
-        this.useAct3 = this.useAct3 - 1
-      } else {...}
-    } else {...}
+      if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        if (Math.random() < this.attackAcc) {
+          let attackDamage = randomizer (this.attack, this.attack + 2)
+          let defenseDecrease = randomizer (1, 4)
+          target.hitPoints = target.hitPoints - attackDamage
+          target.defense = target.defense - defenseDecrease
+          enemyLowerDefenseCounter = 3
+          this.useAct3 = this.useAct3 - 1
+          battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
+        } else {
+          battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
+        }
+      } else {return}
+    } else {
+      preventDefault()
+      battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
+    }
   }
 
   cuteness(target) {
     fightRound()
     if (this.useAct4 > 0) {
-      if (Math.random() < this.attackAcc) {
-        target.attackAcc = target.attackAcc - randomizer ((1, 2)/10)
-        this.useAct4 = this.useAct4 - 1
-      } else {...}
-    } else {...}
+      if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        if (Math.random() < this.attackAcc) {
+          let accuracyDecrease = randomizer ((1, 3)/10)
+          target.attackAcc = target.attackAcc - accuracyDecrease
+          enemyLowerAccuracyCounter = 3
+          this.useAct4 = this.useAct4 - 1
+          battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
+        } else {
+          battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
+        }
+      } else {return}
+    } else {
+      battleMessages.textContent = `${player.name} has no more cuteness left to give. Pick another action.`
+    }
   }
 }
 
@@ -136,19 +174,21 @@ class Enemy1 extends Character {
   // for this one, in the round just repeat attack
   epicThrust(target) {
     roundFunctionArr[0]
-    if (this.useAct3 > 0) {
-      if (Math.random() < this.buffAcc) {
-        chargeCounter++
-        if (chargeCounter === 1) {
-          // send message and skip turn
-          chargeCounter++
-        } else if (chargeCounter === 2) {
-          target.hitPoints = target.hitPoints - randomizer(this.attack + 5, this.attack + 7)
-          enemyChargeCounter = 1
-          this.useAct3 = this.useAct3 - 1
-        } 
+    if (this.useAct3 > 0) { 
+      chargeCounter++
+      if (chargeCounter === 1) {
+        battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
+      } else if (chargeCounter === 2) {
+        if(Math.random < this.attackAcc)
+        attackDamage = randomizer(this.attack + 5, this.attack + 7)
+        target.hitPoints = target.hitPoints - attackDamage
+        enemyChargeCounter = 1
+        this.useAct3 = this.useAct3 - 1
+        battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
+      } else {
+        battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
       }
-    }
+    } // I'll need to fit something in here to make them pick another action... maybe I can do that in the round
   }
 
   halfHeartedSwipe(target) {
@@ -318,8 +358,6 @@ const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
 
 // Enemy Array
 
-// NOTE: I'll need to put initial battle messages in class methods
-
 let enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
 
 // ****** Status Effect Counters
@@ -362,8 +400,6 @@ let enemyStunCounter = 0
 
 let enemyChargeCounter = 0
 
-
-
 // ****** Battle Logic Starts Here ******
 
 // when round ends, remove enemy button from array
@@ -374,16 +410,74 @@ function fightRound() {
   // status effect stuff first, then specific action probabilities
   // Right... I won't need to spell out player attacks because that will be handled in the method itself
   if (enemyArr[0].hitPoints <= 0) {
-
+    battleMessages.textContent = `${enemyArr[0]} cowers in fear. ${player.name} wins!`
+    continueBtn.style.display = block
+    resetBtn.style.display = block
+    actionBtns.style.display = none
+    // music needs to change
   }
   if (playerSleepCounter > 0) {
-
+    if (playerSleepCounter === 1) {
+      battleMessages.textContent = `${player.name} wakes up!`
+      playerSleepCounter--
+    } else {
+      battleMessages.textContent = `${player.name} is fast asleep.`
+      playerSleepCounter--
+    }
   }
+
+  if (playerStunCounter > 0) {
+    if (playerStunCounter === 1) {
+      battleMessages.textContent = `${player.name} is stunned!`
+      playerStunCounter--
+    } else {
+      battleMessages.textContent = `${player.name} snaps out of it!`
+      playerStunCounter--
+    }
+  }
+
+  if (playerChargeCounter > 0) {
+    // I'll have to figure this out... need to repeat action somehow
+  }
+
+  if (enemySleepCounter > 0) {
+    if (enemySleepCounter === 1) {
+      battleMessages.textContent = `${enemyArr[0].name} wakes up!`
+      playerSleepCounter--
+      return
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} is fast asleep.`
+      playerSleepCounter--
+      return
+    }
+  }
+
+  if (enemyStunCounter > 0) {
+    if (enemyStunCounter === 1) {
+      battleMessages.textContent = `${enemyArr[0].name} is stunned!`
+      enemyStunCounter--
+      return
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} snaps out of it!`
+      enemyStunCounter--
+      return
+    }
+  }
+
   if (enemyArr[0] === enemy1) {
-
-  }
-  if (player.hitPoints <= 0) {
+    if (enemyChargeCounter > 0) {
+      enemyArr[0].epicThrust(player)
+      return
+    } 
     
+    // Continue enemy logic here
+  }
+
+  if (player.hitPoints <= 0) {
+    battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
+    gameOverScreen.style.display = block
+    tryAgainBtn.style.display = block
+    actionBtns.style.display = none
   }
   
 }
