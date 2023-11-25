@@ -87,4 +87,10 @@ Project 1 - turn based battle
   17.1 It'd be cool to change the background based on the enemy... maybe even having a moving background for the final boss (I'd have to look up how to incorporate GIFs).
   17.2 I'm guessing I could do this like I would unique music tracks... stuff background images into an array and display them as needed based on index.
 
-
+Note on status effects:
+  I think I know what I have to do here.  For each effect, have a counter set to 0 in the global space (ex. sleepTurn = 0)
+  Have a function for each one that runs every round and checks if relevant counter is higher than 0
+  If it is, apply the effect and do counter + 1
+  set a conditional such that once the counter reaches a number, undo effect and set counter back to 0
+  I'll need to make sure this is run every turn... will probably have to have other player functions call them every time they are used
+  The actual method for the status effect is simple... just have the relevant counter +1 and call the relevant function
