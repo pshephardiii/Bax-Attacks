@@ -1,12 +1,16 @@
 # Baxter-Battle
 Project 1 - turn based battle
 
+![Wireframe Photo](https://i.imgur.com/6slKcgE.jpg)
+
+Basic Idea: Create a turn based battle system where the player and enemies have multiple options.  Make the battle logic so that the following things happen: (a) enemies act in ways that make sense based on how the battle is going, (b) both enemies and player can have status effects that affect their stats and turn-based abilities, (c) allow for charge attacks that take more than one turn to complete, and (d) the battle is visually represented with animations, time delays, and messages.  
+
 1. Create containers for health bars, battle visuals, battle messages, and buttons for player action
 
 2. Health bars
   2.1 Will need a health bar for both player and computer.  They need to reflect the current HitPoints for the respective fighters
-  2.2 Player health bar should be just below visual of player fighter and enemy health bar should be just above visual of enemy
-  2.3 I'll probably check out the space battle project that group 3 did to get an idea of how to do health bars.
+  2.2 Player health bar should be just below name of player fighter and enemy health bar should be just below name of enemy
+  2.3 I'll probably check out the space battle project that group 3 did to get an idea of how to do health bars
 
 3. Battle visuals
   3.1 Need image of player figure facing up towards enemy (pokemon red style)
@@ -15,7 +19,7 @@ Project 1 - turn based battle
   3.4 Create animations for both player and enemy that reflect when one is performing an action, getting hurt, healing, etc.  How crazy I go with this will depend on time, but I want at least some animation involved.
 
 4. Player character
-  4.1 Create a base class of fighter that has name and HP.  
+  4.1 Create a base class of fighter that has name, HP, and other stats.  
   4.2 Start with one player character that is assigned with a specific subclass that has name, HP, and limited number of action use that corresponds to four methods (ex. fireballUse = 5).  When action use is depleted, player can no longer perform action (use counters and conditionals in methods to display error message if player attempts to use depleted action).  If I have time, I'll introduce options for different player classes that have different methods.
   4.3 Each method should inflict a range of damage points and have a set accuracy.  The basic setup will be attacks and heals, but I could add (if time) defend, moves that require charging, combat buffs (like increasing power, etc.).  This also depends on whether I'll be using stats like strength, etc. or just couching damage within methods.
 
