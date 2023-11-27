@@ -68,18 +68,23 @@ class Player extends Character {
   bark() {
     if (this.useAct1 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
-        if (Math.random() < this.buffAcc){
+        if (Math.random() < this.buffAcc) {
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
-          playerRaiseAttackCounter = 3
+          // playerRaiseAttackCounter = 3
           this.useAct1 = this.useAct1 - 1
           battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         }  else {
             battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
-            fightRound()
+            playerStatUpdates()
+            setTimeout(() => {fightRound()}, 2000)
         }
-      } else {return}
+      } else {
+        playerStatUpdates()
+        setTimeout(() => {fightRound()}, 2000)
+      }
     } else {
       battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
     }
@@ -93,12 +98,17 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         }
-      } else {return}
+      } else {
+        playerStatUpdates
+        setTimeout(() => {fightRound()}, 2000)
+      }
     } else {
       battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
     }
@@ -109,18 +119,25 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
           let attackDamage = randomizer (this.attack, this.attack + 2)
-          let defenseDecrease = randomizer (1, 3)
+          let defenseDecrease = randomizer (1, 2)
           target.hitPoints = target.hitPoints - attackDamage
-          target.defense = target.defense - defenseDecrease
-          enemyLowerDefenseCounter = 3
+          if ((target.defense - defenseDecrease) >= 0) {
+            target.defense = target.defense - defenseDecrease
+          }
+          // enemyLowerDefenseCounter = 3
           this.useAct3 = this.useAct3 - 1
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         }
-      } else {return}
+      } else {
+        playerStatUpdates()
+        setTimeout(() => {fightRound()}, 2000)
+      }
     } else {
       battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
     }
@@ -130,17 +147,22 @@ class Player extends Character {
     if (this.useAct4 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
-          let accuracyDecrease = randomizer(1, 3)/10
+          let accuracyDecrease = randomizer(1, 2)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
-          enemyLowerAccuracyCounter = 3
+          // enemyLowerAccuracyCounter = 3
           this.useAct4 = this.useAct4 - 1
           battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
-          fightRound()
+          playerStatUpdates()
+          setTimeout(() => {fightRound()}, 2000)
         }
-      } else {return}
+      } else {
+        playerStatUpdates()
+        setTimeout(() => {fightRound()}, 2000)
+      }
     } else {
       battleMessages.textContent = `${player.name} has no more cuteness left to give. Pick another action.`
     }
@@ -155,57 +177,58 @@ class Enemy1 extends Character {
   }
 
   canteenSwill() {
-    fightRound()
-    if (this.useAct1 > 0) {
-      if (Math.random() < this.buffAcc) {
-        let increaseDamage = randomizer(1, 3)
-        this.attack = this.attack + increaseDamage
-        let healthDecrease = randomizer(1, 3)
-        this.hitPoints = this.hitPoints - healthDecrease
-        this.useAct1 = this.useAct1 - 1
-        battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0]}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
-      } else {battleMessages.textContent = `${enemeyArr[0].name} tries to swill from his canteen, but spills it instead!`}
-    } else {} // probably do this in fightRound()
+   
+    if (Math.random() < this.buffAcc) {
+      let increaseDamage = randomizer(1, 3)
+      this.attack = this.attack + increaseDamage
+      let healthDecrease = randomizer(1, 3)
+      this.hitPoints = this.hitPoints - healthDecrease
+      this.useAct1 = this.useAct1 - 1
+      battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0]}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
+      checkPlayerHealth()
+    } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
   }
 
   loreDump(target) {
-    roundFunctionArr[0]
-    if (this.useAct2 > 0) {
-      if (Math.random() < this.attackAcc - 40) {
-        sleep(target)
-        playerSleepCounter = 3
-        this.useAct2 = this.useAct2 - 1
-      } else {}
-    } else {}
+  
+    if (Math.random() < this.attackAcc - 40) {
+      sleep(target)
+      playerSleepCounter = 3
+      this.useAct2 = this.useAct2 - 1
+      battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
+      checkPlayerHealth()
+    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
   }
 
-  // for this one, in the round just repeat attack
-  epicThrust(target) {
-    roundFunctionArr[0]
-    if (this.useAct3 > 0) { 
-      chargeCounter++
-      if (chargeCounter === 1) {
-        battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
-      } else if (chargeCounter === 2) {
-        if(Math.random < this.attackAcc)
+  epicThrust(target) { 
+
+    enemyChargeCounter++
+    if (enemyChargeCounter === 1) {
+      battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
+    } else if (enemyChargeCounter === 2) {
+        if(Math.random < this.attackAcc) {
         attackDamage = randomizer(this.attack + 5, this.attack + 7)
         target.hitPoints = target.hitPoints - attackDamage
-        enemyChargeCounter = 1
+        enemyChargeCounter = 0
         this.useAct3 = this.useAct3 - 1
         battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
-      } else {
-        battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
-      }
-    } // I'll need to fit something in here to make them pick another action... maybe I can do that in the round
+        checkPlayerHealth()
+        } else {
+          battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
+        }
+    }
   }
 
   halfHeartedSwipe(target) {
-    roundFunctionArr[0]
-    if (this.useAct4 > 0) {
-      if (Math.random() < this.attackAcc) {
-        target.hitPoints = target.hitPoints - randomizer (this.attack, this.attack + 2)
-        this.useAct4 = this.useAct4 - 1
-      }
+
+    if (Math.random() < this.attackAcc) {
+      let attackDamage = randomizer(this.attack, this.attack + 2)
+      target.hitPoints = target.hitPoints - attackDamage
+      this.useAct4 = this.useAct4 - 1
+      battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
+      checkPlayerHealth()
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
     }
   }
 }
@@ -383,29 +406,29 @@ enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
 
 // ****** Status Effect Counters
 
-let playerRaiseAttackCounter = 0
+// let playerRaiseAttackCounter = 0
 
-let playerRaiseDefenseCounter = 0
+// let playerRaiseDefenseCounter = 0
 
-let playerRaiseAccuracyCounter = 0
+// let playerRaiseAccuracyCounter = 0
 
-let playerLowerAttackCounter = 0
+// let playerLowerAttackCounter = 0
 
-let playerLowerDefenseCounter = 0
+// let playerLowerDefenseCounter = 0
 
-let playerLowerAccuracyCounter = 0
+// let playerLowerAccuracyCounter = 0
 
-let enemyRaiseAttackCounter = 0
+// let enemyRaiseAttackCounter = 0
 
-let enemyRaiseDefenseCounter = 0
+// let enemyRaiseDefenseCounter = 0
 
-let enemyRaiseAccuracyCounter = 0
+// let enemyRaiseAccuracyCounter = 0
 
-let enemyLowerAttackCounter = 0
+// let enemyLowerAttackCounter = 0
 
-let enemyLowerDefenseCounter = 0
+// let enemyLowerDefenseCounter = 0
 
-let enemyLowerAccuracyCounter = 0
+// let enemyLowerAccuracyCounter = 0
 
 // Special Status Effect Counters
 
@@ -427,11 +450,10 @@ let enemyChargeCounter = 0
 
 // Built status effects into the round because it gets called every time the player does anything
 
-function fightRound() {
-  // status effect stuff first, then specific action probabilities
-  // Right... I won't need to spell out player attacks because that will be handled in the method itself
+function playerStatUpdates() {
   playerName.textContent = `${player.name}`
   playerHealth.textContent = `${player.hitPoints}`
+
   actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
   actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
   actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
@@ -441,13 +463,6 @@ function fightRound() {
   enemyHealth.textContent = `${enemyArr[0].hitPoints}`
   enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
 
-  if (enemyArr[0].hitPoints <= 0) {
-    battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
-    continueBtn.style.display = block
-    resetBtn.style.display = block
-    actionBtns.style.display = none
-    // music needs to change
-  }
   if (playerSleepCounter > 0) {
     if (playerSleepCounter === 1) {
       battleMessages.textContent = `${player.name} wakes up!`
@@ -467,15 +482,85 @@ function fightRound() {
       playerStunCounter--
     }
   }
+}
+
+function fightRound() {
+  // status effect stuff first, then specific action probabilities
+  // Right... I won't need to spell out player attacks because that will be handled in the method itself
+  // playerName.textContent = `${player.name}`
+  // playerHealth.textContent = `${player.hitPoints}`
+
+  // actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
+  // actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
+  // actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
+  // actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
+
+  // enemyName.textContent = `${enemyArr[0].name}`
+  // enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+  // enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
+
+  if (enemyArr[0].hitPoints <= 0) {
+   
+    battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
+    flowBtns.style.display = 'flex'
+    tryAgainBtn.style.display = 'none'
+    actionBtns.style.display = 'none'
+    return
+  }
+  // if (playerSleepCounter > 0) {
+  //   if (playerSleepCounter === 1) {
+  //     battleMessages.textContent = `${player.name} wakes up!`
+  //     playerSleepCounter--
+  //   } else {
+  //     battleMessages.textContent = `${player.name} is fast asleep.`
+  //     playerSleepCounter--
+  //   }
+  // }
+
+  // if (playerStunCounter > 0) {
+  //   if (playerStunCounter === 1) {
+  //     setTimeout(() => {battleMessages.textContent = `${player.name} is stunned!`}, 2000)
+  //     playerStunCounter--
+  //   } else {
+  //     setTimeout(() => {battleMessages.textContent = `${player.name} snaps out of it!`}, 2000)
+  //     playerStunCounter--
+  //   }
+  // }
+
+  // if (playerRaiseAttackCounter > 0) {
+  //   playerRaiseAttackCounter--
+  // } 
+
+  // if (playerRaiseDefenseCounter > 0) {
+  //   playerRaiseDefenseCounter--
+  // } 
+
+  // if (playerRaiseAccuracyCounter > 0) {
+  //   playerRaiseAccuracyCounter--
+  // } 
+
+  // if (playerLowerAttackCounter > 0) {
+  //   playerLowerAttackCounter--
+  // } 
+
+  // if (playerLowerDefenseCounter > 0) {
+  //   playerLowerDefenseCounter--
+  // } 
+
+  // if (playerLowerAccuracyCounter > 0) {
+  //   playerLowerAccuracyCounter--
+  // } 
+
+  // console.log(playerRaiseAttackCounter)
 
   if (enemySleepCounter > 0) {
     if (enemySleepCounter === 1) {
-      battleMessages.textContent = `${enemyArr[0].name} wakes up!`
-      playerSleepCounter--
+     battleMessages.textContent = `${enemyArr[0].name} wakes up!`
+      enemySleepCounter--
       return
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} is fast asleep.`
-      playerSleepCounter--
+     battleMessages.textContent = `${enemyArr[0].name} is fast asleep.`
+      enemySleepCounter--
       return
     }
   }
@@ -492,33 +577,95 @@ function fightRound() {
     }
   }
 
+  // if (enemyRaiseAttackCounter > 0) {
+  //   enemyRaiseAttackCounter--
+  // }
+
+  // if (enemyRaiseDefenseCounter > 0) {
+  //   enemyRaiseDefenseCounter--
+  // }
+
+  // if (enemyRaiseAccuracyCounter > 0) {
+  //   enemyRaiseAccuracyCounter--
+  // }
+
+  // if (enemyLowerAttackCounter > 0) {
+  //   enemyLowerAttackCounter--
+  // }
+
+  // if (enemyLowerDefenseCounter > 0) {
+  //   enemyLowerDefenseCounter--
+  // }
+
+  // if (enemyLowerAccuracyCounter > 0) {
+  //   enemyLowerAccuracyCounter--
+  // }
+
   if (enemyArr[0] === enemy1) {
     if (enemyChargeCounter > 0) {
-      enemyArr[0].epicThrust(player)
+      enemy1.epicThrust(player)
       return
     } 
-    
-    // Continue enemy logic here
-  }
 
+    if (enemy1.hitPoints < 15) {
+      if ((Math.random > .5) && (enemy1.useAct1 > 0)) {
+        enemy1.canteenSwill()
+        return
+      } else if (enemy1.useAct3 > 0) {
+        enemy1.epicThrust(player)
+        return
+      } else if (enemy1.useAct1 > 0) {
+        enemy1.canteenSwill()
+        return
+      } else {
+        if ((Math.random > .5) && (enemy1.useAct2 > 0)) {
+          enemy1.loreDump(player)
+          return
+        } else if (enemy1.useAct4 > 0) {
+          enemy1.halfHeartedSwipe(player)
+        return
+        } else if (enemy1.useAct2 > 0) {
+          enemy1.loreDump(player)
+        return
+        }
+      }
+    }
+
+    if (enemy1.hitPoints > 15) {
+      if ((Math.random > .5) && (enemy1.useAct2 > 0)) {
+        enemy1.loreDump(player)
+        return
+      } else if (enemy1.useAct4 > 0) {
+        enemy1.halfHeartedSwipe(player)
+        return
+      } else if (enemy1.useAct2 > 0) {
+        enemy1.loreDump(player)
+        return 
+      } else if (enemy1.useAct3 > 0) {
+        enemy1.epicThrust(player)
+      } else if (enemy1.useAct1 > 0) {
+        enemy1.canteenSwill()
+      } else {
+        battleMessages.textContent = `${enemy1.name} skips turn!`
+        return
+      }
+    }
+  }
+}
+
+function checkPlayerHealth() {
+  playerHealth.textContent = `${player.hitPoints}`
   if (player.hitPoints <= 0) {
     battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
-    gameOverScreen.style.display = block
-    tryAgainBtn.style.display = block
-    actionBtns.style.display = none
+    gameOverScreen.style.display = 'inline'
+    tryAgainBtn.style.display = 'inline'
+    actionBtns.style.display = 'none'
   }
-  
 }
 
 // ****** Other Functions Start Here ******
 
-function continuePrompt() {
 
-}
-
-function tryAgainPrompt() {
-
-}
 
 // ****** Battle Message Content Starts Here ******
 
@@ -532,19 +679,19 @@ startBtn.addEventListener('click', ()=>{
 })
 
 actionBtn1.addEventListener('click', ()=>{
-  player.bark()
+  setTimeout(() => {player.bark()}, 2000)
 })
 
 actionBtn2.addEventListener('click', ()=>{
-  player.bite(enemyArr[0])
+  setTimeout(() => {player.bite(enemyArr[0])}, 2000)
 })
 
 actionBtn3.addEventListener('click', ()=>{
-  player.dash(enemyArr[0])
+  setTimeout(() => {player.dash(enemyArr[0])}, 2000)
 })
 
 actionBtn4.addEventListener('click', ()=>{
-  player.cuteness(enemyArr[0])
+  setTimeout(() => {player.cuteness(enemyArr[0])}, 2000)
 })
 
 // ****** Animation Functions (maybe...) ******
