@@ -11,7 +11,8 @@ const enemyName = document.getElementById('enemy-name')
 const playerName = document.getElementById('player-name')
 const enemyImage = document.getElementById('enemy-image')
 const playerImage = document.getElementById('player-image')
-const battleMessages = document.querySelector('.battle-message-container')
+const battleMessages = document.querySelector('.battle-message-text')
+const battleMessageContainer = document.querySelector('.battle-message-container')
 
 // Button containers
 const actionBtns = document.querySelector('.action-buttons-container')
@@ -91,7 +92,7 @@ class Player extends Character {
           let attackDamage = randomizer(this.attack + 2, this.attack + 4)
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
-          battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} worth of damage.`
+          battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
           fightRound()
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
@@ -108,7 +109,7 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
           let attackDamage = randomizer (this.attack, this.attack + 2)
-          let defenseDecrease = randomizer (1, 4)
+          let defenseDecrease = randomizer (1, 3)
           target.hitPoints = target.hitPoints - attackDamage
           target.defense = target.defense - defenseDecrease
           enemyLowerDefenseCounter = 3
@@ -526,7 +527,7 @@ startBtn.addEventListener('click', ()=>{
   startScreen.style.display = 'none'
   startBtn.style.display = 'none'
   battleScreen.style.display = 'block'
-  battleMessages.style.display = 'block'
+  battleMessageContainer.style.display = 'block'
   actionBtns.style.display = 'flex'
 })
 
