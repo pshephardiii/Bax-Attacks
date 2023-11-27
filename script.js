@@ -184,7 +184,8 @@ class Enemy1 extends Character {
       let healthDecrease = randomizer(1, 3)
       this.hitPoints = this.hitPoints - healthDecrease
       this.useAct1 = this.useAct1 - 1
-      battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0]}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
+      battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
+      playerStatUpdates()
       checkPlayerHealth()
     } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
   }
@@ -196,6 +197,7 @@ class Enemy1 extends Character {
       playerSleepCounter = 3
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
+      playerStatUpdates()
       checkPlayerHealth()
     } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
   }
@@ -212,9 +214,11 @@ class Enemy1 extends Character {
         enemyChargeCounter = 0
         this.useAct3 = this.useAct3 - 1
         battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
+        playerStatUpdates()
         checkPlayerHealth()
         } else {
           battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
+          enemyChargeCounter = 0
         }
     }
   }
@@ -226,6 +230,7 @@ class Enemy1 extends Character {
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
+      playerStatUpdates()
       checkPlayerHealth()
     } else {
       battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
@@ -608,7 +613,7 @@ function fightRound() {
     } 
 
     if (enemy1.hitPoints < 15) {
-      if ((Math.random > .5) && (enemy1.useAct1 > 0)) {
+      if ((Math.random() > .5) && (enemy1.useAct1 > 0)) {
         enemy1.canteenSwill()
         return
       } else if (enemy1.useAct3 > 0) {
@@ -618,7 +623,7 @@ function fightRound() {
         enemy1.canteenSwill()
         return
       } else {
-        if ((Math.random > .5) && (enemy1.useAct2 > 0)) {
+        if ((Math.random() > .5) && (enemy1.useAct2 > 0)) {
           enemy1.loreDump(player)
           return
         } else if (enemy1.useAct4 > 0) {
@@ -632,7 +637,7 @@ function fightRound() {
     }
 
     if (enemy1.hitPoints > 15) {
-      if ((Math.random > .5) && (enemy1.useAct2 > 0)) {
+      if ((Math.random() > .5) && (enemy1.useAct2 > 0)) {
         enemy1.loreDump(player)
         return
       } else if (enemy1.useAct4 > 0) {
