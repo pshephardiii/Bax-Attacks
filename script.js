@@ -5,9 +5,12 @@ const gameCompletionScreen = document.querySelector('.game-completion-screen')
 
 // Content containers
 const battleScreen = document.querySelector('.battle-screen-container')
-const enemyHealth = document.getElementById('health-container-enemy')
-const battleImageContainer = document.getElementById('battle-image-container')
-const playerHealth = document.getElementById('health-container-player')
+const enemyHealth = document.getElementById('enemy-healthbar')
+const playerHealth = document.getElementById('player-healthbar')
+const enemyName = document.getElementById('enemy-name')
+const playerName = document.getElementById('player-name')
+const enemyImage = document.getElementById('enemy-image')
+const playerImage = document.getElementById('player-image')
 const battleMessages = document.querySelector('.battle-message-container')
 
 // Button containers
@@ -62,7 +65,6 @@ class Player extends Character {
   }
 
   bark() {
-    fightRound()
     if (this.useAct1 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.buffAcc){
@@ -71,18 +73,18 @@ class Player extends Character {
           playerRaiseAttackCounter = 3
           this.useAct1 = this.useAct1 - 1
           battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
+          fightRound()
         }  else {
             battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
+            fightRound()
         }
       } else {return}
     } else {
-      preventDefault()
       battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
     }
   }
 
   bite(target) {
-    fightRound()
     if (this.useAct2 > 0){
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
@@ -90,18 +92,18 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} worth of damage.`
+          fightRound()
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
+          fightRound()
         }
       } else {return}
     } else {
-      preventDefault()
       battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
     }
   }
 
   dash(target) {
-    fightRound()
     if (this.useAct3 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
@@ -112,28 +114,30 @@ class Player extends Character {
           enemyLowerDefenseCounter = 3
           this.useAct3 = this.useAct3 - 1
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
+          fightRound()
         } else {
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
+          fightRound()
         }
       } else {return}
     } else {
-      preventDefault()
       battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
     }
   }
 
   cuteness(target) {
-    fightRound()
     if (this.useAct4 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
-          let accuracyDecrease = randomizer ((1, 3)/10)
+          let accuracyDecrease = randomizer(1, 3)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
           enemyLowerAccuracyCounter = 3
           this.useAct4 = this.useAct4 - 1
           battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
+          fightRound()
         } else {
           battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
+          fightRound()
         }
       } else {return}
     } else {
@@ -150,14 +154,17 @@ class Enemy1 extends Character {
   }
 
   canteenSwill() {
-    roundFunctionArr[0]
+    fightRound()
     if (this.useAct1 > 0) {
       if (Math.random() < this.buffAcc) {
-        this.attack = this.attack + randomizer(1, 3)
-        this.hitPoints = this.hitPoints - randomizer(1, 3)
+        let increaseDamage = randomizer(1, 3)
+        this.attack = this.attack + increaseDamage
+        let healthDecrease = randomizer(1, 3)
+        this.hitPoints = this.hitPoints - healthDecrease
         this.useAct1 = this.useAct1 - 1
-      } else {...}
-    } else {...}
+        battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0]}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
+      } else {battleMessages.textContent = `${enemeyArr[0].name} tries to swill from his canteen, but spills it instead!`}
+    } else {} // probably do this in fightRound()
   }
 
   loreDump(target) {
@@ -167,8 +174,8 @@ class Enemy1 extends Character {
         sleep(target)
         playerSleepCounter = 3
         this.useAct2 = this.useAct2 - 1
-      } else {...}
-    } else {...}
+      } else {}
+    } else {}
   }
 
   // for this one, in the round just repeat attack
@@ -360,6 +367,19 @@ const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
 
 let enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
 
+// Default Battle Settings
+
+actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
+actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
+actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
+actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
+
+playerName.textContent = `${player.name}`
+playerHealth.textContent = `${player.hitPoints}`
+enemyName.textContent = `${enemyArr[0].name}`
+enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
+
 // ****** Status Effect Counters
 
 let playerRaiseAttackCounter = 0
@@ -409,8 +429,19 @@ let enemyChargeCounter = 0
 function fightRound() {
   // status effect stuff first, then specific action probabilities
   // Right... I won't need to spell out player attacks because that will be handled in the method itself
+  playerName.textContent = `${player.name}`
+  playerHealth.textContent = `${player.hitPoints}`
+  actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
+  actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
+  actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
+  actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
+
+  enemyName.textContent = `${enemyArr[0].name}`
+  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+  enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
+
   if (enemyArr[0].hitPoints <= 0) {
-    battleMessages.textContent = `${enemyArr[0]} cowers in fear. ${player.name} wins!`
+    battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
     continueBtn.style.display = block
     resetBtn.style.display = block
     actionBtns.style.display = none
@@ -434,10 +465,6 @@ function fightRound() {
       battleMessages.textContent = `${player.name} snaps out of it!`
       playerStunCounter--
     }
-  }
-
-  if (playerChargeCounter > 0) {
-    // I'll have to figure this out... need to repeat action somehow
   }
 
   if (enemySleepCounter > 0) {
