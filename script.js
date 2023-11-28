@@ -37,6 +37,8 @@ function randomizer(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+
+
 // ***** Music/Sound Effects Starts Here *****
 
 // ***** Character Classes Start Here *****
@@ -74,16 +76,19 @@ class Player extends Character {
           // playerRaiseAttackCounter = 3
           this.useAct1 = this.useAct1 - 1
           battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         }  else {
             battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
-            playerStatUpdates()
             setTimeout(() => {fightRound()}, 2000)
         }
       } else {
-        playerStatUpdates()
-        setTimeout(() => {fightRound()}, 2000)
+        if (playerSleepCounter > 0) {
+          battleMessages.textContent = `${player.name} can't move during a nap!`
+          setTimeout(() => {fightRound()}, 2000)
+        } else if (playerChargeCounter > 0) {
+          battleMessages.textContent = `${player.name} is too stunned to move!`
+          setTimeout(() => {fightRound()}, 2000)
+        }
       }
     } else {
       battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
@@ -98,17 +103,20 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         }
       } else {
-        playerStatUpdates
-        setTimeout(() => {fightRound()}, 2000)
-      }
+          if (playerSleepCounter > 0) {
+            battleMessages.textContent = `${player.name} can't move during a nap!`
+            setTimeout(() => {fightRound()}, 2000)
+          } else if (playerChargeCounter > 0) {
+            battleMessages.textContent = `${player.name} is too stunned to move!`
+            setTimeout(() => {fightRound()}, 2000)
+          }
+        }
     } else {
       battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
     }
@@ -127,16 +135,19 @@ class Player extends Character {
           // enemyLowerDefenseCounter = 3
           this.useAct3 = this.useAct3 - 1
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         }
       } else {
-        playerStatUpdates()
-        setTimeout(() => {fightRound()}, 2000)
+        if (playerSleepCounter > 0) {
+          battleMessages.textContent = `${player.name} can't move during a nap!`
+          setTimeout(() => {fightRound()}, 2000)
+        } else if (playerChargeCounter > 0) {
+          battleMessages.textContent = `${player.name} is too stunned to move!`
+          setTimeout(() => {fightRound()}, 2000)
+        }
       }
     } else {
       battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
@@ -152,16 +163,19 @@ class Player extends Character {
           // enemyLowerAccuracyCounter = 3
           this.useAct4 = this.useAct4 - 1
           battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         } else {
           battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
-          playerStatUpdates()
           setTimeout(() => {fightRound()}, 2000)
         }
       } else {
-        playerStatUpdates()
-        setTimeout(() => {fightRound()}, 2000)
+        if (playerSleepCounter > 0) {
+          battleMessages.textContent = `${player.name} can't move during a nap!`
+          setTimeout(() => {fightRound()}, 2000)
+        } else if (playerChargeCounter > 0) {
+          battleMessages.textContent = `${player.name} is too stunned to move!`
+          setTimeout(() => {fightRound()}, 2000)
+        }
       }
     } else {
       battleMessages.textContent = `${player.name} has no more cuteness left to give. Pick another action.`
@@ -187,19 +201,20 @@ class Enemy1 extends Character {
       battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
       playerStatUpdates()
       checkPlayerHealth()
-    } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
+    } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`
+      playerStatUpdates()}
   }
 
   loreDump(target) {
-  
-    if (Math.random() < this.attackAcc - 40) {
-      sleep(target)
-      playerSleepCounter = 3
+  // come back here
+    if (Math.random() < this.attackAcc - .2) {
+      playerSleepCounter = playerSleepCounter + 3
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
       playerStatUpdates()
       checkPlayerHealth()
-    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
+    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`
+      playerStatUpdates()}
   }
 
   epicThrust(target) { 
@@ -219,6 +234,7 @@ class Enemy1 extends Character {
         } else {
           battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
           enemyChargeCounter = 0
+          playerStatUpdates()
         }
     }
   }
@@ -226,7 +242,7 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
 
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer(this.attack, this.attack + 2)
+      let attackDamage = randomizer(this.attack + 50, this.attack + 51)
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
@@ -234,6 +250,7 @@ class Enemy1 extends Character {
       checkPlayerHealth()
     } else {
       battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
+      playerStatUpdates()
     }
   }
 }
@@ -398,10 +415,10 @@ let enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
 
 // Default Battle Settings
 
-actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
-actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
-actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
-actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
+actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
+actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
+actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
+actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
 
 playerName.textContent = `${player.name}`
 playerHealth.textContent = `${player.hitPoints}`
@@ -459,10 +476,10 @@ function playerStatUpdates() {
   playerName.textContent = `${player.name}`
   playerHealth.textContent = `${player.hitPoints}`
 
-  actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
-  actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
-  actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
-  actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
+  actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
+  actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
+  actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
+  actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
 
   enemyName.textContent = `${enemyArr[0].name}`
   enemyHealth.textContent = `${enemyArr[0].hitPoints}`
@@ -470,21 +487,27 @@ function playerStatUpdates() {
 
   if (playerSleepCounter > 0) {
     if (playerSleepCounter === 1) {
-      battleMessages.textContent = `${player.name} wakes up!`
-      playerSleepCounter--
+      setTimeout(() => {battleMessages.textContent = `${player.name} wakes up!`}, 2000)
+      playerSleepCounter = playerSleepCounter - 1
+      return playerSleepCounter
     } else {
-      battleMessages.textContent = `${player.name} is fast asleep.`
-      playerSleepCounter--
+      setTimeout(() => {battleMessages.textContent = `${player.name} is fast asleep.`}, 2000)
+      playerSleepCounter = playerSleepCounter - 1
+      return playerSleepCounter
     }
   }
 
   if (playerStunCounter > 0) {
     if (playerStunCounter === 1) {
+      setTimeout(() => {
       battleMessages.textContent = `${player.name} is stunned!`
-      playerStunCounter--
+      playerStunCounter--}, 2000)
+      return playerStunCounter
     } else {
+      setTimeout(() => {
       battleMessages.textContent = `${player.name} snaps out of it!`
-      playerStunCounter--
+      playerStunCounter--}, 2000)
+      return playerStunCounter
     }
   }
 }
@@ -613,42 +636,44 @@ function fightRound() {
     } 
 
     if (enemy1.hitPoints < 15) {
-      if ((Math.random() > .5) && (enemy1.useAct1 > 0)) {
+      if ((Math.random() > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
         return
       } else if (enemy1.useAct3 > 0) {
         enemy1.epicThrust(player)
         return
-      } else if (enemy1.useAct1 > 0) {
+      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
         return
       } else {
-        if ((Math.random() > .5) && (enemy1.useAct2 > 0)) {
+        if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
           enemy1.loreDump(player)
           return
         } else if (enemy1.useAct4 > 0) {
           enemy1.halfHeartedSwipe(player)
         return
-        } else if (enemy1.useAct2 > 0) {
+        } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
           enemy1.loreDump(player)
         return
         }
+        else {battleMessages.textContent = `${enemy1.name} skips turn!`
+        return}
       }
     }
 
     if (enemy1.hitPoints > 15) {
-      if ((Math.random() > .5) && (enemy1.useAct2 > 0)) {
+      if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
         return
       } else if (enemy1.useAct4 > 0) {
         enemy1.halfHeartedSwipe(player)
         return
-      } else if (enemy1.useAct2 > 0) {
+      } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
         return 
       } else if (enemy1.useAct3 > 0) {
         enemy1.epicThrust(player)
-      } else if (enemy1.useAct1 > 0) {
+      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
       } else {
         battleMessages.textContent = `${enemy1.name} skips turn!`
@@ -661,10 +686,11 @@ function fightRound() {
 function checkPlayerHealth() {
   playerHealth.textContent = `${player.hitPoints}`
   if (player.hitPoints <= 0) {
+    setTimeout(() => {
     battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
     gameOverScreen.style.display = 'inline'
     tryAgainBtn.style.display = 'inline'
-    actionBtns.style.display = 'none'
+    actionBtns.style.display = 'none'}, 2001)
   }
 }
 
@@ -678,7 +704,7 @@ function checkPlayerHealth() {
 startBtn.addEventListener('click', ()=>{
   startScreen.style.display = 'none'
   startBtn.style.display = 'none'
-  battleScreen.style.display = 'block'
+  battleScreen.style.display = 'grid'
   battleMessageContainer.style.display = 'block'
   actionBtns.style.display = 'flex'
 })

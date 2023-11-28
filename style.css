@@ -2,11 +2,12 @@ html {
     height: 100%;
     width: 100%;
     font-size: 10px;
+    box-sizing: border-box;
 }
 
 body {
-   height: 100vh;
-    width: 100vw;
+   margin: 0;
+   height: 100%;
 }
 
 .start-screen {
@@ -29,21 +30,57 @@ body {
 .battle-screen-container {
     display: none;
     text-align: center;
+    background-image: url("https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg");
+    background-size: cover;
+    grid-template-areas: 
+    "enemyHealthBar enemyPicture"
+    "playerPicture playerHealthBar";
 }
 
 #enemy-image {
-    height: 150px;
+    height: 25em;
+    grid-area: enemyPicture
 }
 
 #player-image {
-    height: 150px;
+    height: 25em;
+    grid-area: playerPicture
+}
+
+#health-container-enemy {
+    font-size: 1.5em;
+    color: white;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    margin: auto auto;
+    grid-area: enemyHealthBar
+}
+
+#health-container-player {
+    font-size: 1.5em;
+    color: white;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    margin: auto auto;
+    grid-area: playerHealthBar
 }
 
 .battle-message-container {
     display: none;
     text-align: center;
-    height: 20em;
-    border: 1px solid black;
+    font-size: 1.25em;
+    height: 10em;
+    background-color: beige;
+    border: 10px groove pink;
+    border-left-style: none;
+    border-right-style: none;
+    
 }
 
 p {
@@ -63,11 +100,21 @@ p {
 }
 
 .battle-message-text {
-    margin: 5em auto;
+    margin: 2em auto;
+}
+
+.button-container {
+    height: 30em;
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+    
 }
 
 .button {
+    max-height: 2em;
     display: inline-block;
+    margin-top: 1em;
     font-size: 2.5em;
     background-color: skyblue;
     color: blue;
@@ -85,10 +132,32 @@ p {
     box-shadow: none;
 }
 
-.button-container {
-    display: flex;
+.action-buttons-container {
+    display: none;
     justify-content: center;
+    align-items: start;
+    width: 100%;
     gap: 4em;
+    background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
+}
+
+.action-button {
+    max-height: 3em;
+    max-width: 9em;
+    
+}
+
+.action-command {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.flow-buttons-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 4em;
+    margin-top: 2em;
 }
 
 #start-button {
@@ -103,19 +172,3 @@ p {
     color: white;
 }
 
-.action-buttons-container {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    gap: 4em;
-    border: 1px solid black;
-    margin-top: 2em;
-}
-
-.flow-buttons-container {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    gap: 4em;
-    margin-top: 2em;
-}
