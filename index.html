@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Baxter Battle</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baxter Battles</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -15,17 +14,22 @@
     <h1 class="start-title">Baxter Battle!</h1>
     <img src="" class="start-image">
     <p class="start-message">Press Start To Begin</p>
+    <button class="button" id="start-button">Start</button>
   </div>
 
   <div class="game-over-screen">
     <h3 class="game-over-message">"Never let a good boy down" - Abraham Lincoln</h3>
+    <button class="button" id="try-again-button">Try Again</button>
   </div>
 
   <div class="victory-screen">
     <h3 class="victory-message">You have proven yourself worthy... you may pet the Bax</h3>
+    <button class="button" id="reset-button">Reset</button>
+    <button class="button" id="continue-button">Continue</button>
   </div>
 
   <div class="game-completion-screen">
+    <button class="button" id="reset-button">Reset</button>
   </div>
 
   <div class="slider-container" id="music-slider-container"></div>
@@ -33,37 +37,30 @@
 
   <div class="battle-screen-container">
 
-    <div class="health-container" id="health-container-enemy">
-      <p class="character-name" id="enemy-name">enemy name here</p>
-      <p class="character-healthbar" id="enemy-healthbar">enemy health bar here</p>
-    </div>
+    <div class="combatant-screen-container">
 
-    <div class="battle-image-container" id="enemy-image-container">
+     <div class="health-container" id="health-container-enemy">
+        <p class="character-name" id="enemy-name">enemy name here</p>
+        <p class="character-healthbar" id="enemy-healthbar">enemy health bar here</p>
+      </div>
+
+      <div class="health-container" id="health-container-player">
+        <p class="character-name" id="player-name"></p>
+        <p class="character-healthbar" id="player-healthbar">player health bar here</p>
+      </div>
+
+      <div class="battle-image-container" id="enemy-image-container">
         <img src="https://i.imgur.com/s1v3RUP.jpg" class="fighter-image" id="enemy-image">
-    </div>
+      </div>
 
-    <div class="battle-image-container" id="player-image-container">
+      <div class="battle-image-container" id="player-image-container">
         <img src="https://media.istockphoto.com/id/466684702/photo/young-boxer-girl-from-behind.jpg?s=1024x1024&w=is&k=20&c=IwR1ovgmIO-WUxvSBKwRXmjd-3XZhBD6ivQOdx1AhGg=" class="fighter-image" id="player-image">
-    </div>
+      </div>
 
-    <div class="health-container" id="health-container-player">
-      <p class="character-name" id="player-name"></p>
-      <p class="character-healthbar" id="player-healthbar">player health bar here</p>
-    </div>
+    </div> <!--battle screen container ends here-->
 
-  </div> <!--battle screen container ends here-->
-
-  <div class="battle-message-container">
-    <p class="battle-message-text">Battle messages</p>
-  </div>
-
-  <div class="button-container">
-    <button class="button" id="start-button">Start</button>
-    
-    <div class="flow-buttons-container">
-      <button class="button" id="reset-button">Reset</button>
-      <button class="button" id="continue-button">Continue</button>
-      <button class="button" id="try-again-button">Try Again</button>
+    <div class="battle-message-container">
+      <p class="battle-message-text">Battle messages</p>
     </div>
 
     <div class="action-buttons-container">
@@ -73,7 +70,9 @@
       <button class="button action-button" id="action-4">Action</button>
     </div>
 
+
   </div>
+
 
   <script src="script.js"></script>
 </body>

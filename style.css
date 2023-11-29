@@ -1,121 +1,24 @@
-html {
-    height: 100%;
-    width: 100%;
-    font-size: 10px;
+* {
     box-sizing: border-box;
 }
 
 body {
+   height: 100vh;
+   width: 100vw;
    margin: 0;
-   height: 100%;
-}
-
-.start-screen {
-    background-size: cover;
-    text-align: center;
-}
-
-.game-over-screen {
-    display: none;
-}
-
-.victory-screen {
-    display: none;
-}
-
-.game-completion-screen {
-    display: none;
-}
-
-.battle-screen-container {
-    display: none;
-    text-align: center;
-    background-image: url("https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg");
-    background-size: cover;
-    grid-template-areas: 
-    "enemyHealthBar enemyPicture"
-    "playerPicture playerHealthBar";
-}
-
-#enemy-image {
-    height: 25em;
-    grid-area: enemyPicture
-}
-
-#player-image {
-    height: 25em;
-    grid-area: playerPicture
-}
-
-#health-container-enemy {
-    font-size: 1.5em;
-    color: white;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    margin: auto auto;
-    grid-area: enemyHealthBar
-}
-
-#health-container-player {
-    font-size: 1.5em;
-    color: white;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    margin: auto auto;
-    grid-area: playerHealthBar
-}
-
-.battle-message-container {
-    display: none;
-    text-align: center;
-    font-size: 1.25em;
-    height: 10em;
-    background-color: beige;
-    border: 10px groove pink;
-    border-left-style: none;
-    border-right-style: none;
-    
-}
-
-p {
-    font-size: 2em;
-}
-
-.start-welcome {
-    font-size: 6em;
-}
-
-.start-title {
-    font-size: 10em;
-}
-
-.start-message {
-    font-size: 4em;
-}
-
-.battle-message-text {
-    margin: 2em auto;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
 .button-container {
-    height: 30em;
-    display: flex;
-    justify-content: center;
-    gap: 4em;
-    
+  display: flex;
 }
 
 .button {
-    max-height: 2em;
-    display: inline-block;
+    
     margin-top: 1em;
-    font-size: 2.5em;
+    font-size: 2.75vmin;
     background-color: skyblue;
     color: blue;
     padding: .25em 1em;
@@ -132,37 +35,34 @@ p {
     box-shadow: none;
 }
 
-.action-buttons-container {
-    display: none;
-    justify-content: center;
-    align-items: start;
-    width: 100%;
-    gap: 4em;
-    background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
-}
+/* Start Screen */
 
-.action-button {
-    max-height: 3em;
-    max-width: 9em;
-    
-}
-
-.action-command {
-    font-weight: bold;
-    font-size: 1em;
-}
-
-.flow-buttons-container {
-    display: none;
-    justify-content: center;
+.start-screen {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 4em;
-    margin-top: 2em;
+    background-size: cover;
+    text-align: center;
+    height: 100vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.start-welcome {
+    font-size: 6vh
+}
+
+.start-title {
+    font-size: 8vh;
+}
+
+.start-message {
+    font-size: 4vh;
 }
 
 #start-button {
     display: block;
-    font-size: 4em;
+    font-size: 4vh;
     background-color: white;
     color: black;
 }
@@ -172,3 +72,140 @@ p {
     color: white;
 }
 
+/* Other screens */
+
+.victory-screen {
+    display: none;
+}
+
+.game-over-screen {
+    display: none;
+}
+
+#try-again-button {
+    display: none;
+}
+
+.game-completion-screen {
+    display: none;
+}
+
+/* Battle Screen */
+
+.battle-screen-container {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.combatant-screen-container {
+    display: grid;
+    height: 70vh;
+    width: 100vw;
+    grid-template-areas: 
+    "enemyHealthBar enemyImage"
+    "playerImage playerHealthBar";
+    background-image: url("https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg");
+    background-size: cover;
+
+}
+
+#enemy-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: enemyImage;
+    border: 2px solid red;
+}
+
+#player-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: playerImage
+}
+
+#enemy-image {
+    height: 5em;
+}
+
+#player-image {
+    height: 5em;
+}
+
+#health-container-enemy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    
+    grid-area: enemyHealthBar
+}
+
+#health-container-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    
+    grid-area: playerHealthBar
+}
+
+/* Battle Messages */
+
+.battle-message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    width: 100vw;
+    font-size: 4vmin;
+    background-color: beige;
+    border: 10px groove pink;
+    padding: 1em 2em;
+ 
+    
+}
+
+.battle-message-text {
+    margin: auto, auto;
+}
+
+/* Action Buttons */
+/* RETURN HERE for responsiveness */
+
+.action-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 15vh;
+    width: 100vw;
+    gap: 4vw;
+    border: 2px solid red;
+    background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
+}
+
+.action-button {
+  display: inline-block;
+}
+
+.action-command {
+    font-weight: bold;
+
+}
+
+
+/* Add media query to stop font size from getting too small */

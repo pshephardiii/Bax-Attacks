@@ -1,45 +1,4 @@
-const startScreen = document.querySelector('.start-screen')
-const gameOverScreen = document.querySelector('.game-over-screen')
-const victoryScreen = document.querySelector('.victory-screen')
-const gameCompletionScreen = document.querySelector('.game-completion-screen')
-
-// Content containers
-const battleScreen = document.querySelector('.battle-screen-container')
-const enemyHealth = document.getElementById('enemy-healthbar')
-const playerHealth = document.getElementById('player-healthbar')
-const enemyName = document.getElementById('enemy-name')
-const playerName = document.getElementById('player-name')
-const enemyImage = document.getElementById('enemy-image')
-const playerImage = document.getElementById('player-image')
-const battleMessages = document.querySelector('.battle-message-text')
-const battleMessageContainer = document.querySelector('.battle-message-container')
-
-// Button containers
-const actionBtns = document.querySelector('.action-buttons-container')
-const flowBtns = document.querySelector('.flow-buttons-container')
-const roundBtns = document.querySelector('.round-buttons-container')
-
-// Gameflow Initiation buttons
-const startBtn = document.getElementById('start-button')
-const resetBtn = document.getElementById('reset-button')
-const continueBtn = document.getElementById('continue-button')
-const tryAgainBtn = document.getElementById('try-again-button')
-
-// Action buttons
-const actionBtn1 = document.getElementById('action-1')
-const actionBtn2 = document.getElementById('action-2')
-const actionBtn3 = document.getElementById('action-3')
-const actionBtn4 = document.getElementById('action-4')
-
-// Randomizer Function
-
-function randomizer(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-
-
-// ***** Music/Sound Effects Starts Here *****
+// CONSTANTS
 
 // ***** Character Classes Start Here *****
 
@@ -69,27 +28,16 @@ class Player extends Character {
 
   bark() {
     if (this.useAct1 > 0) {
-      if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.buffAcc) {
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
-          // playerRaiseAttackCounter = 3
           this.useAct1 = this.useAct1 - 1
           battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
-          setTimeout(() => {fightRound()}, 2000)
+          setTimeout(() => {fightRound(), 2000})
         }  else {
             battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
             setTimeout(() => {fightRound()}, 2000)
         }
-      } else {
-        if (playerSleepCounter > 0) {
-          battleMessages.textContent = `${player.name} can't move during a nap!`
-          setTimeout(() => {fightRound()}, 2000)
-        } else if (playerChargeCounter > 0) {
-          battleMessages.textContent = `${player.name} is too stunned to move!`
-          setTimeout(() => {fightRound()}, 2000)
-        }
-      }
     } else {
       battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
     }
@@ -103,7 +51,7 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
-          setTimeout(() => {fightRound()}, 2000)
+          setTimeout(() => {fightRound(), 2000})
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
           setTimeout(() => {fightRound()}, 2000)
@@ -126,16 +74,17 @@ class Player extends Character {
     if (this.useAct3 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         if (Math.random() < this.attackAcc) {
-          let attackDamage = randomizer (this.attack, this.attack + 2)
+          let 
+          attackDamage = randomizer (this.attack, this.attack + 2)
           let defenseDecrease = randomizer (1, 2)
           target.hitPoints = target.hitPoints - attackDamage
           if ((target.defense - defenseDecrease) >= 0) {
             target.defense = target.defense - defenseDecrease
           }
-          // enemyLowerDefenseCounter = 3
           this.useAct3 = this.useAct3 - 1
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
-          setTimeout(() => {fightRound()}, 2000)
+          setTimeout(() => {enemyStatUpdates(), 2000})
+          checkWinner()
         } else {
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
           setTimeout(() => {fightRound()}, 2000)
@@ -160,10 +109,10 @@ class Player extends Character {
         if (Math.random() < this.attackAcc) {
           let accuracyDecrease = randomizer(1, 2)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
-          // enemyLowerAccuracyCounter = 3
           this.useAct4 = this.useAct4 - 1
           battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
-          setTimeout(() => {fightRound()}, 2000)
+          setTimeout(() => {enemyStatUpdates(), 2000})
+          checkWinner()
         } else {
           battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
           setTimeout(() => {fightRound()}, 2000)
@@ -200,7 +149,6 @@ class Enemy1 extends Character {
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
       playerStatUpdates()
-      checkPlayerHealth()
     } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`
       playerStatUpdates()}
   }
@@ -212,7 +160,6 @@ class Enemy1 extends Character {
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
       playerStatUpdates()
-      checkPlayerHealth()
     } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`
       playerStatUpdates()}
   }
@@ -230,7 +177,6 @@ class Enemy1 extends Character {
         this.useAct3 = this.useAct3 - 1
         battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
         playerStatUpdates()
-        checkPlayerHealth()
         } else {
           battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
           enemyChargeCounter = 0
@@ -242,12 +188,11 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
 
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer(this.attack + 50, this.attack + 51)
+      let attackDamage = randomizer(this.attack, this.attack + 2)
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
       playerStatUpdates()
-      checkPlayerHealth()
     } else {
       battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
       playerStatUpdates()
@@ -379,8 +324,6 @@ class Enemy6 extends Character {
 
 // name, attack, defense, hitPoints, attackAcc, buffAcc, useAct1, useAct2, useAct3, useAct4
 
-// NOTE: might want to put enemies in array, have player fight them one at a time.  That way, I only need one round.
-
 // Little Bax
 
 const player = new Player('Little Bax', 15, 5, 50, .95, .9, 3, 12, 12, 3)
@@ -409,62 +352,161 @@ const enemy5 = new Enemy5('Count Baxula', 10, 7, 40, .9, .9, 5, 5, 10, 10)
 
 const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
 
-// Enemy Array
+// STATE VARIABLES
 
-let enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
+let playerSleepCounter
 
-// Default Battle Settings
+let playerStunCounter
 
-actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
-actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
-actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
-actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
+let playerChargeCounter
 
-playerName.textContent = `${player.name}`
-playerHealth.textContent = `${player.hitPoints}`
-enemyName.textContent = `${enemyArr[0].name}`
-enemyHealth.textContent = `${enemyArr[0].hitPoints}`
-enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
+let enemySleepCounter
 
-// ****** Status Effect Counters
+let enemyStunCounter
 
-// let playerRaiseAttackCounter = 0
+let enemyChargeCounter
 
-// let playerRaiseDefenseCounter = 0
+let enemyArr
 
-// let playerRaiseAccuracyCounter = 0
+let enemyImageArr
 
-// let playerLowerAttackCounter = 0
+let backgroundImageArr
 
-// let playerLowerDefenseCounter = 0
+let turn
 
-// let playerLowerAccuracyCounter = 0
+let winner
 
-// let enemyRaiseAttackCounter = 0
+// CACHE ELEMENTS
 
-// let enemyRaiseDefenseCounter = 0
+// Screen containers
+const startScreen = document.querySelector('.start-screen')
+const gameOverScreen = document.querySelector('.game-over-screen')
+const victoryScreen = document.querySelector('.victory-screen')
+const gameCompletionScreen = document.querySelector('.game-completion-screen')
 
-// let enemyRaiseAccuracyCounter = 0
+// Content containers
+const battleScreen = document.querySelector('.battle-screen-container')
+const combatantScreen = document.querySelector('.combatant-screen-container')
+const enemyHealth = document.getElementById('enemy-healthbar')
+const playerHealth = document.getElementById('player-healthbar')
+const enemyName = document.getElementById('enemy-name')
+const playerName = document.getElementById('player-name')
+const enemyImage = document.getElementById('enemy-image')
+const playerImage = document.getElementById('player-image')
+const battleMessages = document.querySelector('.battle-message-text')
+const battleMessageContainer = document.querySelector('.battle-message-container')
 
-// let enemyLowerAttackCounter = 0
+// Gameflow Initiation buttons
+const startBtn = document.getElementById('start-button')
+const resetBtn = document.getElementById('reset-button')
+const continueBtn = document.getElementById('continue-button')
+const tryAgainBtn = document.getElementById('try-again-button')
 
-// let enemyLowerDefenseCounter = 0
+// Action buttons
+const actionBtns = document.querySelector('.action-buttons-container')
+const actionBtn1 = document.getElementById('action-1')
+const actionBtn2 = document.getElementById('action-2')
+const actionBtn3 = document.getElementById('action-3')
+const actionBtn4 = document.getElementById('action-4')
 
-// let enemyLowerAccuracyCounter = 0
+// EVENT LISTENERS
 
-// Special Status Effect Counters
+startBtn.addEventListener('click', ()=>{
+  initFirstBattle()
+  init()
+})
 
-let playerSleepCounter = 0
+actionBtn1.addEventListener('click', ()=>{
+  setTimeout(() => {player.bark()}, 2000)
+})
 
-let playerStunCounter = 0
+actionBtn2.addEventListener('click', ()=>{
+  setTimeout(() => {player.bite(enemyArr[0])}, 2000)
+})
 
-let playerChargeCounter = 0
+actionBtn3.addEventListener('click', ()=>{
+  setTimeout(() => {player.dash(enemyArr[0])}, 2000)
+})
 
-let enemySleepCounter = 0
+actionBtn4.addEventListener('click', ()=>{
+  setTimeout(() => {player.cuteness(enemyArr[0])}, 2000)
+})
 
-let enemyStunCounter = 0
+// FUNCTIONS
 
-let enemyChargeCounter = 0
+// Initializer functions
+
+function init() {
+  initBattleBtns()
+  initPlayerStats()
+  initEnemy()
+  initBattleDisplay()
+  initBattleStatus()
+}
+
+function initBattleBtns() {
+  actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
+  actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
+  actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
+  actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
+}
+
+function initPlayerStats() {
+  playerName.textContent = `${player.name}`
+  player.attack = 15
+  player.defense = 5
+  player.hitPoints = 50
+  player.attackAcc = .95
+  player.buffAcc = .9
+  player.useAct1 = 3
+  player.useAct2 = 12
+  player.useAct3 = 12
+  player.useAct4 = 3
+  playerHealth.textContent = `${player.hitPoints}`
+  playerChargeCounter = 0
+  playerSleepCounter = 0
+  playerStunCounter = 0
+}
+
+function initEnemy() {
+  enemyName.textContent = `${enemyArr[0].name}`
+  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+  enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
+  enemyChargeCounter = 0
+  enemySleepCounter = 0
+  enemyStunCounter = 0
+}
+
+function initBattleDisplay() {
+  startScreen.style.display = 'none'
+  gameOverScreen.style.display = 'none'
+  victoryScreen.style.display = 'none'
+  gameCompletionScreen.style.display = 'none'
+  battleScreen.style.display = 'flex'
+}
+
+function initBattleStatus() {
+  turn = 1
+  winner = null
+}
+
+function initFirstBattle() {
+  enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
+}
+
+function initNextBattle() {
+  enemyArr.shift()
+}
+
+// Randomizer Function
+
+function randomizer(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
+
+// ***** Music/Sound Effects Starts Here *****
 
 // ****** Battle Logic Starts Here ******
 
@@ -473,6 +515,7 @@ let enemyChargeCounter = 0
 // Built status effects into the round because it gets called every time the player does anything
 
 function playerStatUpdates() {
+
   playerName.textContent = `${player.name}`
   playerHealth.textContent = `${player.hitPoints}`
 
@@ -480,10 +523,6 @@ function playerStatUpdates() {
   actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
   actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
   actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
-
-  enemyName.textContent = `${enemyArr[0].name}`
-  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
-  enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
 
   if (playerSleepCounter > 0) {
     if (playerSleepCounter === 1) {
@@ -512,156 +551,107 @@ function playerStatUpdates() {
   }
 }
 
-function fightRound() {
-  // status effect stuff first, then specific action probabilities
-  // Right... I won't need to spell out player attacks because that will be handled in the method itself
-  // playerName.textContent = `${player.name}`
-  // playerHealth.textContent = `${player.hitPoints}`
+function enemyStatUpdates() {
 
-  // actionBtn1.textContent = `Bark Uses Left: ${player.useAct1}`
-  // actionBtn2.textContent = `Bite Uses Left: ${player.useAct2}`
-  // actionBtn3.textContent = `Dash Uses Left: ${player.useAct3}`
-  // actionBtn4.textContent = `Cuteness Uses Left: ${player.useAct4}`
-
-  // enemyName.textContent = `${enemyArr[0].name}`
-  // enemyHealth.textContent = `${enemyArr[0].hitPoints}`
-  // enemyImage.src = 'https://i.imgur.com/nEIDjH4.jpg'
-
-  if (enemyArr[0].hitPoints <= 0) {
-   
-    battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
-    flowBtns.style.display = 'flex'
-    tryAgainBtn.style.display = 'none'
-    actionBtns.style.display = 'none'
-    return
-  }
-  // if (playerSleepCounter > 0) {
-  //   if (playerSleepCounter === 1) {
-  //     battleMessages.textContent = `${player.name} wakes up!`
-  //     playerSleepCounter--
-  //   } else {
-  //     battleMessages.textContent = `${player.name} is fast asleep.`
-  //     playerSleepCounter--
-  //   }
-  // }
-
-  // if (playerStunCounter > 0) {
-  //   if (playerStunCounter === 1) {
-  //     setTimeout(() => {battleMessages.textContent = `${player.name} is stunned!`}, 2000)
-  //     playerStunCounter--
-  //   } else {
-  //     setTimeout(() => {battleMessages.textContent = `${player.name} snaps out of it!`}, 2000)
-  //     playerStunCounter--
-  //   }
-  // }
-
-  // if (playerRaiseAttackCounter > 0) {
-  //   playerRaiseAttackCounter--
-  // } 
-
-  // if (playerRaiseDefenseCounter > 0) {
-  //   playerRaiseDefenseCounter--
-  // } 
-
-  // if (playerRaiseAccuracyCounter > 0) {
-  //   playerRaiseAccuracyCounter--
-  // } 
-
-  // if (playerLowerAttackCounter > 0) {
-  //   playerLowerAttackCounter--
-  // } 
-
-  // if (playerLowerDefenseCounter > 0) {
-  //   playerLowerDefenseCounter--
-  // } 
-
-  // if (playerLowerAccuracyCounter > 0) {
-  //   playerLowerAccuracyCounter--
-  // } 
-
-  // console.log(playerRaiseAttackCounter)
-
+  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+  
   if (enemySleepCounter > 0) {
     if (enemySleepCounter === 1) {
-     battleMessages.textContent = `${enemyArr[0].name} wakes up!`
-      enemySleepCounter--
-      return
+      setTimeout(() => {battleMessages.textContent = `${enemyArr[0].name} wakes up!`}, 2000)
+      enemySleepCounter = enemySleepCounter - 1
+      return enemySleepCounter
     } else {
-     battleMessages.textContent = `${enemyArr[0].name} is fast asleep.`
-      enemySleepCounter--
-      return
+      setTimeout(() => {battleMessages.textContent = `${enemyArr[0].name} is fast asleep.`}, 2000)
+      enemySleepCounter = enemySleepCounter - 1
+      return enemySleepCounter
     }
   }
 
   if (enemyStunCounter > 0) {
     if (enemyStunCounter === 1) {
+      setTimeout(() => {
       battleMessages.textContent = `${enemyArr[0].name} is stunned!`
-      enemyStunCounter--
-      return
+      enemyStunCounter--}, 2000)
+      return enemyStunCounter
     } else {
+      setTimeout(() => {
       battleMessages.textContent = `${enemyArr[0].name} snaps out of it!`
-      enemyStunCounter--
-      return
+      enemyStunCounter--}, 2000)
+      return enemyStunCounter
     }
   }
+}
+// Need to fix this function too
+function checkWinner() {
 
-  // if (enemyRaiseAttackCounter > 0) {
-  //   enemyRaiseAttackCounter--
-  // }
+  if (enemyArr[0].hitPoints <= 0) {
+    setTimeout(() => {
+    battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
+    battleScreen.style.display = 'none'
+    victoryScreen.style.display = 'flex'
+    return
+    }, 2001)
+  }
 
-  // if (enemyRaiseDefenseCounter > 0) {
-  //   enemyRaiseDefenseCounter--
-  // }
+  if (player.hitPoints <= 0) {
+    setTimeout(() => {
+    battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
+    tryAgainBtn.style.display = 'flex'
+    actionBtns.style.display = 'none'
+    return
+    }, 2001)
+  }
+}
 
-  // if (enemyRaiseAccuracyCounter > 0) {
-  //   enemyRaiseAccuracyCounter--
-  // }
+// Can't put checkWinner() in fightRound()... need to find another way
+function fightRound() {
 
-  // if (enemyLowerAttackCounter > 0) {
-  //   enemyLowerAttackCounter--
-  // }
-
-  // if (enemyLowerDefenseCounter > 0) {
-  //   enemyLowerDefenseCounter--
-  // }
-
-  // if (enemyLowerAccuracyCounter > 0) {
-  //   enemyLowerAccuracyCounter--
-  // }
+  playerStatUpdates()
+  enemyStatUpdates()
+  checkWinner()
 
   if (enemyArr[0] === enemy1) {
-    if (enemyChargeCounter > 0) {
+    fightRound1()
+  }
+  if (enemyArr[0] === enemy2) {
+    fightRound2()
+  }
+
+  if (enemyArr[0] === enemy3) {
+    fightRound3()
+  }
+
+  if (enemyArr[0] === enemy4) {
+    fightRound4()
+  }
+
+  if (enemyArr[0] === enemy5) {
+    fightRound5()
+  }
+
+  if (enemyArr[0] === enemy6) {
+    fightRound6()
+  }
+}  
+ 
+function fightRound1() {
+  
+  if (enemyChargeCounter > 0) {
+    enemy1.epicThrust(player)
+    return
+  } 
+
+  if (enemy1.hitPoints < 15) {
+    if ((Math.random() > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+      enemy1.canteenSwill()
+      return
+    } else if (enemy1.useAct3 > 0) {
       enemy1.epicThrust(player)
       return
-    } 
-
-    if (enemy1.hitPoints < 15) {
-      if ((Math.random() > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-        enemy1.canteenSwill()
-        return
-      } else if (enemy1.useAct3 > 0) {
-        enemy1.epicThrust(player)
-        return
-      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-        enemy1.canteenSwill()
-        return
-      } else {
-        if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
-          enemy1.loreDump(player)
-          return
-        } else if (enemy1.useAct4 > 0) {
-          enemy1.halfHeartedSwipe(player)
-        return
-        } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
-          enemy1.loreDump(player)
-        return
-        }
-        else {battleMessages.textContent = `${enemy1.name} skips turn!`
-        return}
-      }
-    }
-
-    if (enemy1.hitPoints > 15) {
+    } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+      enemy1.canteenSwill()
+      return
+    } else {
       if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
         return
@@ -670,60 +660,55 @@ function fightRound() {
         return
       } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
-        return 
-      } else if (enemy1.useAct3 > 0) {
-        enemy1.epicThrust(player)
-      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-        enemy1.canteenSwill()
-      } else {
-        battleMessages.textContent = `${enemy1.name} skips turn!`
         return
       }
+      else {battleMessages.textContent = `${enemy1.name} skips turn!`
+      return}
+    }
+  }
+
+  if (enemy1.hitPoints > 15) {
+    if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+      enemy1.loreDump(player)
+      return
+    } else if (enemy1.useAct4 > 0) {
+      enemy1.halfHeartedSwipe(player)
+      return
+    } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+      enemy1.loreDump(player)
+      return 
+    } else if (enemy1.useAct3 > 0) {
+      enemy1.epicThrust(player)
+      return
+    } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+      enemy1.canteenSwill()
+      return
+    } else {
+      battleMessages.textContent = `${enemy1.name} skips turn!`
+      return
     }
   }
 }
 
-function checkPlayerHealth() {
-  playerHealth.textContent = `${player.hitPoints}`
-  if (player.hitPoints <= 0) {
-    setTimeout(() => {
-    battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
-    gameOverScreen.style.display = 'inline'
-    tryAgainBtn.style.display = 'inline'
-    actionBtns.style.display = 'none'}, 2001)
-  }
+function fightRound2() {
+
 }
 
-// ****** Other Functions Start Here ******
+function fightRound3() {
 
+}
 
+function fightRound4() {
 
-// ****** Battle Message Content Starts Here ******
+}
 
-// Event listeners
-startBtn.addEventListener('click', ()=>{
-  startScreen.style.display = 'none'
-  startBtn.style.display = 'none'
-  battleScreen.style.display = 'grid'
-  battleMessageContainer.style.display = 'block'
-  actionBtns.style.display = 'flex'
-})
+function fightRound5() {
 
-actionBtn1.addEventListener('click', ()=>{
-  setTimeout(() => {player.bark()}, 2000)
-})
+}
 
-actionBtn2.addEventListener('click', ()=>{
-  setTimeout(() => {player.bite(enemyArr[0])}, 2000)
-})
+function fightRound6() {
 
-actionBtn3.addEventListener('click', ()=>{
-  setTimeout(() => {player.dash(enemyArr[0])}, 2000)
-})
-
-actionBtn4.addEventListener('click', ()=>{
-  setTimeout(() => {player.cuteness(enemyArr[0])}, 2000)
-})
+}
 
 // ****** Animation Functions (maybe...) ******
 
