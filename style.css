@@ -115,6 +115,7 @@ body {
     grid-area: enemyImage;
     width: 50vw;
     border: 2px solid red;
+    animation: moveInRight 1s ease-out;
 }
 
 #player-image-container {
@@ -123,17 +124,16 @@ body {
     align-items: flex-end;
     grid-area: playerImage;
     width: 50vw;
+    animation: moveInLeft 1s ease-out;
 }
 
 #enemy-image {
     height: 50vmin;
-    animation: moveInRight 1s ease-out;
     border: 2px solid blue;
 }
 
 #player-image {
     height: 50vmin;
-    animation: moveInLeft 1s ease-out;
 }
 
 #sleep-enemy-container {
