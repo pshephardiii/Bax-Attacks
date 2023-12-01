@@ -114,6 +114,7 @@ body {
     align-items: center;
     grid-area: enemyImage;
     width: 50vw;
+    border: 2px solid red;
 }
 
 #player-image-container {
@@ -125,11 +126,62 @@ body {
 }
 
 #enemy-image {
-    height: 40vh;
+    height: 50vmin;
+    animation: moveInRight 1s ease-out;
+    border: 2px solid blue;
 }
 
 #player-image {
-    height: 40vh;
+    height: 50vmin;
+    animation: moveInLeft 1s ease-out;
+}
+
+#sleep-enemy-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vmin;
+    left: 34vmin;
+    bottom: 18vmin;
+}
+
+#sleep-image-enemy {
+  display: none;
+  height: 10vmin;
+  position: absolute;
+}
+
+#sleep-player-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vmin;
+    left: 35vmin;
+    bottom: 16vmin;
+}
+
+#sleep-image-player {
+    display: none;
+    height: 10vmin;
+    position: absolute;
+}
+
+.sleep-animate {
+    animation: sleepEffect 2s ease-out;
+  }
+
+.take-hit {
+    animation: takeHit 2s ease-out;
+}
+
+.player-physical-attack {
+    animation: playerPhysicalAttack 1s ease-out;
+}
+
+.enemy-physical-attack {
+    animation: enemyPhysicalAttack 1s ease-out;
 }
 
 #health-container-enemy {
@@ -138,13 +190,30 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 4vh;
+    font-size: 4vmin;
     text-shadow:
         0.07em 0 black,
         0 0.07em black,
         -0.07em 0 black,
         0 -0.07em black;
     grid-area: enemyHealthBar;
+    width: 50vw;
+}
+
+#health-container-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+    color: white;
+    font-size: 4vmin;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    grid-area: playerHealthBar;
     width: 50vw;
 }
 
@@ -156,22 +225,9 @@ body {
   margin-top: 1vh;
 }
 
-#health-container-player {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-    color: white;
-    font-size: 4vh;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    grid-area: playerHealthBar;
-    width: 50vw;
-}
+/* use media query for font */
+
+
 
 #player-name {
     margin-bottom: 1vh;
@@ -224,5 +280,87 @@ body {
 
 }
 
+#next-turn {
+    display: none;
+}
+
 
 /* Add media query to stop font size from getting too small */
+
+@keyframes moveInLeft {
+    0% {
+        transform: translateX(-15rem);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        transform: translateX(15rem);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes playerPhysicalAttack {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-1rem);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes enemyPhysicalAttack {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(1rem);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes takeHit {
+    0% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(1rem);
+    }
+    25% {
+        transform: translateX(-1rem);
+    }
+    50% {
+        transform: translateX(1rem);
+    }
+    70% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes sleepEffect {
+    0% {
+        height: 5vmin;
+    }
+    30% {
+        height: 15vmin;
+    }
+    60% {
+        height: 5vmin;
+    }
+    100% {
+        height: 10vmin;
+    }
+}

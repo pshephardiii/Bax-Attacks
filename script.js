@@ -47,10 +47,12 @@ class Player extends Character {
   bite(target) {
     if (this.useAct2 > 0){
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
           let attackDamage = randomizer(this.attack + 2, this.attack + 4)
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
+          enemyImage.classList.add('take-hit')
           battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
         } else {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
@@ -64,6 +66,7 @@ class Player extends Character {
   dash(target) {
     if (this.useAct3 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
           let attackDamage = randomizer (this.attack, this.attack + 2)
           let defenseDecrease = randomizer (1, 2)
@@ -72,6 +75,7 @@ class Player extends Character {
             target.defense = target.defense - defenseDecrease
           }
           this.useAct3 = this.useAct3 - 1
+          enemyImage.classList.add('take-hit')
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
         } else {
           battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
@@ -119,14 +123,24 @@ class Enemy1 extends Character {
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
     } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
+    nextTurnBtn.style.display = 'inline'
+    for (let button of actionBtnArr) {
+      button.style.display = 'none'
+    }
 }
 
   loreDump(target) {
     if (Math.random() < this.attackAcc - .2) {
       playerSleepCounter = playerSleepCounter + 3
+      playerSleep.style.display = 'inline'
+      playerSleep.classList.add('sleep-animate')
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
     } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
+    nextTurnBtn.style.display = 'inline'
+    for (let button of actionBtnArr) {
+      button.style.display = 'none'
+    }
   }
 
   epicThrust(target) { 
@@ -134,28 +148,39 @@ class Enemy1 extends Character {
     if (enemyChargeCounter === 1) {
       battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
+        enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
         let attackDamage = randomizer(this.attack + 5, this.attack + 7)
         target.hitPoints = target.hitPoints - attackDamage
         enemyChargeCounter = 0
         this.useAct3 = this.useAct3 - 1
+        playerImage.classList.add('take-hit')
         battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
         } else {
           battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
           enemyChargeCounter = 0
         }
     }
+    nextTurnBtn.style.display = 'inline'
+    for (let button of actionBtnArr) {
+      button.style.display = 'none'
+    }
   }
 
   halfHeartedSwipe(target) {
-
+    enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
       let attackDamage = randomizer(this.attack, this.attack + 2)
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
+      playerImage.classList.add('take-hit')
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
     } else {
       battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`}
+    nextTurnBtn.style.display = 'inline'
+    for (let button of actionBtnArr) {
+      button.style.display = 'none'
+    }
   }
 }
 
@@ -363,10 +388,17 @@ const tryAgainBtn = document.getElementById('try-again-button')
 
 // Action buttons
 const actionBtns = document.querySelector('.action-buttons-container')
+const everyActionBtn = document.querySelectorAll('.action-button')
+const actionBtnArr = Array.from(everyActionBtn)
 const actionBtn1 = document.getElementById('action-1')
 const actionBtn2 = document.getElementById('action-2')
 const actionBtn3 = document.getElementById('action-3')
 const actionBtn4 = document.getElementById('action-4')
+const nextTurnBtn = document.getElementById('next-turn')
+
+// Status Effect Items 
+const playerSleep = document.getElementById('sleep-image-player')
+const enemySleep = document.getElementById('sleep-image-enemy')
 
 // EVENT LISTENERS
 
@@ -376,20 +408,34 @@ startBtn.addEventListener('click', ()=>{
 })
 
 actionBtn1.addEventListener('click', ()=>{
-  setTimeout(() => {player.bark()}, 2000)
+  setTimeout(() => {
+    player.bark()}, 2000)
 })
 
 actionBtn2.addEventListener('click', ()=>{
-  setTimeout(() => {player.bite(enemyArr[0])}, 2000)
+  setTimeout(() => {
+    player.bite(enemyArr[0])}, 2000)
 })
 
 actionBtn3.addEventListener('click', ()=>{
-  setTimeout(() => {player.dash(enemyArr[0])}, 2000)
+  setTimeout(() => {
+    player.dash(enemyArr[0])}, 2000)
 })
 
 actionBtn4.addEventListener('click', ()=>{
-  setTimeout(() => {player.cuteness(enemyArr[0])}, 2000)
+  setTimeout(() => {
+    player.cuteness(enemyArr[0])}, 2000)
 })
+
+nextTurnBtn.addEventListener('click', ()=> {
+  nextTurnBtn.style.display = 'none'
+  for (let button of actionBtnArr) {
+    button.style.display = 'inline'
+  }
+  removeAnimationClasses()
+})
+
+
 
 // FUNCTIONS
 
@@ -476,9 +522,12 @@ function renderPlayerUpdates() {
     if (playerSleepCounter === 1) {
       battleMessages.textContent = `${player.name} wakes up!`
       playerSleepCounter = playerSleepCounter - 1
+      playerSleep.style.display = 'none'
+      playerSleep.classList.remove('sleep-animate')
     } else {
       battleMessages.textContent = `${player.name} is fast asleep.`
       playerSleepCounter = playerSleepCounter - 1
+      playerSleep.classList.add('sleep-animate')
     }
   }
 
@@ -653,6 +702,13 @@ function fightRound5() {
 
 function fightRound6() {
 
+}
+
+function removeAnimationClasses() {
+  playerImage.classList.remove('player-physical-attack', 'take-hit')
+  enemyImage.classList.remove('enemy-physical-attack', 'take-hit')
+  playerSleep.classList.remove('sleep-animate')
+  enemySleep.classList.remove('sleep-animate')
 }
 
 // ****** Animation Functions (maybe...) ******
