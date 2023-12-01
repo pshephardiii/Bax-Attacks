@@ -123,7 +123,7 @@ class Enemy1 extends Character {
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
     } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
-    nextTurnBtn.style.display = 'inline'
+    nextMoveBtn.style.display = 'inline'
     for (let button of actionBtnArr) {
       button.style.display = 'none'
     }
@@ -137,7 +137,7 @@ class Enemy1 extends Character {
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
     } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
-    nextTurnBtn.style.display = 'inline'
+    nextMoveBtn.style.display = 'inline'
     for (let button of actionBtnArr) {
       button.style.display = 'none'
     }
@@ -161,7 +161,7 @@ class Enemy1 extends Character {
           enemyChargeCounter = 0
         }
     }
-    nextTurnBtn.style.display = 'inline'
+    nextMoveBtn.style.display = 'inline'
     for (let button of actionBtnArr) {
       button.style.display = 'none'
     }
@@ -177,7 +177,7 @@ class Enemy1 extends Character {
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
     } else {
       battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`}
-    nextTurnBtn.style.display = 'inline'
+      nextMoveBtn.style.display = 'inline'
     for (let button of actionBtnArr) {
       button.style.display = 'none'
     }
@@ -394,7 +394,7 @@ const actionBtn1 = document.getElementById('action-1')
 const actionBtn2 = document.getElementById('action-2')
 const actionBtn3 = document.getElementById('action-3')
 const actionBtn4 = document.getElementById('action-4')
-const nextTurnBtn = document.getElementById('next-turn')
+const nextMoveBtn = document.getElementById('next-move')
 
 // Status Effect Items 
 const playerSleep = document.getElementById('sleep-image-player')
@@ -427,8 +427,8 @@ actionBtn4.addEventListener('click', ()=>{
     player.cuteness(enemyArr[0])}, 2000)
 })
 
-nextTurnBtn.addEventListener('click', ()=> {
-  nextTurnBtn.style.display = 'none'
+nextMoveBtn.addEventListener('click', ()=> {
+  nextMoveBtn.style.display = 'none'
   for (let button of actionBtnArr) {
     button.style.display = 'inline'
   }
@@ -614,6 +614,8 @@ function declareWinner() {
 
 function fightRound() {
 
+  removeAnimationClasses()
+
   if ((enemySleepCounter === 0) && (enemyStunCounter === 0) && (winner === null)) {
 
     if (enemyArr[0] === enemy1) {
@@ -663,7 +665,7 @@ function fightRound1() {
   }
 
   if (enemy1.hitPoints > 15) {
-    if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+    if ((Math.random() > .75) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
       enemy1.loreDump(player)
     } else if (enemy1.useAct4 > 0) {
       enemy1.halfHeartedSwipe(player)
