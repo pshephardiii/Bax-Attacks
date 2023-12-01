@@ -150,7 +150,7 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
 
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer(this.attack + 50, this.attack + 52)
+      let attackDamage = randomizer(this.attack, this.attack + 2)
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`

@@ -101,6 +101,7 @@ body {
     width: 100vw;
     grid-template-areas: 
     "enemyHealthBar enemyImage"
+    "playerImage enemyImage"
     "playerImage playerHealthBar";
     background-image: url("https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg");
     background-size: cover;
@@ -112,21 +113,23 @@ body {
     justify-content: center;
     align-items: center;
     grid-area: enemyImage;
+    width: 50vw;
 }
 
 #player-image-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    grid-area: playerImage
+    align-items: flex-end;
+    grid-area: playerImage;
+    width: 50vw;
 }
 
 #enemy-image {
-    height: 50vh;
+    height: 40vh;
 }
 
 #player-image {
-    height: 5em;
+    height: 40vh;
 }
 
 #health-container-enemy {
@@ -134,7 +137,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     color: white;
     font-size: 4vh;
     text-shadow:
@@ -142,8 +144,16 @@ body {
         0 0.07em black,
         -0.07em 0 black,
         0 -0.07em black;
-    
-    grid-area: enemyHealthBar
+    grid-area: enemyHealthBar;
+    width: 50vw;
+}
+
+#enemy-name {
+  margin-bottom: 1vh;
+}
+
+#enemy-healthbar {
+  margin-top: 1vh;
 }
 
 #health-container-player {
@@ -151,7 +161,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
+    margin-right: 0;
     color: white;
     font-size: 4vh;
     text-shadow:
@@ -159,8 +169,16 @@ body {
         0 0.07em black,
         -0.07em 0 black,
         0 -0.07em black;
-    
-    grid-area: playerHealthBar
+    grid-area: playerHealthBar;
+    width: 50vw;
+}
+
+#player-name {
+    margin-bottom: 1vh;
+}
+
+#player-healthbar {
+    margin-top: 1vh;
 }
 
 /* Battle Messages */
