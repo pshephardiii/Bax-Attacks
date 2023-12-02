@@ -31,6 +31,7 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.buffAcc) {
+          barkSound.play()
           playerNoise.style.display = 'inline'
           setTimeout( () => {
             playerNoise.style.display = 'none'
@@ -440,6 +441,12 @@ const enemyCanteen = document.getElementById('canteen-animation-enemy')
 const playerNoise = document.getElementById('noise-animation-player')
 const playerHearts = document.getElementById('hearts-animation-player')
 
+// Sound Effects - Player
+const barkSound = new Audio('bark.mp3')
+const biteSound = new Audio('bite.mp3')
+const dashSound = new Audio('dash.mp3')
+const cutenessSound = new Audio('cuteness.mp3')
+
 // EVENT LISTENERS
 
 startBtn.addEventListener('click', ()=>{
@@ -448,23 +455,19 @@ startBtn.addEventListener('click', ()=>{
 })
 
 actionBtn1.addEventListener('click', ()=>{
-  setTimeout(() => {
-    player.bark()}, 2000)
+  player.bark()
 })
 
 actionBtn2.addEventListener('click', ()=>{
-  setTimeout(() => {
-    player.bite(enemyArr[0])}, 2000)
+  player.bite(enemyArr[0])
 })
 
 actionBtn3.addEventListener('click', ()=>{
-  setTimeout(() => {
-    player.dash(enemyArr[0])}, 2000)
+  player.dash(enemyArr[0])
 })
 
 actionBtn4.addEventListener('click', ()=>{
-  setTimeout(() => {
-    player.cuteness(enemyArr[0])}, 2000)
+  player.cuteness(enemyArr[0])
 })
 
 nextMoveBtn.addEventListener('click', ()=> {
@@ -796,3 +799,4 @@ document.addEventListener('keydown', function(event) {
     playerSleep.classList.remove('sleep-animate')
   }
 })
+
