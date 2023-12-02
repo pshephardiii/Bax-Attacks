@@ -481,7 +481,7 @@ const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/p
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
-const enemy1Theme = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3')
+const enemy1Theme = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3'
 
 // EVENT LISTENERS
 
@@ -573,7 +573,6 @@ function initBattleDisplay() {
   victoryScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
   battleScreen.style.display = 'flex'
-  stopMusic()
   musicTrack.src = musicArr[0]
   musicTrack.play()
   musicTrack.volume = .1
