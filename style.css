@@ -95,6 +95,10 @@ body {
   width: 100vw;
 }
 
+.audio-container {
+  background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
+}
+
 .combatant-screen-container {
     display: grid;
     height: 70vh;
