@@ -194,7 +194,7 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
     enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer((this.attack + 84) - target.defense, (this.attack + 86) - target.defense)
+      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
@@ -764,10 +764,35 @@ function removeAnimationClasses() {
   enemySleep.classList.remove('sleep-animate')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
-  
-
 }
 
-// ****** Animation Functions (maybe...) ******
+// Cheat Codes (thank you Revenge of the Garbage Man!)
+document.addEventListener('keydown', function(event) {
+  if (event.key === '1') {
+    player.hitPoints = 0
+    checkWinner()
+  }
+})
 
-// Cheat Codes
+document.addEventListener('keydown', function(event) {
+  if (event.key === '2') {
+    enemyArr[0].hitPoints = 0
+    checkWinner()
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '3') {
+    playerSleepCounter = playerSleepCounter + 3
+    playerSleep.style.display = 'inline'
+    playerSleep.classList.add('sleep-animate')
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '4') {
+    playerSleepCounter = 0
+    playerSleep.style.display = 'none'
+    playerSleep.classList.remove('sleep-animate')
+  }
+})
