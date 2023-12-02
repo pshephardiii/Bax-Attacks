@@ -49,7 +49,8 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
-          let attackDamage = randomizer(this.attack + 2, this.attack + 4)
+          let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
+          attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           enemyImage.classList.add('take-hit')
@@ -68,8 +69,9 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
-          let attackDamage = randomizer (this.attack, this.attack + 2)
           let defenseDecrease = randomizer (1, 2)
+          let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
+          attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           if ((target.defense - defenseDecrease) >= 0) {
             target.defense = target.defense - defenseDecrease
@@ -150,12 +152,13 @@ class Enemy1 extends Character {
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
-        let attackDamage = randomizer(this.attack + 5, this.attack + 7)
-        target.hitPoints = target.hitPoints - attackDamage
-        enemyChargeCounter = 0
-        this.useAct3 = this.useAct3 - 1
-        playerImage.classList.add('take-hit')
-        battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
+          let attackDamage = randomizer((this.attack + 8) - target.defense, (this.attack + 10) - target.defense)
+          attackDamage = attackDamage < 0 ? 0 : attackDamage
+          target.hitPoints = target.hitPoints - attackDamage
+          enemyChargeCounter = 0
+          this.useAct3 = this.useAct3 - 1
+          playerImage.classList.add('take-hit')
+          battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
         } else {
           battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
           enemyChargeCounter = 0
@@ -170,7 +173,8 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
     enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer(this.attack, this.attack + 2)
+      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       playerImage.classList.add('take-hit')
