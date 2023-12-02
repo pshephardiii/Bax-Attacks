@@ -114,7 +114,6 @@ body {
     align-items: center;
     grid-area: enemyImage;
     width: 50vw;
-    animation: moveInRight 1s ease-out;
 }
 
 #player-image-container {
@@ -123,7 +122,6 @@ body {
     align-items: flex-end;
     grid-area: playerImage;
     width: 50vw;
-    animation: moveInLeft 1s ease-out;
 }
 
 #enemy-image {
@@ -252,6 +250,22 @@ body {
     animation: enemyPhysicalAttack 1s ease-out;
 }
 
+.move-in-right {
+    animation: moveInRight 1s ease-out;
+}
+
+.move-in-left{
+  animation: moveInLeft 1s ease-out;
+}
+
+.move-out-right {
+    animation: moveOutRight 2s ease-in;
+}
+
+.move-out-left {
+    animation: moveOutLeft 2s ease-in;
+}
+
 #health-container-enemy {
     display: flex;
     flex-direction: column;
@@ -370,6 +384,24 @@ body {
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+@keyframes moveOutRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(45rem)
+    }
+}
+
+@keyframes moveOutLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-30rem);
     }
 }
 

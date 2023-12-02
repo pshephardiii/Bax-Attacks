@@ -194,7 +194,7 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
     enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
+      let attackDamage = randomizer((this.attack + 84) - target.defense, (this.attack + 86) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
@@ -396,6 +396,11 @@ const gameCompletionScreen = document.querySelector('.game-completion-screen')
 // Content containers
 const battleScreen = document.querySelector('.battle-screen-container')
 const combatantScreen = document.querySelector('.combatant-screen-container')
+const battleMessageContainer = document.querySelector('.battle-message-container')
+const enemyImageContainer = document.getElementById('enemy-image-container')
+const playerImageContainer = document.getElementById('player-image-container')
+
+// Contained elements
 const enemyHealth = document.getElementById('enemy-healthbar')
 const playerHealth = document.getElementById('player-healthbar')
 const enemyName = document.getElementById('enemy-name')
@@ -403,7 +408,6 @@ const playerName = document.getElementById('player-name')
 const enemyImage = document.getElementById('enemy-image')
 const playerImage = document.getElementById('player-image')
 const battleMessages = document.querySelector('.battle-message-text')
-const battleMessageContainer = document.querySelector('.battle-message-container')
 
 // Gameflow Initiation buttons
 const startBtn = document.getElementById('start-button')
@@ -478,11 +482,13 @@ nextMoveBtn.addEventListener('click', ()=> {
 // Initializer functions
 
 function init() {
+  removeAnimationClasses()
   initBattleBtns()
   initPlayerStats()
   initEnemy()
   initBattleDisplay()
   initBattleStatus()
+  
 }
 
 function initBattleBtns() {
@@ -504,6 +510,7 @@ function initPlayerStats() {
   player.useAct3 = 12
   player.useAct4 = 3
   playerHealth.textContent = `${player.hitPoints}`
+  playerImageContainer.classList.add('move-in-left')
   playerChargeCounter = 0
   playerSleepCounter = 0
   playerStunCounter = 0
@@ -513,9 +520,12 @@ function initEnemy() {
   enemyName.textContent = `${enemyArr[0].name}`
   enemyHealth.textContent = `${enemyArr[0].hitPoints}`
   enemyImage.src = 'https://i.imgur.com/8zvUb4o.png'
+  enemyImage.style.display = 'inline'
+  enemyImageContainer.classList.add('move-in-right')
   enemyChargeCounter = 0
   enemySleepCounter = 0
   enemyStunCounter = 0
+  
 }
 
 function initBattleDisplay() {
@@ -527,8 +537,9 @@ function initBattleDisplay() {
 }
 
 function initBattleStatus() {
-  turn = 1
   winner = null
+  playerImage.classList.remove('move-out-left')
+  enemyImage.classList.remove('move-out-right')
 }
 
 function initFirstBattle() {
@@ -619,6 +630,7 @@ function checkWinner() {
 
   if (enemyArr[0].hitPoints <= 0) {
     setTimeout(() => {
+    enemyImage.classList.add('move-out-right')
     battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
     winner = player
     declareWinner()
@@ -627,6 +639,7 @@ function checkWinner() {
 
   if (player.hitPoints <= 0) {
     setTimeout(() => {
+    playerImage.classList.add('move-out-left')
     battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
     winner = enemyArr[0]
     declareWinner()
@@ -749,6 +762,10 @@ function removeAnimationClasses() {
   enemyImage.classList.remove('enemy-physical-attack', 'take-hit')
   playerSleep.classList.remove('sleep-animate')
   enemySleep.classList.remove('sleep-animate')
+  enemyImageContainer.classList.remove('move-in-right')
+  playerImageContainer.classList.remove('move-in-left')
+  
+
 }
 
 // ****** Animation Functions (maybe...) ******
