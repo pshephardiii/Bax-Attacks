@@ -150,6 +150,49 @@ body {
   position: absolute;
 }
 
+#enemy-speaking-container {
+  position: relative;
+  height: 30vmin;
+  bottom: 10vmin;
+  left: 3vmin;
+}
+
+#speaking-animation-enemy {
+    display: none;
+    height: 10vmin;
+    position: absolute;
+    animation: enlargeSlowly 2s ease-out;
+}
+
+#enemy-charging-container {
+    position: relative;
+    height: 1vmin;
+    right: 30vmin;
+    bottom: 54vmin;
+    border: 2px solid red;
+}
+
+#charging-animation-enemy {
+    display: none;
+    height: 120vmin;
+    position: absolute;
+    animation: shrinkSlowly 2s ease-out;
+}
+
+#enemy1-canteen-container {
+    position: relative;
+    height: 1vmin;
+    bottom: 20vmin;
+    left: 5vmin;
+}
+
+#canteen-animation-enemy {
+    display: none;
+    height: 5vmin;
+    position: absolute;
+    animation: smallWiggle 2s ease-out;
+}
+
 #sleep-player-container {
     position: relative;
     display: flex;
@@ -387,6 +430,42 @@ body {
     }
     100% {
         height: 10vmin;
+    }
+}
+
+@keyframes shrinkSlowly {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(.75);
+    }    
+}
+
+@keyframes enlargeSlowly {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(2)
+    }
+}
+
+@keyframes smallWiggle {
+    0% {
+        transform: rotate(0)
+    }
+    25% {
+        transform: rotate(8deg)
+    }
+    50% {
+        transform: rotate(-8deg)
+    }
+    75% {
+        transform: rotate(8deg)
+    }
+    100% {
+        transform: rotate(-8deg)
     }
 }
 

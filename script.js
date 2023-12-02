@@ -126,7 +126,10 @@ class Enemy1 extends Character {
   }
 
   canteenSwill() {
-   
+    enemyCanteen.style.display = 'inline'
+    setTimeout( () => {
+      enemyCanteen.style.display = 'none'
+    }, 2000)
     if (Math.random() < this.buffAcc) {
       let increaseDamage = randomizer(1, 3)
       this.attack = this.attack + increaseDamage
@@ -142,6 +145,10 @@ class Enemy1 extends Character {
 }
 
   loreDump(target) {
+    enemySpeaks.style.display = 'inline'
+    setTimeout( () => {
+      enemySpeaks.style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc - .2) {
       playerSleepCounter = playerSleepCounter + 3
       playerSleep.style.display = 'inline'
@@ -158,6 +165,10 @@ class Enemy1 extends Character {
   epicThrust(target) { 
     enemyChargeCounter++
     if (enemyChargeCounter === 1) {
+      enemyCharges.style.display = 'inline'
+      setTimeout( () => {
+        enemyCharges.style.display = 'none'
+      }, 2000)
       battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
@@ -414,7 +425,14 @@ const nextMoveBtn = document.getElementById('next-move')
 const playerSleep = document.getElementById('sleep-image-player')
 const enemySleep = document.getElementById('sleep-image-enemy')
 
-// Special Attack Effects
+// Special Attack Effects - Enemy Shared
+const enemyCharges = document.getElementById('charging-animation-enemy')
+const enemySpeaks = document.getElementById('speaking-animation-enemy')
+
+// Special Attack Effects - Enemy Unique
+const enemyCanteen = document.getElementById('canteen-animation-enemy')
+
+// Special Attack Effects - Player
 const playerNoise = document.getElementById('noise-animation-player')
 const playerHearts = document.getElementById('hearts-animation-player')
 
