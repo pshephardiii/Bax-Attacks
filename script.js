@@ -29,7 +29,12 @@ class Player extends Character {
   bark() {
     if (this.useAct1 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.buffAcc) {
+          playerNoise.style.display = 'inline'
+          setTimeout( () => {
+            playerNoise.style.display = 'none'
+          }, 500)
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
           this.useAct1 = this.useAct1 - 1
@@ -92,7 +97,12 @@ class Player extends Character {
   cuteness(target) {
     if (this.useAct4 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        playerHearts.style.display = 'block'
+        setTimeout( () => {
+          playerHearts.style.display = 'none'
+        }, 2000)
         if (Math.random() < this.attackAcc) {
+          enemyImage.classList.add('take-hit')
           let accuracyDecrease = randomizer(1, 2)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
           this.useAct4 = this.useAct4 - 1
@@ -404,6 +414,10 @@ const nextMoveBtn = document.getElementById('next-move')
 const playerSleep = document.getElementById('sleep-image-player')
 const enemySleep = document.getElementById('sleep-image-enemy')
 
+// Special Attack Effects
+const playerNoise = document.getElementById('noise-animation-player')
+const playerHearts = document.getElementById('hearts-animation-player')
+
 // EVENT LISTENERS
 
 startBtn.addEventListener('click', ()=>{
@@ -649,40 +663,42 @@ function fightRound1() {
     enemy1.epicThrust(player)
   } else {
 
-  if (enemy1.hitPoints < 15) {
-    if ((Math.random() > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-      enemy1.canteenSwill()
-    } else if (enemy1.useAct3 > 0) {
-      enemy1.epicThrust(player)
-    } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-      enemy1.canteenSwill()
-    } else {
-      if ((Math.random() > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+    let randomNum = Math.random()
+
+    if (enemy1.hitPoints < 15) {
+      if ((randomNum > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+        enemy1.canteenSwill()
+      } else if (enemy1.useAct3 > 0) {
+        enemy1.epicThrust(player)
+      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+        enemy1.canteenSwill()
+      } else {
+        if ((randomNum > .5) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+          enemy1.loreDump(player)
+        } else if (enemy1.useAct4 > 0) {
+          enemy1.halfHeartedSwipe(player)
+        } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
+          enemy1.loreDump(player)
+        }
+        else {battleMessages.textContent = `${enemy1.name} skips turn!`}
+      }
+   }
+
+    if (enemy1.hitPoints > 15) {
+      if ((randomNum > .75) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
       } else if (enemy1.useAct4 > 0) {
         enemy1.halfHeartedSwipe(player)
       } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
+      } else if (enemy1.useAct3 > 0) {
+        enemy1.epicThrust(player)
+      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+        enemy1.canteenSwill()
+      } else {
+        battleMessages.textContent = `${enemy1.name} skips turn!`
       }
-      else {battleMessages.textContent = `${enemy1.name} skips turn!`}
     }
-  }
-
-  if (enemy1.hitPoints > 15) {
-    if ((Math.random() > .75) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
-      enemy1.loreDump(player)
-    } else if (enemy1.useAct4 > 0) {
-      enemy1.halfHeartedSwipe(player)
-    } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
-      enemy1.loreDump(player)
-    } else if (enemy1.useAct3 > 0) {
-      enemy1.epicThrust(player)
-    } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
-      enemy1.canteenSwill()
-    } else {
-      battleMessages.textContent = `${enemy1.name} skips turn!`
-    }
-  }
   }
 
   playerHealth.textContent = `${player.hitPoints}`

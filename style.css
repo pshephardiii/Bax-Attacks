@@ -166,6 +166,33 @@ body {
     position: absolute;
 }
 
+#noise-player-container {
+    height: 30vmin;
+    position: relative;
+    left: 20vmin;
+    bottom: 11vmin;
+}
+
+#noise-animation-player {
+  display: none;
+  height: 30vmin;
+  position: absolute;
+}
+
+#player-floating-hearts-container {
+  height: 30vmin;
+  position: relative;
+  left: 31vmin;
+  bottom: 10vmin;
+}
+
+#hearts-animation-player {
+  display: none;
+  height: 20vmin;
+  position: absolute;
+  animation: flowTowardsEnemy 2s linear;
+}
+
 .sleep-animate {
     animation: sleepEffect 2s ease-out;
   }
@@ -360,5 +387,15 @@ body {
     }
     100% {
         height: 10vmin;
+    }
+}
+
+@keyframes flowTowardsEnemy {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        transform: translate3d(20vmin, -15vmin, 0)
+      
     }
 }
