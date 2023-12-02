@@ -32,6 +32,7 @@ class Player extends Character {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.buffAcc) {
           barkSound.play()
+          barkSound.volume = .2
           playerNoise.style.display = 'inline'
           setTimeout( () => {
             playerNoise.style.display = 'none'
@@ -55,6 +56,8 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
+          biteSound.play()
+          biteSound.volume = .2
           let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -75,6 +78,8 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
+          dashSound.play()
+          dashSound.volume = .2
           let defenseDecrease = randomizer (1, 2)
           let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
@@ -98,6 +103,8 @@ class Player extends Character {
   cuteness(target) {
     if (this.useAct4 > 0) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
+        cutenessSound.play()
+        cutenessSound.volume = .2
         playerHearts.style.display = 'block'
         setTimeout( () => {
           playerHearts.style.display = 'none'
@@ -132,6 +139,8 @@ class Enemy1 extends Character {
       enemyCanteen.style.display = 'none'
     }, 2000)
     if (Math.random() < this.buffAcc) {
+      canteenSound.play()
+      canteenSound.volume = .2
       let increaseDamage = randomizer(1, 3)
       this.attack = this.attack + increaseDamage
       let healthDecrease = randomizer(1, 3)
@@ -151,6 +160,8 @@ class Enemy1 extends Character {
       enemySpeaks.style.display = 'none'
     }, 2000)
     if (Math.random() < this.attackAcc - .2) {
+      loreDumpSound.play()
+      loreDumpSound.volume = .2
       playerSleepCounter = playerSleepCounter + 3
       playerSleep.style.display = 'inline'
       playerSleep.classList.add('sleep-animate')
@@ -166,6 +177,8 @@ class Enemy1 extends Character {
   epicThrust(target) { 
     enemyChargeCounter++
     if (enemyChargeCounter === 1) {
+      chargingSound.play()
+      chargingSound.volume = .2
       enemyCharges.style.display = 'inline'
       setTimeout( () => {
         enemyCharges.style.display = 'none'
@@ -174,6 +187,8 @@ class Enemy1 extends Character {
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
+          epicThrustSound.play()
+          epicThrustSound.volume = .2
           let attackDamage = randomizer((this.attack + 8) - target.defense, (this.attack + 10) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -195,6 +210,8 @@ class Enemy1 extends Character {
   halfHeartedSwipe(target) {
     enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
+      halfHeartedSwipeSound.play()
+      halfHeartedSwipeSound.volume = .2
       let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
@@ -442,10 +459,23 @@ const playerNoise = document.getElementById('noise-animation-player')
 const playerHearts = document.getElementById('hearts-animation-player')
 
 // Sound Effects - Player
-const barkSound = new Audio('bark.mp3')
-const biteSound = new Audio('bite.mp3')
-const dashSound = new Audio('dash.mp3')
-const cutenessSound = new Audio('cuteness.mp3')
+const barkSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/bark.mp3')
+const biteSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/bite.mp3')
+const dashSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/dash.mp3')
+const cutenessSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/cuteness.mp3')
+
+// Sound Effects - Misc
+const chargingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Charging.mp3')
+const sleepingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/StillAsleep.mp3')
+const awakeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Wake up.mp3')
+const playerLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Player Loss.mp3')
+const enemyLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Enemy Loss.mp3')
+
+// Sound Effects - Enemy1
+const canteenSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/canteen-swill.mp3')
+const loreDumpSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/lore-dump.mp3')
+const epicThrustSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/epic-thrust.mp3')
+const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/halfhearted-swipe.mp3')
 
 // EVENT LISTENERS
 
@@ -570,11 +600,15 @@ function renderPlayerUpdates() {
 
   if (playerSleepCounter > 0) {
     if (playerSleepCounter === 1) {
+      awakeSound.play()
+      awakeSound.volume = .2
       battleMessages.textContent = `${player.name} wakes up!`
       playerSleepCounter = playerSleepCounter - 1
       playerSleep.style.display = 'none'
       playerSleep.classList.remove('sleep-animate')
     } else {
+      sleepingSound.play()
+      sleepingSound.volume = .2
       battleMessages.textContent = `${player.name} is fast asleep.`
       playerSleepCounter = playerSleepCounter - 1
       playerSleep.classList.add('sleep-animate')
@@ -633,6 +667,8 @@ function checkWinner() {
 
   if (enemyArr[0].hitPoints <= 0) {
     setTimeout(() => {
+    enemyLossSound.play()
+    enemyLossSound.volume = .2
     enemyImage.classList.add('move-out-right')
     battleMessages.textContent = `${enemyArr[0].name} cowers in fear. ${player.name} wins!`
     winner = player
@@ -642,6 +678,8 @@ function checkWinner() {
 
   if (player.hitPoints <= 0) {
     setTimeout(() => {
+    playerLossSound.play()
+    playerLossSound.volume = .2
     playerImage.classList.add('move-out-left')
     battleMessages.textContent = `${player.name} hides behind the couch!  ${player.name} has lost the battle.`
     winner = enemyArr[0]
