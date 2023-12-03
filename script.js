@@ -492,18 +492,22 @@ startBtn.addEventListener('click', ()=>{
 
 actionBtn1.addEventListener('click', ()=>{
   player.bark()
+  disableActionButtons()
 })
 
 actionBtn2.addEventListener('click', ()=>{
   player.bite(enemyArr[0])
+  disableActionButtons()
 })
 
 actionBtn3.addEventListener('click', ()=>{
   player.dash(enemyArr[0])
+  disableActionButtons()
 })
 
 actionBtn4.addEventListener('click', ()=>{
   player.cuteness(enemyArr[0])
+  disableActionButtons()
 })
 
 nextMoveBtn.addEventListener('click', ()=> {
@@ -512,6 +516,7 @@ nextMoveBtn.addEventListener('click', ()=> {
     button.style.display = 'inline'
   }
   removeAnimationClasses()
+  enableActionButtons()
 })
 
 
@@ -536,6 +541,7 @@ function initBattleBtns() {
   actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
   actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
   actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
+  enableActionButtons()
 }
 
 function initPlayerStats() {
@@ -824,6 +830,18 @@ function removeAnimationClasses() {
   enemySleep.classList.remove('sleep-animate')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
+}
+
+function disableActionButtons() {
+  for (let button of actionBtnArr) {
+    button.disabled = true
+  }
+}
+
+function enableActionButtons() {
+  for (let button of actionBtnArr) {
+    button.disabled = false
+  }
 }
 
 function stopMusic() {
