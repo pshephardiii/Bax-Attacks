@@ -57,7 +57,7 @@ class Player extends Character {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
           biteSound.play()
-          biteSound.volume = .3
+          biteSound.volume = .4
           let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
