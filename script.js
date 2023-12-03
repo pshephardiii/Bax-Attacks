@@ -399,9 +399,9 @@ let enemyImageArr
 
 let backgroundImageArr
 
-let musicArr
+let gameOverMessageArr
 
-let turn
+let musicArr
 
 let winner
 
@@ -527,6 +527,7 @@ function init() {
   initEnemy()
   initBattleDisplay()
   initBattleStatus()
+  initDefeatMessages()
   
 }
 
@@ -582,6 +583,10 @@ function initBattleStatus() {
   winner = null
   playerImage.classList.remove('move-out-left')
   enemyImage.classList.remove('move-out-right')
+}
+
+function initDefeatMessages() {
+  gameOverMessageArr = ['You win some, you lose some.', 'Shoot for the moon. If you miss, you may hit a star.', 'Maybe try winning next time.', 'Why do we fall, Bax?', 'One defeat does not a loser make.', 'Every dog has its day.', 'Playtime is over.', 'The boy will have his revenge.', 'Woof woof?', 'An elephant never forgets, a yorkie never forgives.']
 }
 
 function initFirstBattle() {
@@ -710,6 +715,7 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       gameOverScreen.style.display = 'flex'
+      document.querySelector('.game-over-message').textContent = gameOverMessageArr[Math.floor(Math.random() * 10)]
       stopMusic()
     }, 2000)  
   }
@@ -821,7 +827,7 @@ function removeAnimationClasses() {
 }
 
 function stopMusic() {
-  
+  musicTrack.pause()
 }
 
 // Cheat Codes (thank you Revenge of the Garbage Man!)
