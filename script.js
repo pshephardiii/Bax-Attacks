@@ -57,7 +57,7 @@ class Player extends Character {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
           biteSound.play()
-          biteSound.volume = .4
+          biteSound.volume = .5
           let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -183,7 +183,7 @@ class Enemy1 extends Character {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
           epicThrustSound.play()
-          epicThrustSound.volume = .3
+          epicThrustSound.volume = .5
           let attackDamage = randomizer((this.attack + 8) - target.defense, (this.attack + 10) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -202,7 +202,7 @@ class Enemy1 extends Character {
     enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
       halfHeartedSwipeSound.play()
-      halfHeartedSwipeSound.volume = .3
+      halfHeartedSwipeSound.volume = .5
       let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
@@ -766,7 +766,7 @@ function fightRound1() {
 
     // If enemy health is low, enemy will have an equal chance of using canteen swill and epic thrust
 
-    if (enemy1.hitPoints < 15) {
+    if (enemy1.hitPoints <= 15) {
       if ((randomNum > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
       } else if (enemy1.useAct3 > 0) {
