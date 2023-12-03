@@ -140,7 +140,7 @@ class Enemy1 extends Character {
     }, 2000)
     if (Math.random() < this.buffAcc) {
       canteenSound.play()
-      canteenSound.volume = .3
+      canteenSound.volume = .5
       let increaseDamage = randomizer(1, 3)
       this.attack = this.attack + increaseDamage
       let healthDecrease = randomizer(1, 3)
@@ -148,11 +148,8 @@ class Enemy1 extends Character {
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
     } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
-    nextMoveBtn.style.display = 'inline'
-    for (let button of actionBtnArr) {
-      button.style.display = 'none'
-    }
-}
+  }
+
 
   loreDump(target) {
     loreDumpSound.play()
@@ -167,12 +164,10 @@ class Enemy1 extends Character {
       playerSleep.classList.add('sleep-animate')
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
-    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`}
-    nextMoveBtn.style.display = 'inline'
-    for (let button of actionBtnArr) {
-      button.style.display = 'none'
+    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`
     }
   }
+  
 
   epicThrust(target) { 
     enemyChargeCounter++
@@ -201,10 +196,6 @@ class Enemy1 extends Character {
           enemyChargeCounter = 0
         }
     }
-    nextMoveBtn.style.display = 'inline'
-    for (let button of actionBtnArr) {
-      button.style.display = 'none'
-    }
   }
 
   halfHeartedSwipe(target) {
@@ -219,10 +210,7 @@ class Enemy1 extends Character {
       playerImage.classList.add('take-hit')
       battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`}
-      nextMoveBtn.style.display = 'inline'
-    for (let button of actionBtnArr) {
-      button.style.display = 'none'
+      battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
     }
   }
 }
@@ -381,6 +369,8 @@ const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
 
 // STATE VARIABLES
 
+// status effect counters
+
 let playerSleepCounter
 
 let playerStunCounter
@@ -393,6 +383,8 @@ let enemyStunCounter
 
 let enemyChargeCounter
 
+// arrays to be cycled through
+
 let enemyArr
 
 let enemyImageArr
@@ -403,9 +395,11 @@ let gameOverMessageArr
 
 let musicArr
 
+// variable to determine after battle screen
+
 let winner
 
-// CACHE ELEMENTS
+// CACHED ELEMENTS
 
 // Screen containers
 const startScreen = document.querySelector('.start-screen')
@@ -492,22 +486,22 @@ startBtn.addEventListener('click', ()=>{
 
 actionBtn1.addEventListener('click', ()=>{
   player.bark()
-  disableActionButtons()
+  hideActionButtons()
 })
 
 actionBtn2.addEventListener('click', ()=>{
   player.bite(enemyArr[0])
-  disableActionButtons()
+  hideActionButtons()
 })
 
 actionBtn3.addEventListener('click', ()=>{
   player.dash(enemyArr[0])
-  disableActionButtons()
+  hideActionButtons()
 })
 
 actionBtn4.addEventListener('click', ()=>{
   player.cuteness(enemyArr[0])
-  disableActionButtons()
+  hideActionButtons()
 })
 
 nextMoveBtn.addEventListener('click', ()=> {
@@ -516,10 +510,7 @@ nextMoveBtn.addEventListener('click', ()=> {
     button.style.display = 'inline'
   }
   removeAnimationClasses()
-  enableActionButtons()
 })
-
-
 
 // FUNCTIONS
 
@@ -533,7 +524,6 @@ function init() {
   initBattleDisplay()
   initBattleStatus()
   initDefeatMessages()
-  
 }
 
 function initBattleBtns() {
@@ -541,7 +531,6 @@ function initBattleBtns() {
   actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
   actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
   actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
-  enableActionButtons()
 }
 
 function initPlayerStats() {
@@ -571,7 +560,6 @@ function initEnemy() {
   enemyChargeCounter = 0
   enemySleepCounter = 0
   enemyStunCounter = 0
-  
 }
 
 function initBattleDisplay() {
@@ -583,6 +571,7 @@ function initBattleDisplay() {
   musicTrack.src = musicArr[0]
   musicTrack.play()
   musicTrack.volume = .1
+  musicTrack.loop = true
 }
 
 function initBattleStatus() {
@@ -610,6 +599,8 @@ function initNextBattle() {
 function randomizer(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+// Visually updates player health and action uses, and triggers sleep and stun messages, animations, and sounds
 
 function renderPlayerUpdates() {
 
@@ -653,6 +644,8 @@ function renderPlayerUpdates() {
   setTimeout(() => {fightRound()}, 2000)
 }
 
+// Same as player updates, but for current enemy
+
 function renderEnemyUpdates() {
   
   enemyHealth.textContent = `${enemyArr[0].hitPoints}`
@@ -683,7 +676,8 @@ function renderEnemyUpdates() {
     }
   }
 }
-// find a way to get to victory screen
+
+// checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
 
 function checkWinner() {
 
@@ -710,6 +704,8 @@ function checkWinner() {
   } 
 }
 
+// Brings up either the victory or game over screen based on the winner
+
 function declareWinner() {
   if (winner === player) {
     setTimeout(() => {
@@ -726,6 +722,8 @@ function declareWinner() {
     }, 2000)  
   }
 }
+
+// Primes the enemy and player for animations and sets the enemy's move in motion
 
 function fightRound() {
 
@@ -753,14 +751,20 @@ function fightRound() {
     }
   }
 }  
+
+// The battle logic of the first enemy, Baxter the Malcontent
  
 function fightRound1() {
+
+  // Will automatically perform charge attack if he charged up last turn
   
   if (enemyChargeCounter > 0) {
     enemy1.epicThrust(player)
   } else {
 
     let randomNum = Math.random()
+
+    // If enemy health is low, enemy will have an equal chance of using canteen swill and epic thrust
 
     if (enemy1.hitPoints < 15) {
       if ((randomNum > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
@@ -781,6 +785,8 @@ function fightRound1() {
       }
    }
 
+    // If enemy health is high, has a 75% chance of using half-hearted swipe and a 25% chance of lore dump
+
     if (enemy1.hitPoints > 15) {
       if ((randomNum > .75) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
@@ -798,9 +804,12 @@ function fightRound1() {
     }
   }
 
+  // Visually updates player and enemy health and checks again for winner 
+
   playerHealth.textContent = `${player.hitPoints}`
   enemyHealth.textContent = `${enemy1.hitPoints}`
   checkWinner()
+  displayNextTurnBtn()
 }
 
 function fightRound2() {
@@ -823,6 +832,8 @@ function fightRound6() {
 
 }
 
+// Removes the classes associated with various animations to prime the player and enemy to repeat animations if necessary
+
 function removeAnimationClasses() {
   playerImage.classList.remove('player-physical-attack', 'take-hit')
   enemyImage.classList.remove('enemy-physical-attack', 'take-hit')
@@ -832,23 +843,26 @@ function removeAnimationClasses() {
   playerImageContainer.classList.remove('move-in-left')
 }
 
-function disableActionButtons() {
+// Hides action buttons and displays next turn button
+
+function hideActionButtons() {
   for (let button of actionBtnArr) {
-    button.disabled = true
+    button.style.display = 'none'
   }
 }
 
-function enableActionButtons() {
-  for (let button of actionBtnArr) {
-    button.disabled = false
-  }
+function displayNextTurnBtn() {
+  nextMoveBtn.style.display = 'inline'
 }
+
+// Stops the music
 
 function stopMusic() {
   musicTrack.pause()
 }
 
 // Cheat Codes (thank you Revenge of the Garbage Man!)
+
 document.addEventListener('keydown', function(event) {
   if (event.key === '1') {
     player.hitPoints = 0
