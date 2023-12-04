@@ -159,7 +159,7 @@ class Enemy1 extends Character {
       enemySpeaks.style.display = 'none'
     }, 2000)
     if (Math.random() < this.attackAcc - .2) {
-      playerSleepCounter = playerSleepCounter + 3
+      playerSleepCounter = playerSleepCounter + randomizer(1, 3)
       playerSleep.style.display = 'inline'
       playerSleep.classList.add('sleep-animate')
       this.useAct2 = this.useAct2 - 1
@@ -409,7 +409,6 @@ const gameCompletionScreen = document.querySelector('.game-completion-screen')
 
 // Content containers
 const battleScreen = document.querySelector('.battle-screen-container')
-const combatantScreen = document.querySelector('.combatant-screen-container')
 const battleMessageContainer = document.querySelector('.battle-message-container')
 const enemyImageContainer = document.getElementById('enemy-image-container')
 const playerImageContainer = document.getElementById('player-image-container')
@@ -475,36 +474,41 @@ const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/p
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
-const enemy1Theme = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3'
+
 
 // EVENT LISTENERS
 
-startBtn.addEventListener('click', ()=>{
+startBtn.addEventListener('click', () => {
   initFirstBattle()
   init()
 })
 
-actionBtn1.addEventListener('click', ()=>{
+continueBtn.addEventListener('click', () => {
+  initNextBattle()
+  init()
+})
+
+actionBtn1.addEventListener('click', () => {
   player.bark()
   hideActionButtons()
 })
 
-actionBtn2.addEventListener('click', ()=>{
+actionBtn2.addEventListener('click', () => {
   player.bite(enemyArr[0])
   hideActionButtons()
 })
 
-actionBtn3.addEventListener('click', ()=>{
+actionBtn3.addEventListener('click', () => {
   player.dash(enemyArr[0])
   hideActionButtons()
 })
 
-actionBtn4.addEventListener('click', ()=>{
+actionBtn4.addEventListener('click', () => {
   player.cuteness(enemyArr[0])
   hideActionButtons()
 })
 
-nextMoveBtn.addEventListener('click', ()=> {
+nextMoveBtn.addEventListener('click', () => {
   nextMoveBtn.style.display = 'none'
   for (let button of actionBtnArr) {
     button.style.display = 'inline'
@@ -568,6 +572,9 @@ function initBattleDisplay() {
   victoryScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
   battleScreen.style.display = 'flex'
+  battleMessages.textContent = 'Get ready to rumble!'
+  // Need to figure this out
+  document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
   musicTrack.play()
   musicTrack.volume = .1
@@ -586,11 +593,13 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  musicArr = [enemy1Theme]
+  backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://d1t7dw5nfeik44.cloudfront.net/v82z9k%2Fpreview%2F54693758%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1701667609&Signature=C8oeUzIkvg~~bojBvZ9-QMjKEr2tdd7kxbT6JaaJrD0Dy-PL5vfcFKjkMte8z5DFdyJGrT6XtMOa7XGX-MC9eUj3xmqejk-CZCOAYVlEij-kwQTMUUVLIHBdyvB2nNc-R3fq9L-44ekGMW9M5u8vl8YmMRzUt4tc2pIlKNCId4nKOOQTkfpjsHvmJwQ9h4Mr80pq1Tp-5LmFpCRoeW6yKxa1X3Q-lXMhYaKhpDhYPwL0z8rB1Ba~v-eP6WzU-bVuBf~SdzTYXd3B07mVTPTKIq98CotKhaMo8TtN2qHmk2RgDWRdVQ2B~BC99KNXu-KTWgepxJtzWZSXZX2w-rH15g__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ')"]
+  musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
 
 function initNextBattle() {
   enemyArr.shift()
+  backgroundImageArr.shift()
   musicArr.shift()
 }
 

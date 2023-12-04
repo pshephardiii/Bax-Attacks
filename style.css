@@ -102,14 +102,13 @@ body {
 .combatant-screen-container {
     display: grid;
     height: 70vh;
-    width: 100vw;
     grid-template-areas: 
     "enemyHealthBar enemyImage"
     "playerImage enemyImage"
     "playerImage playerHealthBar";
-    background-image: url("https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg");
     background-size: cover;
-
+    background-position: center;
+    
 }
 
 #enemy-image-container {
