@@ -223,19 +223,86 @@ class Enemy2 extends Character {
   }
 
   signAutograph(target) {
-  
+    // enemyImage.classList.add('enemy-physical-attack')
+    if (Math.random() < this.attackAcc) {
+      // halfHeartedSwipeSound.play()
+      // halfHeartedSwipeSound.volume = .5
+      let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
+      target.hitPoints = target.hitPoints - attackDamage
+      this.hitPoints = this.hitPoints + attackDamage
+      this.useAct1 = this.useAct1 - 1
+      playerImage.classList.add('take-hit')
+      battleMessages.textContent = `${enemyArr[0].name} signs their autograph! Absorbs ${attackDamage} hit points from ${player.name}.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} wants to sign their autograph, but doesn't have a pen!`
+    }
   }
 
   burningDesire(target) {
-
+     // enemyImage.classList.add('enemy-physical-attack')
+     if (Math.random() < this.attackAcc) {
+      // halfHeartedSwipeSound.play()
+      // halfHeartedSwipeSound.volume = .5
+      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
+      let defenseDecrease = randomizer(1, 3)
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
+      target.hitPoints = target.hitPoints - attackDamage
+      if ((target.defense - defenseDecrease) >= 0) {
+        target.defense = target.defense - defenseDecrease
+      }
+      this.useAct2 = this.useAct2 - 1
+      playerImage.classList.add('take-hit')
+      battleMessages.textContent = `${enemyArr[0].name} generates a burning desire in ${player.name}! Does ${attackDamage} damage and lowers ${player.name}'s defense by ${defenseDecrease}.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to generate a burning desire in ${player.name}, but ${player.name} is just not that into him!`
+    }
   }
 
   breakDance() {
-
+    // enemyCanteen.style.display = 'inline'
+    // setTimeout( () => {
+    //   enemyCanteen.style.display = 'none'
+    // }, 2000)
+    if (Math.random() < this.buffAcc) {
+      // canteenSound.play()
+      // canteenSound.volume = .5
+      let defenseIncrease = randomizer(1, 3)
+      this.defense = this.defense + defenseIncrease
+      this.useAct3 = this.useAct3 - 1
+      battleMessages.textContent = `${enemyArr[0].name} dazzles the crowd with a breakdance! Raises defense by ${defenseIncrease}.` 
+    } else {battleMessages.textContent = `${enemyArr[0].name} tries to breakdance, but sprains his ankle instead!`}
   }
 
   hitTheHighNote(target) {
-
+    enemyChargeCounter++
+    if (enemyChargeCounter === 1) {
+      // chargingSound.play()
+      // chargingSound.volume = .3
+      // enemyCharges.style.display = 'inline'
+      // setTimeout( () => {
+      //   enemyCharges.style.display = 'none'
+      // }, 2000)
+      battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
+    } else if (enemyChargeCounter === 2) {
+        enemyImage.classList.add('enemy-physical-attack')
+        if(Math.random() < this.attackAcc) {
+          // epicThrustSound.play()
+          // epicThrustSound.volume = .5
+          let attackDamage = randomizer((this.attack + 6) - target.defense, (this.attack + 8) - target.defense)
+          attackDamage = attackDamage < 0 ? 0 : attackDamage
+          target.hitPoints = target.hitPoints - attackDamage
+          let accuracyDecrease = .1
+          target.attackAcc = target.attackAcc - .1
+          enemyChargeCounter = 0
+          this.useAct4 = this.useAct4 - 1
+          playerImage.classList.add('take-hit')
+          battleMessages.textContent = `${enemyArr[0].name} hits the high note! ${player.name} suffers ${attackDamage} damage and loses ${accuracyDecrease} attack accuracy.` 
+        } else {
+          battleMessages.textContent = `${enemyArr[0].name} tries to hit the high note, but fails miserably!`
+          enemyChargeCounter = 0
+        }
+    }
   }
 }
 
@@ -822,7 +889,50 @@ function fightRound1() {
 }
 
 function fightRound2() {
+  if (enemyChargeCounter > 0) {
+    enemy2.hitTheHighNote(player)
+  } else {
 
+    let randomNum = Math.random()
+
+    if (enemy2.hitPoints <= 20) {
+      if ((randomNum > .25) && (enemy2.useAct4 > 0)) {
+        enemy2.hitTheHighNote(player)
+      } else if ((randomNum > .10) && (enemy2.useAct1 > 0)) {
+        enemy2.signAutograph(player)
+      } else if (enemy2.useAct2 > 0) {
+        enemy2.burningDesire(player)
+      } else if (enemy2.useAct3) {
+        enemy2.breakDance()
+      }
+        else {battleMessages.textContent = `${enemy1.name} skips turn!`}
+      }
+
+    if (enemy2.hitPoints > 20) {
+      if ((randomNum > .66) && (enemy2.useAct3 > 0)) {
+        enemy2.breakDance()
+      } else if ((randomNum > .33) && (enemy2.useAct1 > 0)) {
+        enemy2.signAutograph(player)
+      } else if (enemy2.useAct2 > 0) {
+        enemy2.burningDesire(player)
+      } else if ((enemy2.useAct3 > 0) && (enemy1.useAct1 > 0)) {
+         if (Math.random() > .5) {
+          enemy2.breakDance()
+         } else {
+          enemy2.signAutograph
+         }
+      } else if (enemy2.useAct4 > 0) {
+        enemy2.hitTheHighNote(player)
+      } else {
+        battleMessages.textContent = `${enemy1.name} skips turn!`
+      }
+    }
+  }
+
+  playerHealth.textContent = `${player.hitPoints}`
+  enemyHealth.textContent = `${enemy2.hitPoints}`
+  checkWinner()
+  displayNextTurnBtn()
 }
 
 function fightRound3() {
