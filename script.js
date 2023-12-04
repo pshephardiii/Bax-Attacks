@@ -407,19 +407,63 @@ class Enemy4 extends Character {
   }
 
   hideInBox(target) {
-
+    if (Math.random() < this.attackAcc) {
+      playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter + 3
+      let loweredAccuracy = randomizer(3, 4)/10
+      target.attackAcc = target.attackAcc - loweredAccuracy
+      this.useAct1 = this.useAct1 - 1
+      battleMessages.textContent = `${enemyArr[0].name} hides in a box! ${player.name}'s accuracy is lowered by ${loweredAccuracy}.`
+    }  else {
+      battleMessages.textContent = `${enemyArr[0].name} hides in a box, but ${player.name} isn't fooled!`
+    }
   }
-
+  
   cqc(target) {
-
+     // enemyImage.classList.add('enemy-physical-attack')
+     if (Math.random() < this.attackAcc) {
+      // halfHeartedSwipeSound.play()
+      // halfHeartedSwipeSound.volume = .5
+      let attackDamage = randomizer((this.attack - 2) - target.defense, (this.attack + 3) - target.defense)
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
+      target.hitPoints = target.hitPoints - attackDamage
+      this.useAct2 = this.useAct2 - 1
+      playerImage.classList.add('take-hit')
+      battleMessages.textContent = `${enemyArr[0].name} uses CQC! ${player.name} receives ${attackDamage} damage.`
+    } else {
+      battleMessages.textContent = `Metal Gear??? ${enemyArr[0].name} tries to use CQC, but has an existential crisis instead!`
+    }
   }
 
   landmine(target) {
+    if (enemyEpicAttackCounter === 0) {
+      enemyEpicAttackCounter = enemyEpicAttackCounter + 5
+      enemy4.useAct3 = enemy4.useAct3 - 1
+      battleMessages.textContent = `${enemyArr[0].name} planted a landmine!  T-minus ${enemyEpicAttackCounter} turns to detonation.`
+    }
 
+    if (enemyEpicAttackCounter === 1) {
+      enemyEpicAttackCounter = 0
+      let attackDamage = randomizer(this.attack + 20, this.attack + 30)
+      target.hitPoints = target.hitPoints - attackDamage
+      battleMessages.textContent = `A devastating explosion! ${player.name} suffers ${attackDamage} damage.`
+    }
   }
 
   tranqDart(target) {
-
+    // loreDumpSound.play()
+    // loreDumpSound.volume = .3
+    // enemySpeaks.style.display = 'inline'
+    // setTimeout( () => {
+    //   enemySpeaks.style.display = 'none'
+    // }, 2000)
+    if (Math.random() < this.attackAcc - .1) {
+      playerSleepCounter = playerSleepCounter + randomizer(1, 3)
+      // playerSleep.style.display = 'inline'
+      // playerSleep.classList.add('sleep-animate')
+      this.useAct4 = this.useAct4 - 1
+      battleMessages.textContent = `${enemyArr[0].name} hits ${player.name} with a tranq dart! ${player.name} passes out immediately.`
+    } else {battleMessages.textContent= `${enemyArr[0].name} fires a tranq dart at ${player.name}, but ${player.name} dodges out of the way!`
+    }
   }
 }
 
@@ -520,6 +564,10 @@ let enemyStunCounter
 let enemyChargeCounter
 
 let attackBuildCounter
+
+let playerAccuracyDecreaseCounter
+
+let enemyEpicAttackCounter 
 
 // arrays to be cycled through
 
@@ -691,6 +739,7 @@ function initPlayerStats() {
   playerChargeCounter = 0
   playerSleepCounter = 0
   playerStunCounter = 0
+  playerAccuracyDecreaseCounter = 0
 }
 
 function initEnemy() {
@@ -703,6 +752,7 @@ function initEnemy() {
   enemySleepCounter = 0
   enemyStunCounter = 0
   attackBuildCounter = 0
+  enemyEpicAttackCounter = 0
 }
 
 function initBattleDisplay() {
@@ -980,7 +1030,7 @@ function fightRound2() {
       } else if (enemy2.useAct3) {
         enemy2.breakDance()
       }
-        else {battleMessages.textContent = `${enemy1.name} skips turn!`}
+        else {battleMessages.textContent = `${enemy2.name} skips turn!`}
       }
 
     if (enemy2.hitPoints > 20) {
@@ -999,7 +1049,7 @@ function fightRound2() {
       } else if (enemy2.useAct4 > 0) {
         enemy2.hitTheHighNote(player)
       } else {
-        battleMessages.textContent = `${enemy1.name} skips turn!`
+        battleMessages.textContent = `${enemy2.name} skips turn!`
       }
     }
   }
@@ -1029,7 +1079,7 @@ function fightRound3() {
       enemy3.scoff(player)
     }
     else {
-      battleMessages.textContent = `${enemy1.name} skips turn!`
+      battleMessages.textContent = `${enemy3.name} skips turn!`
     }
   }
 
@@ -1048,7 +1098,7 @@ function fightRound3() {
       enemy3.nepotism()
     }
     else {
-      battleMessages.textContent = `${enemy1.name} skips turn!`
+      battleMessages.textContent = `${enemy3.name} skips turn!`
     }
   }
 
@@ -1060,6 +1110,62 @@ function fightRound3() {
 
 function fightRound4() {
 
+  let randomNum = Math.random()
+
+  if (playerAccuracyDecreaseCounter > 0) {
+   playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter - 1
+   if (playerAccuracyDecreaseCounter === 0) {
+    player.attackAcc = .95
+   }
+  }
+
+  if ((enemy4.hitPoints < 25) && (enemy4.useAct3 > 0)) {
+    enemy4.landmine(player)
+  } else {
+    if (enemyEpicAttackCounter > 0) {
+      if (enemyEpicAttackCounter > 1) {
+        enemyEpicAttackCounter = enemyEpicAttackCounter - 1
+        if ((randomNum > .66) && (enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0)) {
+          enemy4.hideInBox(player)
+        } else if ((randomNum > .33) && (enemy4.useAct3 > 0) && (playerSleepCounter === 0)) {
+          enemy4.tranqDart(player)
+        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0)) {
+          enemy4.hideInBox(player)
+        } else if (enemy4.useAct2 > 0) {
+          enemy4.cqc(player)
+        } else {
+        battleMessages.textContent = `${enemy4.name} skips turn!`
+        }
+      setTimeout(() => {
+        battleMessages.textContent = `${enemyEpicAttackCounter}`
+      }, 2000)
+      } else {
+      enemy4.landmine(player)
+      }
+    } else {
+      if ((enemy4.hitPoints >= 25) || (enemy4.useAct3 === 0)) {
+        if ((randomNum > .66) && (enemy4.useAct2 > 0)) {
+          enemy4.cqc(player)
+        } else if ((randomNum > .33) && (enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
+          enemy4.tranqDart(player)
+        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0)) {
+          enemy4.hideInBox(player)
+        } else if (enemy4.useAct2 > 0) {
+          enemy4.cqc(player)
+        } else if ((enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
+          enemy4.tranqDart(player)
+        } else {
+          battleMessages.textContent = `${enemy4.name} skips turn!`
+        }
+      }
+    } 
+  }
+
+
+  playerHealth.textContent = `${player.hitPoints}`
+  enemyHealth.textContent = `${enemy4.hitPoints}`
+  checkWinner()
+  displayNextTurnBtn()
 }
 
 function fightRound5() {
