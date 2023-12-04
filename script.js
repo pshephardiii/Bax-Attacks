@@ -86,6 +86,8 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           if ((target.defense - defenseDecrease) >= 0) {
             target.defense = target.defense - defenseDecrease
+          } else {
+            target.defense = 0
           }
           this.useAct3 = this.useAct3 - 1
           enemyImage.classList.add('take-hit')
@@ -230,7 +232,11 @@ class Enemy2 extends Character {
       let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
-      this.hitPoints = this.hitPoints + attackDamage
+      if ((this.hitPoints + attackDamage) < 40) {
+        this.hitPoints = this.hitPoints + attackDamage
+      } else {
+        this.hitPoints = 40
+      }
       this.useAct1 = this.useAct1 - 1
       playerImage.classList.add('take-hit')
       battleMessages.textContent = `${enemyArr[0].name} signs their autograph! Absorbs ${attackDamage} hit points from ${player.name}.`
@@ -245,11 +251,13 @@ class Enemy2 extends Character {
       // halfHeartedSwipeSound.play()
       // halfHeartedSwipeSound.volume = .5
       let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
-      let defenseDecrease = randomizer(1, 3)
+      let defenseDecrease = randomizer(1, 2)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
       if ((target.defense - defenseDecrease) >= 0) {
         target.defense = target.defense - defenseDecrease
+      } else {
+        target.defense = 0
       }
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('take-hit')
@@ -314,19 +322,80 @@ class Enemy3 extends Character {
   }
 
   scoff(target) {
-
+     // enemyCanteen.style.display = 'inline'
+    // setTimeout( () => {
+    //   enemyCanteen.style.display = 'none'
+    // }, 2000)
+    if (Math.random() < this.attackAcc) {
+      // canteenSound.play()
+      // canteenSound.volume = .5
+      let defenseDecrease = randomizer(2, 3)
+      if (target.defense - defenseDecrease >= 0) {
+      target.defense = target.defense - defenseDecrease
+      } else {
+        target.defense = 0
+      }
+      this.useAct1 = this.useAct1 - 1
+      battleMessages.textContent = `${enemyArr[0].name} scoffs at ${player.name}! Lowers defense by ${defenseDecrease}.` 
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} scoffs at ${player.name}, but ${player.name} doesn't notice!`
+    }
   }
 
   bribe(target) {
-
+    if (Math.random() < this.attackAcc) {
+      // canteenSound.play()
+      // canteenSound.volume = .5
+      let randomNum = randomizer(1, 2)
+      attackBuildCounter = attackBuildCounter + randomNum
+      let attackDamage = (this.attack - 3) + attackBuildCounter
+      if (attackDamage > 0) {
+        target.hitPoints = target.hitPoints - attackDamage
+        this.useAct1 = this.useAct2 - 1
+        battleMessages.textContent = `${enemyArr[0].name} bribes ${player.name}! Raised bribe attack by ${randomNum} and does ${attackDamage} damage.` 
+      } else {
+        `${enemyArr[0].name} bribes ${player.name}! Raised bribe attack by ${randomNum} and does 0 damage.`
+      }
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to bribe ${player.name}, but ${player.name}'s integrity holds firm!`
+    }
   }
 
   nepotism() {
-
+     // enemyCanteen.style.display = 'inline'
+    // setTimeout( () => {
+    //   enemyCanteen.style.display = 'none'
+    // }, 2000)
+    if (Math.random() < this.buffAcc) {
+      // canteenSound.play()
+      // canteenSound.volume = .5
+      let healthIncrease = randomizer(10, 15)
+      if ((this.hitPoints + healthIncrease) < 50) {
+      this.hitPoints = this.hitPoints + healthIncrease
+      } else {
+        this.hitPoints = 50
+      }
+      this.useAct3 = this.useAct3 - 1
+      battleMessages.textContent = `${enemyArr[0].name} benefits from nepotism! Raises health by ${healthIncrease}.` 
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to benefit from nepotism, but his father is worried about the optics!`
+    }
   }
 
   shockedExpression(target) {
-
+    // enemyImage.classList.add('enemy-physical-attack')
+    if (Math.random() < this.attackAcc) {
+      // halfHeartedSwipeSound.play()
+      // halfHeartedSwipeSound.volume = .5
+      let attackDamage = randomizer((this.attack + 5) - target.defense, (this.attack + 7) - target.defense)
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
+      target.hitPoints = target.hitPoints - attackDamage
+      this.useAct4 = this.useAct4 - 1
+      playerImage.classList.add('take-hit')
+      battleMessages.textContent = `Why I never! ${enemyArr[0].name}'s shocked expression does ${attackDamage} damage.`
+    } else {
+      battleMessages.textContent = `Good heavens! ${enemyArr[0].name}'s shocked expression has no effect on ${player.name}.`
+    }
   }
 }
 
@@ -449,6 +518,8 @@ let enemySleepCounter
 let enemyStunCounter
 
 let enemyChargeCounter
+
+let attackBuildCounter
 
 // arrays to be cycled through
 
@@ -631,6 +702,7 @@ function initEnemy() {
   enemyChargeCounter = 0
   enemySleepCounter = 0
   enemyStunCounter = 0
+  attackBuildCounter = 0
 }
 
 function initBattleDisplay() {
@@ -639,6 +711,9 @@ function initBattleDisplay() {
   victoryScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
   battleScreen.style.display = 'flex'
+  for (let button of actionBtnArr) {
+    button.style.display = 'inline'
+  }
   battleMessages.textContent = 'Get ready to rumble!'
   // Need to figure this out
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
@@ -911,7 +986,7 @@ function fightRound2() {
     if (enemy2.hitPoints > 20) {
       if ((randomNum > .66) && (enemy2.useAct3 > 0)) {
         enemy2.breakDance()
-      } else if ((randomNum > .33) && (enemy2.useAct1 > 0)) {
+      } else if ((randomNum > .33) && (enemy2.useAct1 > 0) && (enemy2.hitPoints < 40)) {
         enemy2.signAutograph(player)
       } else if (enemy2.useAct2 > 0) {
         enemy2.burningDesire(player)
@@ -937,6 +1012,50 @@ function fightRound2() {
 
 function fightRound3() {
 
+  let randomNum = Math.random()
+  
+  if (enemy3.hitPoints < 25) {
+    if ((randomNum > .66) && (enemy3.useAct3 > 0)) {
+      enemy3.nepotism()
+    } else if ((randomNum > .33) && (enemy3.useAct2 > 0)) {
+      enemy3.bribe(player)
+    } else if (enemy3.useAct4 > 0) {
+      enemy3.shockedExpression(player)
+    } else if (enemy3.useAct3 > 0) {
+      enemy3.nepotism()
+    } else if (enemy3.useAct2 > 0) {
+      enemy1.bribe(player)
+    } else if (enemy3.useAct1 > 0) {
+      enemy3.scoff(player)
+    }
+    else {
+      battleMessages.textContent = `${enemy1.name} skips turn!`
+    }
+  }
+
+  if (enemy3.hitPoints > 25) {
+    if ((randomNum > .5) && (enemy3.useAct4 > 0)) {
+      enemy3.bribe(player)
+    } else if ((randomNum > .25) && (enemy3.useAct1 > 0)) {
+      enemy3.scoff(player)
+    } else if (enemy1.useAct4 > 0) {
+      enemy3.shockedExpression(player)
+    } else if (enemy1.useAct1 > 0) {
+      enemy3.scoff(player)
+    } else if (enemy3.useAct4 > 0) {
+      enemy3.bribe(player)
+    } else if (enemy3.useAct3 > 0) {
+      enemy3.nepotism()
+    }
+    else {
+      battleMessages.textContent = `${enemy1.name} skips turn!`
+    }
+  }
+
+  playerHealth.textContent = `${player.hitPoints}`
+  enemyHealth.textContent = `${enemy3.hitPoints}`
+  checkWinner()
+  displayNextTurnBtn()
 }
 
 function fightRound4() {
