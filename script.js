@@ -797,7 +797,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyImageArr = ['https://i.imgur.com/8zvUb4o.png', 'https://i.imgur.com/072drbw.png']
+  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://d1t7dw5nfeik44.cloudfront.net/v82z9k%2Fpreview%2F54693758%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1701667609&Signature=C8oeUzIkvg~~bojBvZ9-QMjKEr2tdd7kxbT6JaaJrD0Dy-PL5vfcFKjkMte8z5DFdyJGrT6XtMOa7XGX-MC9eUj3xmqejk-CZCOAYVlEij-kwQTMUUVLIHBdyvB2nNc-R3fq9L-44ekGMW9M5u8vl8YmMRzUt4tc2pIlKNCId4nKOOQTkfpjsHvmJwQ9h4Mr80pq1Tp-5LmFpCRoeW6yKxa1X3Q-lXMhYaKhpDhYPwL0z8rB1Ba~v-eP6WzU-bVuBf~SdzTYXd3B07mVTPTKIq98CotKhaMo8TtN2qHmk2RgDWRdVQ2B~BC99KNXu-KTWgepxJtzWZSXZX2w-rH15g__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
@@ -1257,7 +1257,12 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy1.canteenSwill(player)
+    enemy2.hitTheHighNote(player)
   }
 })
 
+document.addEventListener('keydown', function(event) {
+  if (event.key === '6') {
+    enemy1.epicThrust(player)
+  }
+})
