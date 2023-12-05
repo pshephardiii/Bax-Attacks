@@ -210,6 +210,22 @@ body {
     animation: flowTowardsPlayer 2s ease-out
 }
 
+#enemy2-burning-container {
+    position: relative;
+    height: 1vmin;
+    top: 10vmin;
+    right: 25vmin;
+}
+
+#burning-animation-enemy {
+    display: none;
+    height: 10vmin;
+    position: absolute;
+    animation: enlargeQuickly 2s ease-out
+}
+
+/* Player animations */
+
 #sleep-player-container {
     position: relative;
     display: flex;
@@ -283,6 +299,10 @@ body {
 
 .move-out-left {
     animation: moveOutLeft 2s ease-in;
+}
+
+.upside-down-spin {
+    animation: upsideDownSpin 2s ease-out;
 }
 
 #health-container-enemy {
@@ -502,6 +522,15 @@ body {
     }
 }
 
+@keyframes enlargeQuickly {
+    0% {
+        transform: scale(1)
+    }
+    100% {
+        transform: scale(4)
+    }
+}
+
 @keyframes smallWiggle {
     0% {
         transform: rotate(0)
@@ -537,6 +566,17 @@ body {
     }
     100% {
         transform: translate3d(20vmin, -15vmin, 0)
-      
+    }
+}
+
+@keyframes upsideDownSpin {
+    0% {
+        transform: rotate(0)
+    }
+    50% {
+        transform: rotate(180deg)
+    }
+    100% {
+        transform: rotate(360deg)
     }
 }

@@ -250,10 +250,14 @@ class Enemy2 extends Character {
   }
 
   burningDesire(target) {
-     // enemyImage.classList.add('enemy-physical-attack')
+     enemyImage.classList.add('enemy-physical-attack')
      if (Math.random() < this.attackAcc) {
-      // halfHeartedSwipeSound.play()
-      // halfHeartedSwipeSound.volume = .5
+      burningSound.play() 
+      burningSound.volume = .3
+      document.getElementById('burning-animation-enemy').style.display = 'inline'
+      setTimeout(() => {
+        document.getElementById('burning-animation-enemy').style.display = 'none'
+      }, 2000)
       let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense)
       let defenseDecrease = randomizer(1, 2)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
@@ -272,13 +276,10 @@ class Enemy2 extends Character {
   }
 
   breakDance() {
-    // enemyCanteen.style.display = 'inline'
-    // setTimeout( () => {
-    //   enemyCanteen.style.display = 'none'
-    // }, 2000)
+    enemyImage.classList.add('upside-down-spin')
     if (Math.random() < this.buffAcc) {
-      // canteenSound.play()
-      // canteenSound.volume = .5
+      breakdanceSound.play()
+      breakdanceSound.volume = .5
       let defenseIncrease = randomizer(1, 3)
       this.defense = this.defense + defenseIncrease
       this.useAct3 = this.useAct3 - 1
@@ -289,18 +290,19 @@ class Enemy2 extends Character {
   hitTheHighNote(target) {
     enemyChargeCounter++
     if (enemyChargeCounter === 1) {
-      // chargingSound.play()
-      // chargingSound.volume = .3
-      // enemyCharges.style.display = 'inline'
-      // setTimeout( () => {
-      //   enemyCharges.style.display = 'none'
-      // }, 2000)
+      chargingSound.play()
+      chargingSound.volume = .3
+      enemyCharges.style.display = 'inline'
+      setTimeout( () => {
+        enemyCharges.style.display = 'none'
+      }, 2000)
       battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
-          // epicThrustSound.play()
-          // epicThrustSound.volume = .5
+          // hightNoteSound.play()
+          // highNoteSound.volume = .5
+          // highNoteAnimation
           let attackDamage = randomizer((this.attack + 6) - target.defense, (this.attack + 8) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -665,6 +667,8 @@ const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/p
 // Sound Effects - Enemy2
 
 const autographSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/autograph-wow.mp3')
+const burningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/burning-desire.mp3')
+const breakdanceSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/Airhorn blast.mp3')
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -1193,11 +1197,12 @@ function fightRound6() {
 
 function removeAnimationClasses() {
   playerImage.classList.remove('player-physical-attack', 'take-hit')
-  enemyImage.classList.remove('enemy-physical-attack', 'take-hit')
+  enemyImage.classList.remove('enemy-physical-attack', 'take-hit', 'upside-down-spin')
   playerSleep.classList.remove('sleep-animate')
   enemySleep.classList.remove('sleep-animate')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
+
 }
 
 // Hides action buttons and displays next turn button
@@ -1252,7 +1257,7 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy2.signAutograph(player)
+    enemy2.breakDance()
   }
 })
 
