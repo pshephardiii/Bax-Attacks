@@ -27,7 +27,8 @@ class Player extends Character {
   }
 
   bark() {
-    if (this.useAct1 > 0) {
+    let confuseNum = Math.random()
+    if (this.useAct1 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.buffAcc) {
@@ -41,18 +42,22 @@ class Player extends Character {
           this.attack = this.attack + attackIncrease
           this.useAct1 = this.useAct1 - 1
           battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
-        }  else {
-            battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
-        }
-      } 
+        } else {
+          battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
+        } 
+      }  
       renderPlayerUpdates()
-    } else {
+    } else if (this.useAct1 === 0) {
       battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
+    } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
+      battleMessages.textContent = `${player.name} is too confused to act!`
+      renderPlayerUpdates()
     }
   }
 
   bite(target) {
-    if (this.useAct2 > 0){
+    let confuseNum = Math.random()
+    if (this.useAct2 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
@@ -68,13 +73,17 @@ class Player extends Character {
           battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
         }
       } renderPlayerUpdates()
-    } else {
+    } else if (this.useAct2 === 0) {
       battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
+    } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
+      battleMessages.textContent = `${player.name} is too confused to act!`
+      renderPlayerUpdates()
     }
   }
 
   dash(target) {
-    if (this.useAct3 > 0) {
+    let confuseNum = Math.random()
+    if (this.useAct3 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
         if (Math.random() < this.attackAcc) {
@@ -97,13 +106,17 @@ class Player extends Character {
         }
       }
       renderPlayerUpdates()
-    } else {
+    } else if (this.useAct3 === 0) {
       battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
+    } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
+      battleMessages.textContent = `${player.name} is too confused to act!`
+      renderPlayerUpdates()
     }
   }
 
   cuteness(target) {
-    if (this.useAct4 > 0) {
+    let confuseNum = Math.random()
+    if (this.useAct4 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         cutenessSound.play()
         cutenessSound.volume = .3
@@ -122,8 +135,11 @@ class Player extends Character {
         }
       } 
       renderPlayerUpdates()
-    } else {
+    } else if (this.useAct4 === 0) {
       battleMessages.textContent = `${player.name} has no more cuteness left to give. Pick another action.`
+    } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
+      battleMessages.textContent = `${player.name} is too confused to act!`
+      renderPlayerUpdates()
     }
   }
 }
@@ -481,19 +497,51 @@ class Enemy5 extends Character {
   }
 
   maniacalLaugh(target) {
-
+    if (Math.random() < this.attackAcc) {
+      let randomNum = randomizer(1, 5)
+      playerConfuseCounter = playerConfuseCounter + randomNum
+      battleMessages.textContent = `${enemyArr[0].name} laughs maniacally! ${player.name} is confused.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} laughs maniacally, but ${player.name} is in on the joke!`
+    }
   }
 
   bloodOnTheRocks() {
-
+    if (Math.random() < this.buffAcc) {
+      let healthNum = randomizer(8, 12)
+      let attackNum = randomizer(1, 3)
+      this.hitPoints = this.hitPoints + healthNum
+      this.attack = this.attack + attackNum
+      battleMessages.textContent = `${enemyArr[0].name} enjoys some Blood on the Rocks! He gained ${healthNum} hit points and his strength is increased by ${attackNum}.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to enjoy his Blood on the Rocks, but ${player.name}'s bad jokes ruin his appetite!`
+    }
   }
 
   psychicBark(target) {
-
+    if (Math.random() < this.attackAcc) {
+      let defenseDecrease = randomizer(1, 2)
+      let attackDamage = randomizer((enemyArr[0].attack) - target.defense, (enemyArr[0].attack + 4) - target.defense)
+      target.hitPoints = target.hitPoints - attackDamage
+      if (target.defense - defenseDecrease > 0) {
+        target.defense = target.defense - defenseDecrease
+      } else {
+        target.defense = 0
+      }
+      battleMessages.textContent = `${enemyArr[0].name} barks directly into ${player.name}'s mind! He takes ${attackDamage} damage and his defense is lowered by ${defenseDecrease}.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to use psychic bark, but ${player.name}'s mind is a steel trap!`
+    }
   }
 
   vampireBite(target) {
-
+    if (Math.random() < this.attackAcc) {
+      let attackDamage = randomizer((enemyArr[0].attack + 4) - target.defense, (enemyArr[0].attack + 7) - target.defense) 
+      target.hitPoints = target.hitPoints - attackDamage
+      battleMessages.textContent = `${enemyArr[0].name} uses vampire bite on ${player.name}! He suffers ${attackDamage} damage.`
+    } else {
+      battleMessages.textContent = `${enemyArr[0].name} tries to use vampire bite, but ${player.name} quickly evades!`
+    }
   }
 }
 
@@ -547,7 +595,7 @@ const enemy4 = new Enemy4('Metal Gear Bax', 10, 0, 60, .9, .9, 7, 15, 1, 7)
 
 // Count Baxula
 
-const enemy5 = new Enemy5('Count Baxula', 10, 7, 40, .9, .9, 5, 5, 10, 10)
+const enemy5 = new Enemy5('Count Baxula', 10, 7, 40, .9, .9, 5, 3, 8, 17)
 
 // Baxter Prime
 
@@ -560,6 +608,8 @@ const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
 let playerSleepCounter
 
 let playerStunCounter
+
+let playerConfuseCounter
 
 let playerChargeCounter
 
@@ -712,6 +762,7 @@ nextMoveBtn.addEventListener('click', () => {
     button.style.display = 'inline'
   }
   removeAnimationClasses()
+  endConfusion()
 })
 
 // FUNCTIONS
@@ -751,6 +802,7 @@ function initPlayerStats() {
   playerChargeCounter = 0
   playerSleepCounter = 0
   playerStunCounter = 0
+  playerConfuseCounter = 0
   playerAccuracyDecreaseCounter = 0
 }
 
@@ -996,7 +1048,7 @@ function fightRound1() {
         } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
           enemy1.loreDump(player)
         }
-        else {battleMessages.textContent = `${enemy1.name} skips turn!`}
+        else {battleMessages.textContent = `${enemy1.name} skips his turn!`}
       }
    }
 
@@ -1014,7 +1066,7 @@ function fightRound1() {
       } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
       } else {
-        battleMessages.textContent = `${enemy1.name} skips turn!`
+        battleMessages.textContent = `${enemy1.name} skips his turn!`
       }
     }
   }
@@ -1045,7 +1097,7 @@ function fightRound2() {
         enemy2.breakDance()
       }
         else {
-          battleMessages.textContent = `${enemy2.name} skips turn!`
+          battleMessages.textContent = `${enemy2.name} skips his turn!`
         }
       }
 
@@ -1065,7 +1117,7 @@ function fightRound2() {
       } else if (enemy2.useAct4 > 0) {
         enemy2.hitTheHighNote(player)
       } else {
-        battleMessages.textContent = `${enemy2.name} skips turn!`
+        battleMessages.textContent = `${enemy2.name} skips his turn!`
       }
     }
   }
@@ -1095,7 +1147,7 @@ function fightRound3() {
       enemy3.scoff(player)
     }
     else {
-      battleMessages.textContent = `${enemy3.name} skips turn!`
+      battleMessages.textContent = `${enemy3.name} skips his turn!`
     }
   } else {
       if ((randomNum > .5) && (enemy3.useAct4 > 0)) {
@@ -1112,13 +1164,9 @@ function fightRound3() {
         enemy3.nepotism()
       }
       else {
-        battleMessages.textContent = `${enemy3.name} skips turn!`
+        battleMessages.textContent = `${enemy3.name} skips his turn!`
       }
     }
-
-  
-  
-  
 
   playerHealth.textContent = `${player.hitPoints}`
   enemyHealth.textContent = `${enemy3.hitPoints}`
@@ -1152,7 +1200,7 @@ function fightRound4() {
         } else if (enemy4.useAct2 > 0) {
           enemy4.cqc(player)
         } else {
-        battleMessages.textContent = `${enemy4.name} skips turn!`
+        battleMessages.textContent = `${enemy4.name} skips his turn!`
         }
       setTimeout(() => {
         battleMessages.textContent = `${enemyEpicAttackCounter}`
@@ -1173,7 +1221,7 @@ function fightRound4() {
         } else if ((enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
           enemy4.tranqDart(player)
         } else {
-          battleMessages.textContent = `${enemy4.name} skips turn!`
+          battleMessages.textContent = `${enemy4.name} skips his turn!`
         }
       }
     } 
@@ -1187,6 +1235,40 @@ function fightRound4() {
 
 function fightRound5() {
 
+  let randomNum = Math.random()
+
+  if (enemy5.hitPoints < 20) {
+    if ((Math.random() < .5) && (enemy5.useAct2 > 0)) {
+      enemy5.bloodOnTheRocks()
+    } else {
+      if ((randomNum < .33) && (enemy5.useAct1 > 0) && (playerConfuseCounter === 0)) {
+        enemy5.maniacalLaugh(player)
+      } else if ((randomNum > .66) && (enemy5.useAct3 > 0) && (player.defense > 0)) {
+        enemy5.psychicBark(player)
+      } else if (enemy5.useAct4 > 0 ){
+        enemy5.vampireBite(player)
+      } else {
+        battleMessages.textContent = `${enemy5.name} skips his turn!`
+      }
+    }
+  }
+
+  if (enemy5.hitPoints >= 20) {
+    if ((randomNum < .25) && (enemy5.useAct1 > 0) && (playerConfuseCounter === 0)) {
+      enemy5.maniacalLaugh(player)
+    } else if ((randomNum > .75) && (enemy5.useAct3 > 0) && (player.defense > 0)) {
+      enemy5.psychicBark(player)
+    } else if (enemy5.useAct4 > 0) {
+      enemy5.vampireBite(player)
+    } else {
+      battleMessages.textContent = `${enemy5.name} skips his turn!`
+    }
+  }
+
+  playerHealth.textContent = `${player.hitPoints}`
+  enemyHealth.textContent = `${enemy5.hitPoints}`
+  checkWinner()
+  displayNextTurnBtn()
 }
 
 function fightRound6() {
@@ -1223,6 +1305,15 @@ function stopMusic() {
   musicTrack.pause()
 }
 
+function endConfusion() {
+  if (playerConfuseCounter > 0) {
+    playerConfuseCounter--
+    if (playerConfuseCounter === 0) {
+      battleMessages.textContent = `${player.name} shakes off his confusion!`
+    }
+  }
+}
+
 // Cheat Codes (thank you Revenge of the Garbage Man!)
 
 document.addEventListener('keydown', function(event) {
@@ -1257,12 +1348,18 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy2.hitTheHighNote(player)
+    enemy5.bloodOnTheRocks()
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
     enemy1.epicThrust(player)
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '7') {
+    playerConfuseCounter = 3
   }
 })
