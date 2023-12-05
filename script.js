@@ -1257,7 +1257,7 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy2.breakDance()
+    enemy1.canteenSwill(player)
   }
 })
 
