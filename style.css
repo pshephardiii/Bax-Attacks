@@ -180,6 +180,8 @@ body {
     animation: shrinkSlowly 2s ease-out;
 }
 
+/* special animations */
+
 #enemy1-canteen-container {
     position: relative;
     height: 1vmin;
@@ -192,6 +194,20 @@ body {
     height: 5vmin;
     position: absolute;
     animation: smallWiggle 2s ease-out;
+}
+
+#enemy2-autograph-container {
+    position: relative;
+    height: 1vmin;
+    bottom: 20vmin;
+    left: 5vmin;
+}
+
+#autograph-animation-enemy {
+    display: none;
+    height: 10vmin;
+    position: absolute;
+    animation: flowTowardsPlayer 2s ease-out
 }
 
 #sleep-player-container {
@@ -501,6 +517,17 @@ body {
     }
     100% {
         transform: rotate(-8deg)
+    }
+}
+
+@keyframes flowTowardsPlayer {
+    0% {
+        transform: translate3d(0, 0, 0)
+        scale(1);
+    }
+    100% {
+        transform: translate3d(-35vmin, 30vmin, 0)
+        scale(1.5);
     }
 }
 

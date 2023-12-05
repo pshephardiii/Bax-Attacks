@@ -225,10 +225,14 @@ class Enemy2 extends Character {
   }
 
   signAutograph(target) {
-    // enemyImage.classList.add('enemy-physical-attack')
+    document.getElementById('autograph-animation-enemy').style.display = 'inline'
+    setTimeout(() => {
+      document.getElementById('autograph-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc) {
-      // halfHeartedSwipeSound.play()
-      // halfHeartedSwipeSound.volume = .5
+      autographSound.play()
+      autographSound.volume = .4
+      playerImage.classList.add('take-hit')
       let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
@@ -658,6 +662,10 @@ const loreDumpSound = new Audio('/Users/paulshephard/software_homework/project1/
 const epicThrustSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/epic-thrust.mp3')
 const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/halfhearted-swipe.mp3')
 
+// Sound Effects - Enemy2
+
+const autographSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/autograph-wow.mp3')
+
 // Background Music
 const musicTrack = document.getElementById('music-track')
 
@@ -745,7 +753,7 @@ function initPlayerStats() {
 function initEnemy() {
   enemyName.textContent = `${enemyArr[0].name}`
   enemyHealth.textContent = `${enemyArr[0].hitPoints}`
-  enemyImage.src = 'https://i.imgur.com/8zvUb4o.png'
+  enemyImage.src = enemyImageArr[0]
   enemyImage.style.display = 'inline'
   enemyImageContainer.classList.add('move-in-right')
   enemyChargeCounter = 0
@@ -785,12 +793,14 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
+  enemyImageArr = ['https://i.imgur.com/8zvUb4o.png', 'https://i.imgur.com/072drbw.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://d1t7dw5nfeik44.cloudfront.net/v82z9k%2Fpreview%2F54693758%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1701667609&Signature=C8oeUzIkvg~~bojBvZ9-QMjKEr2tdd7kxbT6JaaJrD0Dy-PL5vfcFKjkMte8z5DFdyJGrT6XtMOa7XGX-MC9eUj3xmqejk-CZCOAYVlEij-kwQTMUUVLIHBdyvB2nNc-R3fq9L-44ekGMW9M5u8vl8YmMRzUt4tc2pIlKNCId4nKOOQTkfpjsHvmJwQ9h4Mr80pq1Tp-5LmFpCRoeW6yKxa1X3Q-lXMhYaKhpDhYPwL0z8rB1Ba~v-eP6WzU-bVuBf~SdzTYXd3B07mVTPTKIq98CotKhaMo8TtN2qHmk2RgDWRdVQ2B~BC99KNXu-KTWgepxJtzWZSXZX2w-rH15g__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
 
 function initNextBattle() {
   enemyArr.shift()
+  enemyImageArr.shift()
   backgroundImageArr.shift()
   musicArr.shift()
 }
@@ -1030,7 +1040,9 @@ function fightRound2() {
       } else if (enemy2.useAct3) {
         enemy2.breakDance()
       }
-        else {battleMessages.textContent = `${enemy2.name} skips turn!`}
+        else {
+          battleMessages.textContent = `${enemy2.name} skips turn!`
+        }
       }
 
     if (enemy2.hitPoints > 20) {
@@ -1081,26 +1093,28 @@ function fightRound3() {
     else {
       battleMessages.textContent = `${enemy3.name} skips turn!`
     }
-  }
+  } else {
+      if ((randomNum > .5) && (enemy3.useAct4 > 0)) {
+        enemy3.bribe(player)
+      } else if ((randomNum > .25) && (enemy3.useAct1 > 0)) {
+        enemy3.scoff(player)
+      } else if (enemy1.useAct4 > 0) {
+        enemy3.shockedExpression(player)
+      } else if (enemy1.useAct1 > 0) {
+        enemy3.scoff(player)
+      } else if (enemy3.useAct4 > 0) {
+        enemy3.bribe(player)
+      } else if (enemy3.useAct3 > 0) {
+        enemy3.nepotism()
+      }
+      else {
+        battleMessages.textContent = `${enemy3.name} skips turn!`
+      }
+    }
 
-  if (enemy3.hitPoints > 25) {
-    if ((randomNum > .5) && (enemy3.useAct4 > 0)) {
-      enemy3.bribe(player)
-    } else if ((randomNum > .25) && (enemy3.useAct1 > 0)) {
-      enemy3.scoff(player)
-    } else if (enemy1.useAct4 > 0) {
-      enemy3.shockedExpression(player)
-    } else if (enemy1.useAct1 > 0) {
-      enemy3.scoff(player)
-    } else if (enemy3.useAct4 > 0) {
-      enemy3.bribe(player)
-    } else if (enemy3.useAct3 > 0) {
-      enemy3.nepotism()
-    }
-    else {
-      battleMessages.textContent = `${enemy3.name} skips turn!`
-    }
-  }
+  
+  
+  
 
   playerHealth.textContent = `${player.hitPoints}`
   enemyHealth.textContent = `${enemy3.hitPoints}`
@@ -1160,7 +1174,6 @@ function fightRound4() {
       }
     } 
   }
-
 
   playerHealth.textContent = `${player.hitPoints}`
   enemyHealth.textContent = `${enemy4.hitPoints}`
@@ -1234,6 +1247,12 @@ document.addEventListener('keydown', function(event) {
     playerSleepCounter = 0
     playerSleep.style.display = 'none'
     playerSleep.classList.remove('sleep-animate')
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '5') {
+    enemy2.signAutograph(player)
   }
 })
 
