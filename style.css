@@ -279,7 +279,8 @@ body {
 #enemy3-scoff-container {
     position: relative;
     height: 0;
-   
+    bottom: 25vmin;
+    right: 18vmin;
 }
 
 #scoff-animation-enemy {

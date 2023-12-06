@@ -371,8 +371,8 @@ class Enemy3 extends Character {
 
   bribe(target) {
     if (Math.random() < this.attackAcc) {
-      // canteenSound.play()
-      // canteenSound.volume = .5
+      bribeSound.play()
+      bribeSound.volume = .3
       let randomNum = randomizer(1, 2)
       attackBuildCounter = attackBuildCounter + randomNum
       let attackDamage = (this.attack - 3) + attackBuildCounter
@@ -394,8 +394,8 @@ class Enemy3 extends Character {
     //   enemyCanteen.style.display = 'none'
     // }, 2000)
     if (Math.random() < this.buffAcc) {
-      // canteenSound.play()
-      // canteenSound.volume = .5
+      nepotismSound.play()
+      nepotismSound.volume = .2
       let healthIncrease = randomizer(10, 15)
       if ((this.hitPoints + healthIncrease) < 50) {
       this.hitPoints = this.hitPoints + healthIncrease
@@ -412,8 +412,8 @@ class Enemy3 extends Character {
   shockedExpression(target) {
     // enemyImage.classList.add('enemy-physical-attack')
     if (Math.random() < this.attackAcc) {
-      // halfHeartedSwipeSound.play()
-      // halfHeartedSwipeSound.volume = .5
+      shockedSound.play()
+      shockedSound.volume = .2
       let attackDamage = randomizer((this.attack + 5) - target.defense, (this.attack + 7) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
@@ -434,11 +434,15 @@ class Enemy4 extends Character {
   }
 
   hideInBox(target) {
-    if (Math.random() < this.attackAcc) {
+    if (Math.random() < this.attackAcc - 2) {
       playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter + 3
       let loweredAccuracy = randomizer(3, 4)/10
       target.attackAcc = target.attackAcc - loweredAccuracy
       this.useAct1 = this.useAct1 - 1
+      setTimeout(() => {
+        boxSound.play()
+        boxSound.volume = .7
+      }, 1000)
       battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
     }  else {
       battleMessages.textContent = `${this.name} hides in a box, but ${this.name} isn't fooled!`
@@ -446,10 +450,10 @@ class Enemy4 extends Character {
   }
   
   cqc(target) {
-     // enemyImage.classList.add('enemy-physical-attack')
+     
      if (Math.random() < this.attackAcc) {
-      // halfHeartedSwipeSound.play()
-      // halfHeartedSwipeSound.volume = .5
+      cqcSound.play()
+      cqcSound.volume = .3
       let attackDamage = randomizer((this.attack - 2) - target.defense, (this.attack + 3) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
@@ -464,6 +468,8 @@ class Enemy4 extends Character {
   landmine(target) {
     if (enemyEpicAttackCounter === 0) {
       enemyEpicAttackCounter = enemyEpicAttackCounter + 5
+      tickingSound.play()
+      tickingSound.volume = .3
       this.useAct3 = this.useAct3 - 1
       battleMessages.textContent = `${this.name} planted a landmine!  T-minus ${enemyEpicAttackCounter} turns to detonation.`
     }
@@ -472,18 +478,20 @@ class Enemy4 extends Character {
       enemyEpicAttackCounter = 0
       let attackDamage = randomizer(this.attack + 20, this.attack + 30)
       target.hitPoints = target.hitPoints - attackDamage
+      explosionSound.play()
+      explosionSound.volume = .3
       battleMessages.textContent = `A devastating explosion! ${target.name} suffers ${attackDamage} damage.`
     }
   }
 
   tranqDart(target) {
-    // loreDumpSound.play()
-    // loreDumpSound.volume = .3
+    dartSound.play()
+    dartSound.volume = .3
     // enemySpeaks.style.display = 'inline'
     // setTimeout( () => {
     //   enemySpeaks.style.display = 'none'
     // }, 2000)
-    if (Math.random() < this.attackAcc - .1) {
+    if (Math.random() < this.attackAcc - .2) {
       playerSleepCounter = playerSleepCounter + randomizer(1, 3)
       // playerSleep.style.display = 'inline'
       // playerSleep.classList.add('sleep-animate')
@@ -793,6 +801,20 @@ const singingSound = new Audio('/Users/paulshephard/software_homework/project1/B
 
 // Sound Effects - Enemy 3
 const scoffSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy3.mp3/scoff.mp3')
+const bribeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy3.mp3/bribe.mp3')
+const nepotismSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy3.mp3/nepotism.mp3')
+const shockedSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy3.mp3/shocked.mp3')
+
+// Sound Effects - Enemy 4
+const boxSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/box_thud.mp3')
+const cqcSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/cqc.mp3')
+const tickingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/clock _ticking.mp3')
+const explosionSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/bomb_explosion.mp3')
+const dartSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/dart.mp3')
+
+// Sound Effects - Enemy 5
+
+// Sound Effects - Enemy 6
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -952,7 +974,7 @@ function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
   enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NZHN248/fancy-Pants-Bax.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
-  musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
+  musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
 
 function initNextBattle() {
@@ -1051,6 +1073,8 @@ function healthUpdates() {
   enemyHealth.value = enemyArr[0].hitPoints
   enemyHealthNum.textContent = enemyArr[0].hitPoints < 0 ? '0' : `${enemyArr[0].hitPoints}`
 }
+
+// put box thing here... if enemy4 and playerSleep counter is 0, add animation and change picture at 1 second
 
 // checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
 
@@ -1490,13 +1514,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy5.bloodOnTheRocks()
+    enemy4.landmine()
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy2.hitTheHighNote(player)
+    enemy4.tranqDart(player)
   }
 })
 
