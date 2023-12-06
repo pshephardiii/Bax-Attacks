@@ -372,7 +372,21 @@ body {
 }
 
 #enemy-healthbar {
-  margin-top: 1vh;
+  height: 10vmin;
+}
+
+#hp-container-enemy {
+  position: relative;
+  height: 0;
+  bottom: 12vmin;
+  right: 2.5vmin;
+}
+
+#enemy-hp {
+  position: absolute;
+  height: 0;
+  width: 0;
+  font-size: 4.5vmin;
 }
 
 /* use media query for font */
@@ -384,8 +398,22 @@ body {
 }
 
 #player-healthbar {
-    margin-top: 1vh;
+  height: 10vmin;
 }
+
+#hp-container-player {
+    position: relative;
+    height: 0;
+    bottom: 12vmin;
+    right: 2.75vmin;
+  }
+
+#player-hp {
+    position: absolute;
+    height: 0;
+    width: 0;
+    font-size: 4.5vmin;
+  }
 
 /* Battle Messages */
 
@@ -399,8 +427,6 @@ body {
     background-color: beige;
     border: 10px groove pink;
     padding: 1em 2em;
- 
-    
 }
 
 .battle-message-text {

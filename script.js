@@ -714,7 +714,9 @@ const playerImageContainer = document.getElementById('player-image-container')
 
 // Contained elements
 const enemyHealth = document.getElementById('enemy-healthbar')
+const enemyHealthNum = document.getElementById('enemy-hp')
 const playerHealth = document.getElementById('player-healthbar')
+const playerHealthNum = document.getElementById('player-hp')
 const enemyName = document.getElementById('enemy-name')
 const playerName = document.getElementById('player-name')
 const enemyImage = document.getElementById('enemy-image')
@@ -884,7 +886,8 @@ function initPlayerStats() {
   player.useAct2 = 12
   player.useAct3 = 12
   player.useAct4 = 3
-  playerHealth.textContent = `${player.hitPoints}`
+  playerHealth.value = player.hitPoints
+  playerHealthNum.textContent = `${player.hitPoints}`
   playerImageContainer.classList.add('move-in-left')
   playerChargeCounter = 0
   playerSleepCounter = 0
@@ -895,7 +898,9 @@ function initPlayerStats() {
 
 function initEnemy() {
   enemyName.textContent = `${enemyArr[0].name}`
-  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+  enemyHealth.max = enemyArr[0].hitPoints
+  enemyHealth.value = enemyArr[0].hitPoints
+  enemyHealthNum.textContent = `${enemyArr[0].hitPoints}`
   enemyImage.src = enemyImageArr[0]
   enemyImage.style.display = 'inline'
   enemyImageContainer.classList.add('move-in-right')
@@ -919,7 +924,7 @@ function initBattleDisplay() {
   // Need to figure this out
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
-  musicTrack.play()
+  // musicTrack.play()
   musicTrack.volume = .1
   musicTrack.loop = true
 }
@@ -958,7 +963,7 @@ function randomizer(min, max) {
 
 function renderPlayerUpdates() {
 
-  playerHealth.textContent = `${player.hitPoints}`
+  healthUpdates()
 
   actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
   actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
@@ -1001,8 +1006,8 @@ function renderPlayerUpdates() {
 // Same as player updates, but for current enemy
 
 function renderEnemyUpdates() {
-  
-  enemyHealth.textContent = `${enemyArr[0].hitPoints}`
+
+  healthUpdates()
 
   if (enemySleepCounter > 0) {
     if (enemySleepCounter === 1) {
@@ -1029,6 +1034,13 @@ function renderEnemyUpdates() {
       return enemyStunCounter
     }
   }
+}
+
+function healthUpdates() {
+  playerHealth.value = player.hitPoints
+  playerHealthNum.textContent = player.hitPoints < 0 ? '0' : `${player.hitPoints}`
+  enemyHealth.value = enemyArr[0].hitPoints
+  enemyHealthNum.textContent = enemyArr[0].hitPoints < 0 ? '0' : `${enemyArr[0].hitPoints}`
 }
 
 // checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
@@ -1160,8 +1172,7 @@ function fightRound1() {
 
   // Visually updates player and enemy health and checks again for winner 
 
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy1.hitPoints}`
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
@@ -1209,8 +1220,7 @@ function fightRound2() {
     }
   }
 
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy2.hitPoints}`
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
@@ -1255,8 +1265,7 @@ function fightRound3() {
       }
     }
 
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy3.hitPoints}`
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
@@ -1314,8 +1323,8 @@ function fightRound4() {
     } 
   }
 
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy4.hitPoints}`
+
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
@@ -1352,8 +1361,7 @@ function fightRound5() {
     }
   }
 
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy5.hitPoints}`
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
@@ -1395,8 +1403,7 @@ function fightRound6() {
     }
   }
   
-  playerHealth.textContent = `${player.hitPoints}`
-  enemyHealth.textContent = `${enemy6.hitPoints}`
+  healthUpdates()
   checkWinner()
   displayNextTurnBtn()
 }
