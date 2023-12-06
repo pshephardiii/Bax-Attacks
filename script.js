@@ -46,11 +46,13 @@ class Player extends Character {
           battleMessages.textContent = `${this.name} tries to bark, but his throat is sore!`
         } 
       }  
+      hideActionButtons()
       renderPlayerUpdates()
     } else if (this.useAct1 === 0) {
       battleMessages.textContent = `${this.name} is out of barks! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
       battleMessages.textContent = `${this.name} is too confused to act!`
+      hideActionButtons()
       renderPlayerUpdates()
     }
   }
@@ -72,11 +74,14 @@ class Player extends Character {
         } else {
           battleMessages.textContent = `${this.name} tries to bite ${target.name} but misses!`
         }
-      } renderPlayerUpdates()
+      } 
+      hideActionButtons()
+      renderPlayerUpdates()
     } else if (this.useAct2 === 0) {
       battleMessages.textContent = `${this.name} is out of bites! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
       battleMessages.textContent = `${this.name} is too confused to act!`
+      hideActionButtons()
       renderPlayerUpdates()
     }
   }
@@ -105,11 +110,13 @@ class Player extends Character {
           battleMessages.textContent = `${this.name} dashes at ${target.name}, but misses!`
         }
       }
+      hideActionButtons()
       renderPlayerUpdates()
     } else if (this.useAct3 === 0) {
       battleMessages.textContent = `${this.name} is out of dashes! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
       battleMessages.textContent = `${this.name} is too confused to act!`
+      hideActionButtons()
       renderPlayerUpdates()
     }
   }
@@ -134,11 +141,13 @@ class Player extends Character {
           battleMessages.textContent = `${this.name} unleashes his cuteness, but ${target.name} is not impressed.`
         }
       } 
+      hideActionButtons()
       renderPlayerUpdates()
     } else if (this.useAct4 === 0) {
       battleMessages.textContent = `${this.name} has no more cuteness left to give. Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
       battleMessages.textContent = `${this.name} is too confused to act!`
+      hideActionButtons()
       renderPlayerUpdates()
     }
   }
@@ -510,7 +519,9 @@ class Enemy5 extends Character {
   }
 
   maniacalLaugh(target) {
-    if (Math.random() < this.attackAcc) {
+    laughSound.play()
+    laughSound.volume = .2
+    if (Math.random() < this.attackAcc - 2) {
       let randomNum = randomizer(1, 5)
       playerConfuseCounter = playerConfuseCounter + randomNum
       this.useAct1 = this.useAct1 - 1
@@ -522,19 +533,23 @@ class Enemy5 extends Character {
 
   bloodOnTheRocks() {
     if (Math.random() < this.buffAcc) {
+      iceSound.play()
+      iceSound.volume = .3
       let healthNum = randomizer(8, 12)
-      let attackNum = randomizer(1, 3)
+      let attackNum = randomizer(1, 2)
       this.hitPoints = this.hitPoints + healthNum
       this.attack = this.attack + attackNum
       this.useAct2 = this.useAct2 - 1
       battleMessages.textContent = `${this.name} enjoys some Blood on the Rocks! He gained ${healthNum} hit points and his strength is increased by ${attackNum}.`
     } else {
-      battleMessages.textContent = `${this.name} tries to enjoy his Blood on the Rocks, but ${target.name}'s bad jokes ruin his appetite!`
+      battleMessages.textContent = `${this.name} tries to enjoy his Blood on the Rocks, but ${player.name}'s bad jokes ruin his appetite!`
     }
   }
 
   psychicBark(target) {
     if (Math.random() < this.attackAcc) {
+      psychicBarkSound.play()
+      psychicBarkSound.volume = .3
       let defenseDecrease = randomizer(1, 2)
       let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 4) - target.defense)
       target.hitPoints = target.hitPoints - attackDamage
@@ -552,6 +567,8 @@ class Enemy5 extends Character {
 
   vampireBite(target) {
     if (Math.random() < this.attackAcc) {
+      vampireBiteSound.play()
+      vampireBiteSound.volume = .3
       let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 7) - target.defense) 
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
@@ -570,6 +587,8 @@ class Enemy6 extends Character {
   }
 
   squirtBottle(target) {
+    waterSound.play()
+    waterSound.volume = .4
     if (Math.random() < this.attackAcc - .1) {
       let attackDecrease = randomizer(1, 3)
       let defenseDecrease = randomizer(1, 3)
@@ -606,7 +625,12 @@ class Enemy6 extends Character {
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct3 = this.useAct3 - 1
       battleMessages.textContent = `${this.name} brings out the vacuum, and ${player.name} can't handle it! It does ${attackDamage} damage.`
-    } battleMessages.textContent = `${this.name} tries to bring out the vacuum, but ${target.name} won't let him!`
+      vacuumSound.play()
+      vacuumSound.volume = .3
+      setTimeout(() => {
+        vacuumSound.pause()
+      }, 2500)
+    } else battleMessages.textContent = `${this.name} tries to bring out the vacuum, but ${target.name} won't let him!`
   }
 
   groomer(target) {
@@ -622,8 +646,7 @@ class Enemy6 extends Character {
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc - .1) {
-          // hightNoteSound.play()
-          // highNoteSound.volume = .5
+        
           // highNoteAnimation
           let attackDamage = randomizer((this.attack + 6), (this.attack + 9))
           attackDamage = attackDamage < 0 ? 0 : attackDamage
@@ -632,6 +655,11 @@ class Enemy6 extends Character {
           this.useAct4 = this.useAct4 - 1
           playerImage.classList.add('take-hit')
           battleMessages.textContent = ` Oh the humanity! ${this.name} takes ${target.name} to the groomer! ${target.name} suffers ${attackDamage} damage.` 
+          warningSound.play()
+          warningSound.volume = .3
+          setTimeout(() => {
+            warningSound.pause()
+          }, 2500)
         } else {
           battleMessages.textContent = `${this.name} tries to take ${target.name} to the groomer, but ${target.name} flees in terror!`
           enemyChargeCounter = 0
@@ -786,6 +814,7 @@ const sleepingSound = new Audio('/Users/paulshephard/software_homework/project1/
 const awakeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Wake up.mp3')
 const playerLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Player Loss.mp3')
 const enemyLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Enemy Loss.mp3')
+const breakingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/break_crate.mp3')
 
 // Sound Effects - Enemy1
 const canteenSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/canteen-swill.mp3')
@@ -813,8 +842,16 @@ const explosionSound = new Audio('/Users/paulshephard/software_homework/project1
 const dartSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy4.mp3/dart.mp3')
 
 // Sound Effects - Enemy 5
+const laughSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy5.mp3/laugh.mp3')
+const iceSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy5.mp3/ice.mp3')
+const psychicBarkSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy5.mp3/Psychic_bark.mp3')
+const vampireBiteSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy5.mp3/vampire_bite.mp3')
 
 // Sound Effects - Enemy 6
+const waterSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/water.mp3')
+const whimperingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/dog_whimper.mp3')
+const vacuumSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/vacuum.mp3')
+const warningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/groomer_warning.mp3')
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -834,29 +871,24 @@ continueBtn.addEventListener('click', () => {
 
 actionBtn1.addEventListener('click', () => {
   player.bark()
-  hideActionButtons()
 })
 
 actionBtn2.addEventListener('click', () => {
   player.bite(enemyArr[0])
-  hideActionButtons()
 })
 
 actionBtn3.addEventListener('click', () => {
   player.dash(enemyArr[0])
-  hideActionButtons()
 })
+
 
 actionBtn4.addEventListener('click', () => {
   player.cuteness(enemyArr[0])
-  hideActionButtons()
 })
 
 nextMoveBtn.addEventListener('click', () => {
   nextMoveBtn.style.display = 'none'
-  for (let button of actionBtnArr) {
-    button.style.display = 'inline'
-  }
+  displayActionButtons()
   removeAnimationClasses()
   endConfusion()
 })
@@ -1020,12 +1052,20 @@ function renderPlayerUpdates() {
 
   if (playerStunCounter > 0) {
     if (playerStunCounter === 1) {
-      battleMessages.textContent = `${player.name} snaps out of it!`
+      battleMessages.textContent = `${player.name} breaks out of his prison!`
       playerStunCounter--
-    } else {
-      battleMessages.textContent = `${player.name} is stunned!`
-      playerStunCounter--}
+      breakingSound.play()
+      breakingSound.volume = .2
+    } else if (playerStunCounter > 1) {
+      battleMessages.textContent = `${player.name} is stuck in the crate!`
+      playerStunCounter--
+      whimperingSound.play()
+      whimperingSound.volume = .3
+      setTimeout(() => {
+        whimperingSound.pause()
+      }, 2000)
     }
+  }
 
   renderEnemyUpdates()
 
@@ -1106,7 +1146,12 @@ function checkWinner() {
 // Brings up either the victory or game over screen based on the winner
 
 function declareWinner() {
-  if (winner === player) {
+  if ((winner === player) && (enemy6.hitPoints <= 0)) {
+    setTimeout(() => {
+      battleScreen.style.display = 'none'
+      gameCompletionScreen.style.display = 'flex'
+    }, 2000)
+  } else if (winner === player) {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       victoryScreen.style.display = 'flex'
@@ -1380,12 +1425,10 @@ function fightRound5() {
         battleMessages.textContent = `${enemy5.name} skips his turn!`
       }
     }
-  }
-
-  if (enemy5.hitPoints >= 20) {
-    if ((randomNum < .25) && (enemy5.useAct1 > 0) && (playerConfuseCounter === 0)) {
+  } else  if (enemy5.hitPoints >= 20) {
+    if ((randomNum < .33) && (enemy5.useAct1 > 0) && (playerConfuseCounter === 0)) {
       enemy5.maniacalLaugh(player)
-    } else if ((randomNum > .75) && (enemy5.useAct3 > 0) && (player.defense > 0)) {
+    } else if ((randomNum > .66) && (enemy5.useAct3 > 0) && (player.defense > 0)) {
       enemy5.psychicBark(player)
     } else if (enemy5.useAct4 > 0) {
       enemy5.vampireBite(player)
@@ -1461,6 +1504,12 @@ function hideActionButtons() {
   }
 }
 
+function displayActionButtons() {
+  for (let button of actionBtnArr) {
+    button.style.display = 'inline'
+  }
+}
+
 function displayNextTurnBtn() {
   nextMoveBtn.style.display = 'inline'
 }
@@ -1520,13 +1569,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy4.tranqDart(player)
+    enemy5.bloodOnTheRocks()
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '7') {
-    playerConfuseCounter = 3
+    enemy6.crate(player)
   }
 })
 

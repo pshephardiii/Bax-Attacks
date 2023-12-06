@@ -98,28 +98,32 @@ body {
 .audio-container {
   position: fixed;
   height: 0;
-  left: 3rem;
-  top: 1rem;
+  top: 35vh;
+  left: 4rem;
+  
+
 }
 
 /* Fix audio container positioning with media query - height and width */
 
 #volume-range {
   position: absolute;
+  left: 0;
 }
 
 .mute-btn-container {
     height: 0;
-    position: fixed;
-    left: 1rem;
+    position: relative;
+    margin: 0 auto
 }
 
 .mute-button {
+    position: absolute;
     height: 1.5rem;
     border: 2px solid white;
     border-radius: 30%;
     background-color: white;
-
+    right: .5rem;
 }
 
 .combatant-screen-container {
@@ -131,7 +135,6 @@ body {
     "playerImage playerHealthBar";
     background-size: cover; 
     background-position: center;
-    
 }
 
 #enemy-image-container {
