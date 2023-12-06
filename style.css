@@ -139,7 +139,7 @@ body {
     justify-content: center;
     align-items: center;
     grid-area: enemyImage;
-    width: 50vw;
+    max-height: 50vh;
 }
 
 #player-image-container {
@@ -151,7 +151,7 @@ body {
 }
 
 #enemy-image {
-    height: 50vmin;
+    max-height: 45vmin;
 }
 
 #player-image {
@@ -203,7 +203,7 @@ body {
     animation: shrinkSlowly 2s ease-out;
 }
 
-/* special animations */
+/* special enemy animations */
 
 #enemy1-canteen-container {
     position: relative;
@@ -245,6 +245,48 @@ body {
     height: 10vmin;
     position: absolute;
     animation: enlargeQuickly 2s ease-out
+}
+
+#enemy2-singing-container {
+    position: relative;
+    height: 0;
+    bottom: 18vmin;
+    right: 7vmin;
+}
+
+#singing-animation-enemy {
+    display: none;
+    height: 15vmin;
+    position: absolute;
+    animation: flowTowardsPlayer 2s ease-out
+}
+
+#enemy2-spotlight-container {
+    position: relative;
+    height: 0;
+    top: 23vmin;
+    left: 4vmin;
+    
+}
+
+#spotlight-animation-enemy {
+    display: none;
+    height: 6vmin;
+    position: absolute;
+    
+}
+
+#enemy3-scoff-container {
+    position: relative;
+    height: 0;
+   
+}
+
+#scoff-animation-enemy {
+    display: none;
+    height: 15vmin;
+    position: absolute;
+    animation: enlargeThenShrink 2s ease-out
 }
 
 /* Player animations */
@@ -584,6 +626,19 @@ body {
     100% {
         transform: scale(4)
     }
+}
+
+@keyframes enlargeThenShrink {
+    0% {
+        transform: scale(1)
+    }
+    50% {
+        transform: scale(2)
+    }
+    100% {
+        transform: scale(1)
+    }
+    
 }
 
 @keyframes smallWiggle {

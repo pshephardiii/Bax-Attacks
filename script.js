@@ -315,9 +315,14 @@ class Enemy2 extends Character {
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
-          // hightNoteSound.play()
-          // highNoteSound.volume = .5
-          // highNoteAnimation
+          singingSound.play()
+          singingSound.volume = .2
+          document.getElementById('singing-animation-enemy').style.display = 'inline'
+          document.getElementById('spotlight-animation-enemy').style.display = 'inline'
+          setTimeout(() => {
+            document.getElementById('singing-animation-enemy').style.display = 'none'
+            document.getElementById('spotlight-animation-enemy').style.display = 'none'
+          }, 2000)
           let attackDamage = randomizer((this.attack + 6) - target.defense, (this.attack + 8) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -343,13 +348,13 @@ class Enemy3 extends Character {
   }
 
   scoff(target) {
-     // enemyCanteen.style.display = 'inline'
-    // setTimeout( () => {
-    //   enemyCanteen.style.display = 'none'
-    // }, 2000)
+    document.getElementById('scoff-animation-enemy').style.display = 'inline'
+    scoffSound.play()
+    scoffSound.volume = .2
+    setTimeout( () => {
+      document.getElementById('scoff-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc) {
-      // canteenSound.play()
-      // canteenSound.volume = .5
       let defenseDecrease = randomizer(2, 3)
       if (target.defense - defenseDecrease >= 0) {
       target.defense = target.defense - defenseDecrease
@@ -357,6 +362,7 @@ class Enemy3 extends Character {
         target.defense = 0
       }
       this.useAct1 = this.useAct1 - 1
+      playerImage.classList.add('take-hit')
       battleMessages.textContent = `${this.name} scoffs at ${target.name}! Lowers defense by ${defenseDecrease}.` 
     } else {
       battleMessages.textContent = `${this.name} scoffs at ${target.name}, but ${target.name} doesn't notice!`
@@ -780,10 +786,13 @@ const epicThrustSound = new Audio('/Users/paulshephard/software_homework/project
 const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/halfhearted-swipe.mp3')
 
 // Sound Effects - Enemy2
-
 const autographSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/autograph-wow.mp3')
 const burningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/burning-desire.mp3')
 const breakdanceSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/Airhorn blast.mp3')
+const singingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy2.mp3/singing.mp3')
+
+// Sound Effects - Enemy 3
+const scoffSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy3.mp3/scoff.mp3')
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -924,7 +933,7 @@ function initBattleDisplay() {
   // Need to figure this out
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
-  // musicTrack.play()
+  musicTrack.play()
   musicTrack.volume = .1
   musicTrack.loop = true
 }
@@ -941,7 +950,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png']
+  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NZHN248/fancy-Pants-Bax.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
@@ -1487,7 +1496,7 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy1.epicThrust(player)
+    enemy2.hitTheHighNote(player)
   }
 })
 
