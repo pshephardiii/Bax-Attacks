@@ -98,18 +98,13 @@ body {
 .audio-container {
   position: fixed;
   height: 0;
-  top: 35vh;
-  left: 4rem;
+  top: .5rem;
+  right: .5rem;
   
 
 }
 
 /* Fix audio container positioning with media query - height and width */
-
-#volume-range {
-  position: absolute;
-  left: 0;
-}
 
 .mute-btn-container {
     height: 0;

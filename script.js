@@ -893,10 +893,6 @@ nextMoveBtn.addEventListener('click', () => {
   endConfusion()
 })
 
-volumeRange.addEventListener('change', () => {
-  musicTrack.volume = volumeRange.value / 100
-})
-
 muteBtn.addEventListener('click', () => {
   if (musicTrack.paused) {
     musicTrack.play()
@@ -915,7 +911,39 @@ muteBtn.addEventListener('click', () => {
   }
 })
 
+// keydown event listeners
 
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'm') {
+    if (musicTrack.paused) {
+      musicTrack.play()
+      muteBtn.classList.add('clicked')
+      setTimeout(() => {
+        muteBtn.src = 'https://i.ibb.co/WfT95nh/ufuf.png'
+        muteBtn.classList.remove('clicked')
+      }, 500)
+    } else {
+      musicTrack.pause()
+      muteBtn.classList.add('clicked')
+      setTimeout(() => {
+        muteBtn.src = 'https://i.ibb.co/xFMcFPR/greens2150520-06.png'
+        muteBtn.classList.remove('clicked')
+      }, 500)
+    }
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '-') {
+    musicTrack.volume = musicTrack.volume - .02
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '+') {
+    musicTrack.volume = musicTrack.volume + .02
+  }
+})
 
 // FUNCTIONS
 
@@ -1004,7 +1032,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NZHN248/fancy-Pants-Bax.png']
+  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NVG6Y7n/fancy-Bax-final.png', 'https://i.ibb.co/Cw5f9wy/solidBAX.png', 'https://i.ibb.co/XCfCTP4/Baxula-final.png', 'https://i.ibb.co/gVBvTSK/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
@@ -1579,8 +1607,5 @@ document.addEventListener('keydown', function(event) {
   }
 })
 
-document.addEventListener('keydown', function(event) {
-  if (event.key === '8') {
-    playerStunCounter = 3
-  }
-})
+
+
