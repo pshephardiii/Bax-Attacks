@@ -96,7 +96,30 @@ body {
 }
 
 .audio-container {
-  background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
+  position: fixed;
+  height: 0;
+  left: 3rem;
+  top: 1rem;
+}
+
+/* Fix audio container positioning with media query - height and width */
+
+#volume-range {
+  position: absolute;
+}
+
+.mute-btn-container {
+    height: 0;
+    position: fixed;
+    left: 1rem;
+}
+
+.mute-button {
+    height: 1.5rem;
+    border: 2px solid white;
+    border-radius: 30%;
+    background-color: white;
+
 }
 
 .combatant-screen-container {
@@ -106,7 +129,7 @@ body {
     "enemyHealthBar enemyImage"
     "playerImage enemyImage"
     "playerImage playerHealthBar";
-    background-size: cover;
+    background-size: cover; 
     background-position: center;
     
 }
@@ -269,6 +292,8 @@ body {
   animation: flowTowardsEnemy 2s linear;
 }
 
+/* Animation Classes */
+
 .sleep-animate {
     animation: sleepEffect 2s ease-out;
   }
@@ -303,6 +328,10 @@ body {
 
 .upside-down-spin {
     animation: upsideDownSpin 2s ease-out;
+}
+
+.clicked {
+    animation: clicked .5s ease-in-out;
 }
 
 #health-container-enemy {
@@ -578,5 +607,17 @@ body {
     }
     100% {
         transform: rotate(360deg)
+    }
+}
+
+@keyframes clicked {
+    0% {
+        transform: scale(1)
+    }
+    50% {
+        transform: scale(.75)
+    }
+    100% {
+        transform: scale(1)
     }
 }

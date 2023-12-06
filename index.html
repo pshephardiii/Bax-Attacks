@@ -9,6 +9,15 @@
 
 <body>
 
+  <div class="audio-container">
+    <audio src="" class="background-music" id="music-track" type="audio/mpeg"></audio>
+    <div class="mute-btn-container">
+      <img src="https://i.ibb.co/WfT95nh/ufuf.png" class="mute-button">
+    </div>
+    <input type="range" min="1" max="100" value="20" class="slider" id="volume-range">
+    <label id="volume"></label>
+  </div> 
+
   <div class="start-screen">
     <h3 class="start-welcome">Welcome to</h3>
     <h1 class="start-title">Bax Attacks!</h1>
@@ -34,16 +43,7 @@
     <button class="button" id="reset-button">Reset</button>
   </div>
 
-  <div class="slider-container" id="music-slider-container"></div>
-  <div class="slider-container" id="sound-effect-slider-container"></div>
-
   <div class="battle-screen-container">
-
-    <div class="audio-container">
-      <audio src="" class="background-music" id="music-track" type="audio/mpeg">
-      </audio>
-      <input type="range" min="1" max="100" value="20" class="slider" id="my-range">
-    </div> 
 
     <div class="combatant-screen-container">
 

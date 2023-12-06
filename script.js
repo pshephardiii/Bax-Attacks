@@ -41,16 +41,16 @@ class Player extends Character {
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
           this.useAct1 = this.useAct1 - 1
-          battleMessages.textContent = `${player.name} uses bark! ${player.name}'s attack increased by ${attackIncrease}.`
+          battleMessages.textContent = `${this.name} uses bark! ${this.name}'s attack increased by ${attackIncrease}.`
         } else {
-          battleMessages.textContent = `${player.name} tries to bark, but his throat is sore!`
+          battleMessages.textContent = `${this.name} tries to bark, but his throat is sore!`
         } 
       }  
       renderPlayerUpdates()
     } else if (this.useAct1 === 0) {
-      battleMessages.textContent = `${player.name} is out of barks! Pick another action.`
+      battleMessages.textContent = `${this.name} is out of barks! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${player.name} is too confused to act!`
+      battleMessages.textContent = `${this.name} is too confused to act!`
       renderPlayerUpdates()
     }
   }
@@ -68,15 +68,15 @@ class Player extends Character {
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           enemyImage.classList.add('take-hit')
-          battleMessages.textContent = `${player.name} bites ${enemyArr[0].name}!  Causes ${attackDamage} damage.`
+          battleMessages.textContent = `${this.name} bites ${target.name}!  Causes ${attackDamage} damage.`
         } else {
-          battleMessages.textContent = `${player.name} tries to bite ${enemyArr[0].name} but misses!`
+          battleMessages.textContent = `${this.name} tries to bite ${target.name} but misses!`
         }
       } renderPlayerUpdates()
     } else if (this.useAct2 === 0) {
-      battleMessages.textContent = `${player.name} is out of bites! Pick another action.`
+      battleMessages.textContent = `${this.name} is out of bites! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${player.name} is too confused to act!`
+      battleMessages.textContent = `${this.name} is too confused to act!`
       renderPlayerUpdates()
     }
   }
@@ -100,16 +100,16 @@ class Player extends Character {
           }
           this.useAct3 = this.useAct3 - 1
           enemyImage.classList.add('take-hit')
-          battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
+          battleMessages.textContent = `${this.name} dashes at ${target.name}! Causes ${attackDamage} damage and lowers defense by ${defenseDecrease}.`
         } else {
-          battleMessages.textContent = `${player.name} dashes at ${enemyArr[0].name}, but misses!`
+          battleMessages.textContent = `${this.name} dashes at ${target.name}, but misses!`
         }
       }
       renderPlayerUpdates()
     } else if (this.useAct3 === 0) {
-      battleMessages.textContent = `${player.name} is out of dashes! Pick another action.`
+      battleMessages.textContent = `${this.name} is out of dashes! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${player.name} is too confused to act!`
+      battleMessages.textContent = `${this.name} is too confused to act!`
       renderPlayerUpdates()
     }
   }
@@ -129,16 +129,16 @@ class Player extends Character {
           let accuracyDecrease = randomizer(1, 2)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
           this.useAct4 = this.useAct4 - 1
-          battleMessages.textContent = `${player.name} unleashes his cuteness! ${enemyArr[0].name}'s accuracy decreases by ${accuracyDecrease}.`
+          battleMessages.textContent = `${this.name} unleashes his cuteness! ${target.name}'s accuracy decreases by ${accuracyDecrease}.`
         } else {
-          battleMessages.textContent = `${player.name} unleashes his cuteness, but ${enemyArr[0].name} is not impressed.`
+          battleMessages.textContent = `${this.name} unleashes his cuteness, but ${target.name} is not impressed.`
         }
       } 
       renderPlayerUpdates()
     } else if (this.useAct4 === 0) {
-      battleMessages.textContent = `${player.name} has no more cuteness left to give. Pick another action.`
+      battleMessages.textContent = `${this.name} has no more cuteness left to give. Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${player.name} is too confused to act!`
+      battleMessages.textContent = `${this.name} is too confused to act!`
       renderPlayerUpdates()
     }
   }
@@ -164,10 +164,9 @@ class Enemy1 extends Character {
       let healthDecrease = randomizer(1, 3)
       this.hitPoints = this.hitPoints - healthDecrease
       this.useAct1 = this.useAct1 - 1
-      battleMessages.textContent = `${enemyArr[0].name} takes a swill of his canteen! ${enemyArr[0].name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
-    } else {battleMessages.textContent = `${enemyArr[0].name} tries to swill from his canteen, but spills it instead!`}
+      battleMessages.textContent = `${this.name} takes a swill of his canteen! ${this.name}'s attack is raised by ${increaseDamage} and he lost ${healthDecrease} health.` 
+    } else {battleMessages.textContent = `${this.name} tries to swill from his canteen, but spills it instead!`}
   }
-
 
   loreDump(target) {
     loreDumpSound.play()
@@ -181,8 +180,8 @@ class Enemy1 extends Character {
       playerSleep.style.display = 'inline'
       playerSleep.classList.add('sleep-animate')
       this.useAct2 = this.useAct2 - 1
-      battleMessages.textContent = `${enemyArr[0].name} uses lore dump! ${player.name} is so bored he falls asleep.`
-    } else {battleMessages.textContent= `${enemyArr[0].name} uses lore dump, but ${player.name} wants to know more!`
+      battleMessages.textContent = `${this.name} uses lore dump! ${target.name} is so bored he falls asleep.`
+    } else {battleMessages.textContent= `${this.name} uses lore dump, but ${target.name} wants to know more!`
     }
   }
   
@@ -196,7 +195,7 @@ class Enemy1 extends Character {
       setTimeout( () => {
         enemyCharges.style.display = 'none'
       }, 2000)
-      battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
+      battleMessages.textContent = `${this.name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
@@ -208,9 +207,9 @@ class Enemy1 extends Character {
           enemyChargeCounter = 0
           this.useAct3 = this.useAct3 - 1
           playerImage.classList.add('take-hit')
-          battleMessages.textContent = `${enemyArr[0].name} strikes ${player.name} with epic thrust! The attack does ${attackDamage} damage.` 
+          battleMessages.textContent = `${this.name} strikes ${target.name} with epic thrust! The attack does ${attackDamage} damage.` 
         } else {
-          battleMessages.textContent = `${enemyArr[0].name} unleashes an epic thrust, but ${player.name} evades!`
+          battleMessages.textContent = `${this.name} unleashes an epic thrust, but ${target.name} evades!`
           enemyChargeCounter = 0
         }
     }
@@ -226,9 +225,9 @@ class Enemy1 extends Character {
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       playerImage.classList.add('take-hit')
-      battleMessages.textContent = `${enemyArr[0].name} performs a half hearted swipe! Does ${attackDamage} damage.`
+      battleMessages.textContent = `${this.name} performs a half hearted swipe! Does ${attackDamage} damage.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} attempts a half hearted swipe, but misses!`
+      battleMessages.textContent = `${this.name} attempts a half hearted swipe, but misses!`
     }
   }
 }
@@ -259,9 +258,9 @@ class Enemy2 extends Character {
       }
       this.useAct1 = this.useAct1 - 1
       playerImage.classList.add('take-hit')
-      battleMessages.textContent = `${enemyArr[0].name} signs their autograph! Absorbs ${attackDamage} hit points from ${player.name}.`
+      battleMessages.textContent = `${this.name} signs their autograph! Absorbs ${attackDamage} hit points from ${target.name}.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} wants to sign their autograph, but doesn't have a pen!`
+      battleMessages.textContent = `${this.name} wants to sign their autograph, but doesn't have a pen!`
     }
   }
 
@@ -285,9 +284,9 @@ class Enemy2 extends Character {
       }
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('take-hit')
-      battleMessages.textContent = `${enemyArr[0].name} generates a burning desire in ${player.name}! Does ${attackDamage} damage and lowers ${player.name}'s defense by ${defenseDecrease}.`
+      battleMessages.textContent = `${this.name} generates a burning desire in ${target.name}! Does ${attackDamage} damage and lowers ${target.name}'s defense by ${defenseDecrease}.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to generate a burning desire in ${player.name}, but ${player.name} is just not that into him!`
+      battleMessages.textContent = `${this.name} tries to generate a burning desire in ${target.name}, but ${target.name} is just not that into him!`
     }
   }
 
@@ -299,8 +298,8 @@ class Enemy2 extends Character {
       let defenseIncrease = randomizer(1, 3)
       this.defense = this.defense + defenseIncrease
       this.useAct3 = this.useAct3 - 1
-      battleMessages.textContent = `${enemyArr[0].name} dazzles the crowd with a breakdance! Raises defense by ${defenseIncrease}.` 
-    } else {battleMessages.textContent = `${enemyArr[0].name} tries to breakdance, but sprains his ankle instead!`}
+      battleMessages.textContent = `${this.name} dazzles the crowd with a breakdance! Raises defense by ${defenseIncrease}.` 
+    } else {battleMessages.textContent = `${this.name} tries to breakdance, but sprains his ankle instead!`}
   }
 
   hitTheHighNote(target) {
@@ -312,7 +311,7 @@ class Enemy2 extends Character {
       setTimeout( () => {
         enemyCharges.style.display = 'none'
       }, 2000)
-      battleMessages.textContent = `${enemyArr[0].name} is charging up an attack!`
+      battleMessages.textContent = `${this.name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc) {
@@ -323,13 +322,13 @@ class Enemy2 extends Character {
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           let accuracyDecrease = .1
-          target.attackAcc = target.attackAcc - .1
+          target.attackAcc = target.attackAcc - accuracyDecrease
           enemyChargeCounter = 0
           this.useAct4 = this.useAct4 - 1
           playerImage.classList.add('take-hit')
-          battleMessages.textContent = `${enemyArr[0].name} hits the high note! ${player.name} suffers ${attackDamage} damage and loses ${accuracyDecrease} attack accuracy.` 
+          battleMessages.textContent = `${this.name} hits the high note! ${target.name} suffers ${attackDamage} damage and loses ${accuracyDecrease} attack accuracy.` 
         } else {
-          battleMessages.textContent = `${enemyArr[0].name} tries to hit the high note, but fails miserably!`
+          battleMessages.textContent = `${this.name} tries to hit the high note, but fails miserably!`
           enemyChargeCounter = 0
         }
     }
@@ -358,9 +357,9 @@ class Enemy3 extends Character {
         target.defense = 0
       }
       this.useAct1 = this.useAct1 - 1
-      battleMessages.textContent = `${enemyArr[0].name} scoffs at ${player.name}! Lowers defense by ${defenseDecrease}.` 
+      battleMessages.textContent = `${this.name} scoffs at ${target.name}! Lowers defense by ${defenseDecrease}.` 
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} scoffs at ${player.name}, but ${player.name} doesn't notice!`
+      battleMessages.textContent = `${this.name} scoffs at ${target.name}, but ${target.name} doesn't notice!`
     }
   }
 
@@ -374,12 +373,12 @@ class Enemy3 extends Character {
       if (attackDamage > 0) {
         target.hitPoints = target.hitPoints - attackDamage
         this.useAct1 = this.useAct2 - 1
-        battleMessages.textContent = `${enemyArr[0].name} bribes ${player.name}! Raised bribe attack by ${randomNum} and does ${attackDamage} damage.` 
+        battleMessages.textContent = `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does ${attackDamage} damage.` 
       } else {
-        `${enemyArr[0].name} bribes ${player.name}! Raised bribe attack by ${randomNum} and does 0 damage.`
+        `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does 0 damage.`
       }
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to bribe ${player.name}, but ${player.name}'s integrity holds firm!`
+      battleMessages.textContent = `${this.name} tries to bribe ${target.name}, but ${target.name}'s integrity holds firm!`
     }
   }
 
@@ -398,9 +397,9 @@ class Enemy3 extends Character {
         this.hitPoints = 50
       }
       this.useAct3 = this.useAct3 - 1
-      battleMessages.textContent = `${enemyArr[0].name} benefits from nepotism! Raises health by ${healthIncrease}.` 
+      battleMessages.textContent = `${this.name} benefits from nepotism! Raises health by ${healthIncrease}.` 
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to benefit from nepotism, but his father is worried about the optics!`
+      battleMessages.textContent = `${this.name} tries to benefit from nepotism, but his father is worried about the optics!`
     }
   }
 
@@ -414,9 +413,9 @@ class Enemy3 extends Character {
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       playerImage.classList.add('take-hit')
-      battleMessages.textContent = `Why I never! ${enemyArr[0].name}'s shocked expression does ${attackDamage} damage.`
+      battleMessages.textContent = `Why I never! ${this.name}'s shocked expression does ${attackDamage} damage.`
     } else {
-      battleMessages.textContent = `Good heavens! ${enemyArr[0].name}'s shocked expression has no effect on ${player.name}.`
+      battleMessages.textContent = `Good heavens! ${this.name}'s shocked expression has no effect on ${target.name}.`
     }
   }
 }
@@ -434,9 +433,9 @@ class Enemy4 extends Character {
       let loweredAccuracy = randomizer(3, 4)/10
       target.attackAcc = target.attackAcc - loweredAccuracy
       this.useAct1 = this.useAct1 - 1
-      battleMessages.textContent = `${enemyArr[0].name} hides in a box! ${player.name}'s accuracy is lowered by ${loweredAccuracy}.`
+      battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
     }  else {
-      battleMessages.textContent = `${enemyArr[0].name} hides in a box, but ${player.name} isn't fooled!`
+      battleMessages.textContent = `${this.name} hides in a box, but ${this.name} isn't fooled!`
     }
   }
   
@@ -450,24 +449,24 @@ class Enemy4 extends Character {
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('take-hit')
-      battleMessages.textContent = `${enemyArr[0].name} uses CQC! ${player.name} receives ${attackDamage} damage.`
+      battleMessages.textContent = `${this.name} uses CQC! ${target.name} receives ${attackDamage} damage.`
     } else {
-      battleMessages.textContent = `Metal Gear??? ${enemyArr[0].name} tries to use CQC, but has an existential crisis instead!`
+      battleMessages.textContent = `Metal Gear??? ${this.name} tries to use CQC, but has an existential crisis instead!`
     }
   }
 
   landmine(target) {
     if (enemyEpicAttackCounter === 0) {
       enemyEpicAttackCounter = enemyEpicAttackCounter + 5
-      enemy4.useAct3 = enemy4.useAct3 - 1
-      battleMessages.textContent = `${enemyArr[0].name} planted a landmine!  T-minus ${enemyEpicAttackCounter} turns to detonation.`
+      this.useAct3 = this.useAct3 - 1
+      battleMessages.textContent = `${this.name} planted a landmine!  T-minus ${enemyEpicAttackCounter} turns to detonation.`
     }
 
     if (enemyEpicAttackCounter === 1) {
       enemyEpicAttackCounter = 0
       let attackDamage = randomizer(this.attack + 20, this.attack + 30)
       target.hitPoints = target.hitPoints - attackDamage
-      battleMessages.textContent = `A devastating explosion! ${player.name} suffers ${attackDamage} damage.`
+      battleMessages.textContent = `A devastating explosion! ${target.name} suffers ${attackDamage} damage.`
     }
   }
 
@@ -483,8 +482,8 @@ class Enemy4 extends Character {
       // playerSleep.style.display = 'inline'
       // playerSleep.classList.add('sleep-animate')
       this.useAct4 = this.useAct4 - 1
-      battleMessages.textContent = `${enemyArr[0].name} hits ${player.name} with a tranq dart! ${player.name} passes out immediately.`
-    } else {battleMessages.textContent= `${enemyArr[0].name} fires a tranq dart at ${player.name}, but ${player.name} dodges out of the way!`
+      battleMessages.textContent = `${this.name} hits ${target.name} with a tranq dart! ${target.name} passes out immediately.`
+    } else {battleMessages.textContent= `${this.name} fires a tranq dart at ${target.name}, but ${target.name} dodges out of the way!`
     }
   }
 }
@@ -500,9 +499,10 @@ class Enemy5 extends Character {
     if (Math.random() < this.attackAcc) {
       let randomNum = randomizer(1, 5)
       playerConfuseCounter = playerConfuseCounter + randomNum
-      battleMessages.textContent = `${enemyArr[0].name} laughs maniacally! ${player.name} is confused.`
+      this.useAct1 = this.useAct1 - 1
+      battleMessages.textContent = `${this.name} laughs maniacally! ${target.name} is confused.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} laughs maniacally, but ${player.name} is in on the joke!`
+      battleMessages.textContent = `${this.name} laughs maniacally, but ${target.name} is in on the joke!`
     }
   }
 
@@ -512,35 +512,38 @@ class Enemy5 extends Character {
       let attackNum = randomizer(1, 3)
       this.hitPoints = this.hitPoints + healthNum
       this.attack = this.attack + attackNum
-      battleMessages.textContent = `${enemyArr[0].name} enjoys some Blood on the Rocks! He gained ${healthNum} hit points and his strength is increased by ${attackNum}.`
+      this.useAct2 = this.useAct2 - 1
+      battleMessages.textContent = `${this.name} enjoys some Blood on the Rocks! He gained ${healthNum} hit points and his strength is increased by ${attackNum}.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to enjoy his Blood on the Rocks, but ${player.name}'s bad jokes ruin his appetite!`
+      battleMessages.textContent = `${this.name} tries to enjoy his Blood on the Rocks, but ${target.name}'s bad jokes ruin his appetite!`
     }
   }
 
   psychicBark(target) {
     if (Math.random() < this.attackAcc) {
       let defenseDecrease = randomizer(1, 2)
-      let attackDamage = randomizer((enemyArr[0].attack) - target.defense, (enemyArr[0].attack + 4) - target.defense)
+      let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 4) - target.defense)
       target.hitPoints = target.hitPoints - attackDamage
       if (target.defense - defenseDecrease > 0) {
         target.defense = target.defense - defenseDecrease
       } else {
         target.defense = 0
       }
-      battleMessages.textContent = `${enemyArr[0].name} barks directly into ${player.name}'s mind! He takes ${attackDamage} damage and his defense is lowered by ${defenseDecrease}.`
+      this.useAct3 = this.useAct3 - 1
+      battleMessages.textContent = `${this.name} barks directly into ${target.name}'s mind! He takes ${attackDamage} damage and his defense is lowered by ${defenseDecrease}.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to use psychic bark, but ${player.name}'s mind is a steel trap!`
+      battleMessages.textContent = `${this.name} tries to use psychic bark, but ${target.name}'s mind is a steel trap!`
     }
   }
 
   vampireBite(target) {
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer((enemyArr[0].attack + 4) - target.defense, (enemyArr[0].attack + 7) - target.defense) 
+      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 7) - target.defense) 
       target.hitPoints = target.hitPoints - attackDamage
-      battleMessages.textContent = `${enemyArr[0].name} uses vampire bite on ${player.name}! He suffers ${attackDamage} damage.`
+      this.useAct4 = this.useAct4 - 1
+      battleMessages.textContent = `${this.name} uses vampire bite on ${target.name}! He suffers ${attackDamage} damage.`
     } else {
-      battleMessages.textContent = `${enemyArr[0].name} tries to use vampire bite, but ${player.name} quickly evades!`
+      battleMessages.textContent = `${this.name} tries to use vampire bite, but ${target.name} quickly evades!`
     }
   }
 }
@@ -553,19 +556,73 @@ class Enemy6 extends Character {
   }
 
   squirtBottle(target) {
-
+    if (Math.random() < this.attackAcc - .1) {
+      let attackDecrease = randomizer(1, 3)
+      let defenseDecrease = randomizer(1, 3)
+      if (target.attack - attackDecrease > 0) {
+        target.attack = target.attack - attackDecrease
+      } else {
+        target.attack = 0
+      }
+      if (target.defense - defenseDecrease > 0) {
+        target.defense = target.defense - defenseDecrease
+      } else {
+        target.defense = 0
+      }
+      this.useAct1 = this.useAct1 - 1
+      battleMessages.textContent = `${this.name} squirts ${target.name} with water, and it is DEVASTATING! His attack and defense are lowered.`
+    } else {
+      battleMessages.textContent = `${this.name} tries to squirt ${target.name} with water, but ${target.name} dashes out of range!`
+    }
   }
 
   crate(target) {
-
+    if (Math.random() < this.attackAcc - .3) {
+      playerStunCounter = playerStunCounter + randomizer(2, 4)
+      this.useAct2 = this.useAct2 - 1
+      battleMessages.textContent = `${this.name} puts ${target.name} in the crate! ${target.name} is stunned by this madness!`
+    } else {
+      battleMessages.textContent = `${this.name} tries to put ${target.name} in the crate, but gets his hand bit instead!`
+    }
   }
 
   vacuum(target) {
-
+    if (Math.random() < this.attackAcc) {
+      let attackDamage = randomizer(this.attack, this.attack + 4) - target.defense
+      target.hitPoints = target.hitPoints - attackDamage
+      this.useAct3 = this.useAct3 - 1
+      battleMessages.textContent = `${this.name} brings out the vacuum, and ${player.name} can't handle it! It does ${attackDamage} damage.`
+    } battleMessages.textContent = `${this.name} tries to bring out the vacuum, but ${target.name} won't let him!`
   }
 
   groomer(target) {
-
+    enemyChargeCounter++
+    if (enemyChargeCounter === 1) {
+      chargingSound.play()
+      chargingSound.volume = .3
+      enemyCharges.style.display = 'inline'
+      setTimeout( () => {
+        enemyCharges.style.display = 'none'
+      }, 2000)
+      battleMessages.textContent = `${this.name} is charging up an attack!`
+    } else if (enemyChargeCounter === 2) {
+        enemyImage.classList.add('enemy-physical-attack')
+        if(Math.random() < this.attackAcc - .1) {
+          // hightNoteSound.play()
+          // highNoteSound.volume = .5
+          // highNoteAnimation
+          let attackDamage = randomizer((this.attack + 6), (this.attack + 9))
+          attackDamage = attackDamage < 0 ? 0 : attackDamage
+          target.hitPoints = target.hitPoints - attackDamage
+          enemyChargeCounter = 0
+          this.useAct4 = this.useAct4 - 1
+          playerImage.classList.add('take-hit')
+          battleMessages.textContent = ` Oh the humanity! ${this.name} takes ${target.name} to the groomer! ${target.name} suffers ${attackDamage} damage.` 
+        } else {
+          battleMessages.textContent = `${this.name} tries to take ${target.name} to the groomer, but ${target.name} flees in terror!`
+          enemyChargeCounter = 0
+        }
+    }
   }
 }
 
@@ -599,7 +656,7 @@ const enemy5 = new Enemy5('Count Baxula', 10, 7, 40, .9, .9, 5, 3, 8, 17)
 
 // Baxter Prime
 
-const enemy6 = new Enemy6('Baxter Prime', 10, 5, 70, .95, .9, 10, 5, 12, 3)
+const enemy6 = new Enemy6('Baxter Prime', 12, 5, 70, .95, .9, 3, 5, 18, 5)
 
 // STATE VARIABLES
 
@@ -679,6 +736,12 @@ const actionBtn2 = document.getElementById('action-2')
 const actionBtn3 = document.getElementById('action-3')
 const actionBtn4 = document.getElementById('action-4')
 const nextMoveBtn = document.getElementById('next-move')
+
+// Mute Button
+const muteBtn = document.querySelector('.mute-button')
+
+// Audio Slider
+const volumeRange = document.getElementById('volume-range')
 
 // Status Effect Items 
 const playerSleep = document.getElementById('sleep-image-player')
@@ -765,6 +828,30 @@ nextMoveBtn.addEventListener('click', () => {
   endConfusion()
 })
 
+volumeRange.addEventListener('change', () => {
+  musicTrack.volume = volumeRange.value / 100
+})
+
+muteBtn.addEventListener('click', () => {
+  if (musicTrack.paused) {
+    musicTrack.play()
+    muteBtn.classList.add('clicked')
+    setTimeout(() => {
+      muteBtn.src = 'https://i.ibb.co/WfT95nh/ufuf.png'
+      muteBtn.classList.remove('clicked')
+    }, 500)
+  } else {
+    musicTrack.pause()
+    muteBtn.classList.add('clicked')
+    setTimeout(() => {
+      muteBtn.src = 'https://i.ibb.co/xFMcFPR/greens2150520-06.png'
+      muteBtn.classList.remove('clicked')
+    }, 500)
+  }
+})
+
+
+
 // FUNCTIONS
 
 // Initializer functions
@@ -850,7 +937,7 @@ function initDefeatMessages() {
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
   enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png']
-  backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://d1t7dw5nfeik44.cloudfront.net/v82z9k%2Fpreview%2F54693758%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1701667609&Signature=C8oeUzIkvg~~bojBvZ9-QMjKEr2tdd7kxbT6JaaJrD0Dy-PL5vfcFKjkMte8z5DFdyJGrT6XtMOa7XGX-MC9eUj3xmqejk-CZCOAYVlEij-kwQTMUUVLIHBdyvB2nNc-R3fq9L-44ekGMW9M5u8vl8YmMRzUt4tc2pIlKNCId4nKOOQTkfpjsHvmJwQ9h4Mr80pq1Tp-5LmFpCRoeW6yKxa1X3Q-lXMhYaKhpDhYPwL0z8rB1Ba~v-eP6WzU-bVuBf~SdzTYXd3B07mVTPTKIq98CotKhaMo8TtN2qHmk2RgDWRdVQ2B~BC99KNXu-KTWgepxJtzWZSXZX2w-rH15g__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ')"]
+  backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Mechanize.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
 
@@ -897,10 +984,10 @@ function renderPlayerUpdates() {
 
   if (playerStunCounter > 0) {
     if (playerStunCounter === 1) {
-      battleMessages.textContent = `${player.name} is stunned!`
+      battleMessages.textContent = `${player.name} snaps out of it!`
       playerStunCounter--
     } else {
-      battleMessages.textContent = `${player.name} snaps out of it!`
+      battleMessages.textContent = `${player.name} is stunned!`
       playerStunCounter--}
     }
 
@@ -1273,6 +1360,45 @@ function fightRound5() {
 
 function fightRound6() {
 
+  if (enemyChargeCounter > 0) {
+    enemy6.groomer(player)
+  } else {
+
+    let randomNum = Math.random()
+    if (enemy6.hitPoints <= 35) {
+
+      if ((randomNum > .5) && (enemy6.useAct1 > 0)) {
+        enemy6.squirtBottle(player)
+      } else if (enemy6.useAct4 > 0) {
+        enemy6.groomer(player)
+      } else if ((randomNum < .25) && (enemy6.useAct2 > 0) && (playerStunCounter === 0)) {
+        enemy6.crate(player)
+      } else if (enemy6.useAct3 > 0) {
+        enemy6.vacuum(player)
+      } else {
+        battleMessages.textContent = `${enemy6.name} skips his turn!`
+      }
+    }
+
+    if (enemy6.hitPoints > 30) {
+      if ((randomNum < .33) && (enemy6.useAct2 > 0) && (playerStunCounter === 0)) {
+        enemy6.crate(player)
+      } else if ((randomNum > .66) && (enemy6.useAct4 > 0)) {
+        enemy6.groomer(player) 
+      } else if (enemy6.useAct3 > 0) {
+        enemy6.vacuum(player)
+      } else if (enemy6.useAct1 > 0) {
+        enemy6.squirtBottle(player)
+      } else {
+        battleMessages = `${enemy6.name} skips his turn!`
+      }
+    }
+  }
+  
+  playerHealth.textContent = `${player.hitPoints}`
+  enemyHealth.textContent = `${enemy6.hitPoints}`
+  checkWinner()
+  displayNextTurnBtn()
 }
 
 // Removes the classes associated with various animations to prime the player and enemy to repeat animations if necessary
@@ -1361,5 +1487,11 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keydown', function(event) {
   if (event.key === '7') {
     playerConfuseCounter = 3
+  }
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === '8') {
+    playerStunCounter = 3
   }
 })
