@@ -452,23 +452,25 @@ class Enemy4 extends Character {
   }
 
   hideInBox(target) {
-    if (Math.random() < this.attackAcc - 2) {
+    if (Math.random() < this.buffAcc - .2) {
       playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter + 3
       let loweredAccuracy = randomizer(3, 4)/10
       target.attackAcc = target.attackAcc - loweredAccuracy
       this.useAct1 = this.useAct1 - 1
+      enemyImage.classList.add('enemy-transform-slide')
       setTimeout(() => {
         boxSound.play()
         boxSound.volume = .7
+        enemyImage.src = 'https://i.ibb.co/bK3FV2J/1149.png'
       }, 1000)
       battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
     }  else {
-      battleMessages.textContent = `${this.name} hides in a box, but ${this.name} isn't fooled!`
+      battleMessages.textContent = `${this.name} tries to hide in a box, but ${this.name} isn't fooled!`
     }
   }
   
   cqc(target) {
-     
+     enemyImage.classList.add('enemy-physical-attack')
      if (Math.random() < this.attackAcc) {
       cqcSound.play()
       cqcSound.volume = .3
@@ -490,6 +492,10 @@ class Enemy4 extends Character {
       tickingSound.volume = .3
       this.useAct3 = this.useAct3 - 1
       battleMessages.textContent = `${this.name} planted a landmine!  T-minus ${enemyEpicAttackCounter} turns to detonation.`
+      document.getElementById('bomb-animation-enemy').style.display = 'inline'
+      setTimeout(() => {
+        document.getElementById('bomb-animation-enemy').style.display = 'none'
+      })
     }
 
     if (enemyEpicAttackCounter === 1) {
@@ -499,20 +505,24 @@ class Enemy4 extends Character {
       explosionSound.play()
       explosionSound.volume = .3
       battleMessages.textContent = `A devastating explosion! ${target.name} suffers ${attackDamage} damage.`
+      document.getElementById('explosion-animation-enemy').style.display = 'inline'
+      setTimeout(() => {
+        document.getElementById('explosion-animation-enemy').style.display = 'none'
+      }, 2000)
     }
   }
 
   tranqDart(target) {
     dartSound.play()
     dartSound.volume = .3
-    // enemySpeaks.style.display = 'inline'
-    // setTimeout( () => {
-    //   enemySpeaks.style.display = 'none'
-    // }, 2000)
+    document.getElementById('dart-animation-enemy').style.display = 'inline'
+    setTimeout( () => {
+      document.getElementById('dart-animation-enemy').style.display = 'none'
+    }, 1000)
     if (Math.random() < this.attackAcc - .2) {
       playerSleepCounter = playerSleepCounter + randomizer(1, 3)
-      // playerSleep.style.display = 'inline'
-      // playerSleep.classList.add('sleep-animate')
+      playerSleep.style.display = 'inline'
+      playerSleep.classList.add('sleep-animate')
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${this.name} hits ${target.name} with a tranq dart! ${target.name} passes out immediately.`
     } else {battleMessages.textContent= `${this.name} fires a tranq dart at ${target.name}, but ${target.name} dodges out of the way!`
@@ -528,6 +538,7 @@ class Enemy5 extends Character {
   }
 
   maniacalLaugh(target) {
+    // probably just make him move slightly up and down to look like laughing
     laughSound.play()
     laughSound.volume = .2
     if (Math.random() < this.attackAcc - 2) {
@@ -908,6 +919,7 @@ nextMoveBtn.addEventListener('click', () => {
   displayActionButtons()
   removeAnimationClasses()
   endConfusion()
+  outOfBox()
 })
 
 muteBtn.addEventListener('click', () => {
@@ -1416,7 +1428,7 @@ function fightRound4() {
           enemy4.hideInBox(player)
         } else if ((randomNum > .33) && (enemy4.useAct3 > 0) && (playerSleepCounter === 0)) {
           enemy4.tranqDart(player)
-        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0)) {
+        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0) && !(enemyImage.classList.contains('enemy-transform-slide'))) {
           enemy4.hideInBox(player)
         } else if (enemy4.useAct2 > 0) {
           enemy4.cqc(player)
@@ -1435,7 +1447,7 @@ function fightRound4() {
           enemy4.cqc(player)
         } else if ((randomNum > .33) && (enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
           enemy4.tranqDart(player)
-        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0)) {
+        } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0) && !(enemyImage.classList.contains('enemy-transform-slide'))) {
           enemy4.hideInBox(player)
         } else if (enemy4.useAct2 > 0) {
           enemy4.cqc(player)
@@ -1540,6 +1552,7 @@ function removeAnimationClasses() {
   enemySleep.classList.remove('sleep-animate')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
+  enemyImage.classList.remove('enemy-transform-slide')
 
 }
 
@@ -1559,6 +1572,17 @@ function displayActionButtons() {
 
 function displayNextTurnBtn() {
   nextMoveBtn.style.display = 'inline'
+}
+
+function outOfBox() {
+  if ((playerAccuracyDecreaseCounter === 1) && (enemyArr[0] === enemy4)) {
+    battleMessages.textContent = `${enemy4.name} leaps out of the box!` 
+    enemyImage.classList.add('enemy-transform-slide')
+    setTimeout(() => {
+    boxSound.play()
+    enemyImage.src = 'https://i.ibb.co/Cw5f9wy/solidBAX.png'
+    }, 1000)
+  }
 }
 
 // Stops the music
@@ -1622,7 +1646,7 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '7') {
-    enemy6.crate(player)
+    enemy4.landmine(player)
   }
 })
 

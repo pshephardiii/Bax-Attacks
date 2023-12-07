@@ -344,6 +344,48 @@ body {
   animation: flash 2s linear;
 }
 
+#enemy4-bomb-container {
+    position: relative;
+    height: 0;
+    bottom: 15vmin;
+    right: 5vmin;
+}
+
+#bomb-animation-enemy {
+    display: none;
+    position: absolute;
+    height: 15vmin;
+    animation: rotatingToss 2s linear
+}
+
+#enemy4-explosion-container {
+    position: relative;
+    height: 0;
+    right: 40vmin;
+    top: 10vmin;
+}
+
+#explosion-animation-enemy {
+    display: none;
+    position: absolute;
+    height: 15vmin;
+    animation: enlargeQuickly 2s ease-out;
+}
+
+#enemy4-dart-container {
+    position: relative;
+    height: 0;
+    right: 5vmin;
+    bottom: 15vmin;
+}
+
+#dart-animation-enemy {
+    display: none;
+    position: absolute;
+    height: 10vmin;
+    animation: flowQuicklyToPlayer 1s linear;
+}
+
 /* Player animations */
 
 #sleep-player-container {
@@ -421,6 +463,10 @@ body {
 
 .move-out-left {
     animation: moveOutLeft 2s ease-in;
+}
+
+.enemy-transform-slide {
+    animation: enemyTransformSlide 2s linear;
 }
 
 .upside-down-spin {
@@ -725,6 +771,16 @@ body {
     }
 }
 
+@keyframes flowQuicklyToPlayer {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        transform: translate3d(-60vmin, 40vmin, 0)
+    }
+    
+}
+
 @keyframes flowCloseToPlayer {
     0% {
         transform: translate3d(0, 0, 0)
@@ -783,6 +839,41 @@ body {
     100% {
         transform: translateX(0)
     }   
+}
+
+@keyframes enemyTransformSlide {
+    0% {
+        transform: translateX(0)
+    }
+    50% {
+        transform: translateX(120vmin)
+    }
+    100% {
+        transform: translateX(0)
+    }
+}
+
+@keyframes rotatingToss {
+    0% {
+        transform: translate3d(0, 0, 0)
+        rotate(0)
+    }
+    25% {
+        transform: translate3d(-10vmin, -10vmin, 0)
+        rotate(90deg)
+    }
+    50% {
+        transform: translate3d(-20vmin, 5vmin, 0)
+        rotate(180deg)
+    }
+    75% {
+        transform: translate3d(-30vmin, 15vmin, 0)
+        rotate (270deg)
+    }
+    100% {
+        transform: translate3d(-40vmin, 35vmin, 0)
+        rotate(359deg)
+    }
 }
 
 @keyframes flash {
