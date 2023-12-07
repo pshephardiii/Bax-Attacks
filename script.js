@@ -379,6 +379,10 @@ class Enemy3 extends Character {
   }
 
   bribe(target) {
+    document.getElementById('bribe-animation-enemy').style.display = 'inline'
+    setTimeout(() => {
+      document.getElementById('bribe-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc) {
       bribeSound.play()
       bribeSound.volume = .3
@@ -388,6 +392,7 @@ class Enemy3 extends Character {
       if (attackDamage > 0) {
         target.hitPoints = target.hitPoints - attackDamage
         this.useAct1 = this.useAct2 - 1
+        playerImage.classList.add('take-hit')
         battleMessages.textContent = `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does ${attackDamage} damage.` 
       } else {
         `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does 0 damage.`
@@ -398,10 +403,10 @@ class Enemy3 extends Character {
   }
 
   nepotism() {
-     // enemyCanteen.style.display = 'inline'
-    // setTimeout( () => {
-    //   enemyCanteen.style.display = 'none'
-    // }, 2000)
+    document.getElementById('nepotism-animation-enemy').style.display = 'inline'
+    setTimeout( () => {
+      document.getElementById('nepotism-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.buffAcc) {
       nepotismSound.play()
       nepotismSound.volume = .2
@@ -419,7 +424,11 @@ class Enemy3 extends Character {
   }
 
   shockedExpression(target) {
-    // enemyImage.classList.add('enemy-physical-attack')
+    enemyImage.classList.add('enemy-physical-attack')
+    document.getElementById('shock-animation-enemy').style.display = 'inline'
+    setTimeout(() => {
+      document.getElementById('shock-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc) {
       shockedSound.play()
       shockedSound.volume = .2
@@ -859,6 +868,14 @@ const musicTrack = document.getElementById('music-track')
 
 // EVENT LISTENERS
 
+document.getElementById('launch-button').addEventListener('click', () => {
+  document.querySelector('.default-screen').style.display = 'none'
+  startScreen.style.display = 'flex'
+  musicTrack.play()
+  musicTrack.volume = .1
+  musicTrack.loop = true
+})
+
 startBtn.addEventListener('click', () => {
   initFirstBattle()
   init()
@@ -945,6 +962,7 @@ document.addEventListener('keydown', function(event) {
   }
 })
 
+
 // FUNCTIONS
 
 // Initializer functions
@@ -1012,12 +1030,12 @@ function initBattleDisplay() {
     button.style.display = 'inline'
   }
   battleMessages.textContent = 'Get ready to rumble!'
-  // Need to figure this out
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
-  musicTrack.play()
-  musicTrack.volume = .1
-  musicTrack.loop = true
+  if (musicTrack.play()) {
+    musicTrack.play()
+  }
+  
 }
 
 function initBattleStatus() {
@@ -1591,13 +1609,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy4.landmine()
+    enemy3.shockedExpression(player)
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy5.bloodOnTheRocks()
+    enemy3.nepotism()
   }
 })
 

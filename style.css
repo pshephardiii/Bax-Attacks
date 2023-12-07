@@ -35,10 +35,27 @@ body {
     box-shadow: none;
 }
 
+/* Default Screen */
+.default-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+}
+
+#launch-button {
+    width: 15rem;
+    height: 4rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
 /* Start Screen */
 
 .start-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     background-size: cover;
@@ -138,6 +155,7 @@ body {
     align-items: center;
     grid-area: enemyImage;
     max-height: 50vh;
+    
 }
 
 #player-image-container {
@@ -264,14 +282,12 @@ body {
     height: 0;
     top: 23vmin;
     left: 4vmin;
-    
 }
 
 #spotlight-animation-enemy {
     display: none;
     height: 6vmin;
     position: absolute;
-    
 }
 
 #enemy3-scoff-container {
@@ -286,6 +302,46 @@ body {
     height: 15vmin;
     position: absolute;
     animation: enlargeThenShrink 2s ease-out
+}
+
+#enemy3-bribe-container {
+  position: relative;
+  height: 0;
+  bottom: 20vmin;
+}
+
+#bribe-animation-enemy {
+  display: none;
+  height: 10vmin;
+  position: absolute;
+  animation: flowCloseToPlayer 2s linear;
+}
+
+#enemy3-nepotism-container {
+  position: relative;
+  height: 0;
+  bottom: 20vmin;
+  left: 80vmin;
+}
+
+#nepotism-animation-enemy {
+    display: none;
+    height: 60vmin;
+    position: absolute;
+    animation: slideInSlideOut 2s linear;
+}
+
+#enemy3-shock-container {
+  position: relative;
+  height: 0;
+  right: 45vmin;
+}
+
+#shock-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 30vmin;
+  animation: flash 2s linear;
 }
 
 /* Player animations */
@@ -669,6 +725,30 @@ body {
     }
 }
 
+@keyframes flowCloseToPlayer {
+    0% {
+        transform: translate3d(0, 0, 0)
+        scale(1)
+    }
+    25% {
+        transform: translate3d(-15vmin, 10vmin, 0)
+        scale(1)
+    }
+    50% {
+        transform: translate3d(-30vmin, 20vmin, 0)
+        scale(1)
+    }
+    75% {
+        transform: translate3d(-45vmin, 30vmin, 0)
+        scale(1.5)
+    }
+    100% {
+        transform: translate3d(-60vmin, 40vmin, 0)
+        scale(2)
+    }
+
+}
+
 @keyframes flowTowardsEnemy {
     0% {
         transform: translate3d(0, 0, 0)
@@ -687,6 +767,39 @@ body {
     }
     100% {
         transform: rotate(360deg)
+    }
+}
+
+@keyframes slideInSlideOut {
+    0% {
+        transform: translateX(0)
+    }
+    30% {
+        transform: translateX(-120vmin);
+    }
+    70% { 
+        transform: translateX(-120vmin);
+    }
+    100% {
+        transform: translateX(0)
+    }   
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0
+    }
+    25% {
+        opacity: 1
+    }
+    50% {
+        opacity: 0
+    }
+    75% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
     }
 }
 
