@@ -9,6 +9,8 @@
 
 <body>
 
+  <!-- Audio container (on all screens) -->
+
   <div class="audio-container">
     <audio src="/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Play.mp3" class="background-music" id="music-track" type="audio/mpeg"></audio>
     <div class="mute-btn-container">
@@ -16,10 +18,14 @@
     </div>
   </div> 
 
+  <!-- First screen shown when page loaded -->
+
   <div class="default-screen">
     <p class="prompt">Press to launch Bax Attacks!</p>
     <button class="button" id="launch-button">Launch</button>
   </div>
+
+  <!-- First screen shown when game launched by player -->
 
   <div class="start-screen">
     <h3 class="start-welcome">Welcome to</h3>
@@ -30,11 +36,15 @@
     <button class="button" id="start-button">Start</button>
   </div>
 
+  <!-- Screen shown after player loses a battle (can either try the battle over or go back to start) -->
+
   <div class="game-over-screen">
     <h3 class="game-over-message"></h3>
     <button class="button" id="try-again-button">Try Again</button>
     <button class="button" id="back-to-start-button">Back to Start</button>
   </div>
+
+  <!-- Screen shown after player wins a battle (can either continue or start over) -->
 
   <div class="victory-screen">
     <h3 class="victory-message">Are you ready for the next challenger?</h3>
@@ -42,14 +52,20 @@
     <button class="button" id="continue-button">Continue</button>
   </div>
 
+  <!-- Screen shown after player wins every battle -->
+
   <div class="game-completion-screen">
     <h3 class="victory-message">You have proven yourself worthy... you may pet the Bax</h3>
     <button class="button" id="reset-button">Reset</button>
   </div>
 
+  <!-- Battle screen starts here - these are shown while the battles are taking place -->
+
   <div class="battle-screen-container">
 
     <div class="combatant-screen-container">
+
+      <!-- Enemy health bar and name -->
 
       <div class="health-container" id="health-container-enemy">
         <p class="character-name" id="enemy-name">enemy name here</p>
@@ -59,6 +75,8 @@
         </div>
       </div>
 
+      <!-- Player health bar and name -->
+
       <div class="health-container" id="health-container-player">
         <p class="character-name" id="player-name"></p>
         <progress class="character-healthbar" id="player-healthbar" max="50" value="50"></progress>
@@ -67,24 +85,33 @@
         </div>
       </div>
 
+      <!-- Enemy image container -->
+
       <div class="battle-image-container" id="enemy-image-container">
 
-        <div class="special-attack-container-shared" id="enemy-speaking-container">
-          <img src="https://i.imgur.com/2pU7RkL.png" class="special-attack-animation" id="speaking-animation-enemy">
-        </div>
-        <div class="special-attack-container-shared" id="enemy-charging-container">
-          <img src="https://i.imgur.com/pbvHDc5.png" class="special-attack-animation" id="charging-animation-enemy">
-        </div>
+        <!-- Enemy shared status effect images (hidden until triggered) -->
 
         <div class="sleep-effect-container" id="sleep-enemy-container">
           <img src="https://i.imgur.com/ZcxqVFd.png" class="sleep-animation" id="sleep-image-enemy">
         </div>
 
-        <!-- special attack images -->
+        <div class="special-attack-container-shared" id="enemy-charging-container">
+          <img src="https://i.imgur.com/pbvHDc5.png" class="special-attack-animation" id="charging-animation-enemy">
+        </div>
+
+        <!-- special attack images (hidden until triggered)-->
+
+        <!-- Enemy1 -->
+
+        <div class="special-attack-container-enemy1" id="enemy1-speaking-container">
+          <img src="https://i.imgur.com/2pU7RkL.png" class="special-attack-animation" id="speaking-animation-enemy">
+        </div>
 
         <div class="special-attack-container-enemy1" id="enemy1-canteen-container">
           <img src="https://i.ibb.co/3C0CCSP/GNB3VXW.png" class="special-attack-animation" id="canteen-animation-enemy">
         </div>
+
+        <!-- Enemy2 -->
 
         <div class="special-attack-container-enemy2" id="enemy2-autograph-container">
           <img src="https://i.imgur.com/LN4udxY.jpg" class="special-attack-animation" id="autograph-animation-enemy">
@@ -102,6 +129,8 @@
           <img src="https://i.ibb.co/c3FxgSF/694.png" class="special-attack-animation" id="spotlight-animation-enemy">
         </div>
 
+        <!-- Enemy3 -->
+
         <div class="special-attack-container-enemy3" id="enemy3-scoff-container">
           <img src="https://i.ibb.co/DkR8xQM/133422-OS1-ETG-159.png" class="special-attack-animation" id="scoff-animation-enemy">
         </div>
@@ -118,6 +147,8 @@
           <img src="https://i.ibb.co/42gqCK4/v1008-02.png" class="special-attack-animation" id="shock-animation-enemy">
         </div>
 
+        <!-- Enemy4 -->
+
         <div class="special-attack-container-enemy4" id="enemy4-bomb-container">
           <img src="https://i.ibb.co/p3JB1vp/11508.png" class="special-attack-animation" id="bomb-animation-enemy">
         </div>
@@ -130,16 +161,22 @@
           <img src="https://i.ibb.co/sJp2q0d/dart005.png" class="special-attack-animation" id="dart-animation-enemy">
         </div>
 
-
+        <!-- Enemy image (visible throughout battle) -->
 
         <img src="https://i.imgur.com/GNB3VXW.png" class="fighter-image" id="enemy-image">
-      </div>
+      </div> <!-- End of enemy image container -->
+
+      <!-- Player image container -->
 
       <div class="battle-image-container" id="player-image-container">
+      
+        <!-- Player status effects (hidden until triggered) - more will be added in time -->
 
         <div class="sleep-effect-container" id="sleep-player-container">
           <img src="https://i.imgur.com/ZcxqVFd.png" class="sleep-animation" id="sleep-image-player">
         </div>
+
+        <!-- Player special animations (hidden until triggered) -->
 
         <div class="noise-effect-container" id="noise-player-container">
           <img src="https://i.imgur.com/JJ6HP9w.png" class=="special-attack-animation" id="noise-animation-player">
@@ -149,14 +186,20 @@
           <img src="https://i.imgur.com/O5zXomF.png" class="special-attack-animation" id="hearts-animation-player">
         </div>
 
-        <img src="https://i.imgur.com/0sgCwy1.png" class="fighter-image" id="player-image">
-      </div>
+        <!-- Player image (visible throughout battle)-->
 
-    </div>
+        <img src="https://i.imgur.com/0sgCwy1.png" class="fighter-image" id="player-image">
+      </div> <!-- End of player image container -->
+
+    </div> <!-- End of combatants container-->
+
+    <!-- Battle messages - give the player battle updates -->
 
     <div class="battle-message-container">
       <p class="battle-message-text">Battle messages</p>
     </div>
+
+    <!-- Gameplay buttons -->
 
     <div class="action-buttons-container">
       <button class="button action-button" id="action-1">Action</button>
@@ -166,9 +209,7 @@
       <button class="button" id="next-move">Next Move</button>
     </div>
 
-
-  </div>
-
+  </div> <!-- End of battle screen -->
 
   <script src="script.js"></script>
 </body>

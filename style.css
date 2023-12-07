@@ -11,12 +11,9 @@ body {
    align-items: center;
 }
 
-.button-container {
-  display: flex;
-}
+/* Buttons */
 
 .button {
-    
     margin-top: 1em;
     font-size: 2.75vmin;
     background-color: skyblue;
@@ -36,6 +33,7 @@ body {
 }
 
 /* Default Screen */
+
 .default-screen {
     display: flex;
     flex-direction: column;
@@ -89,39 +87,33 @@ body {
     color: white;
 }
 
-/* Other screens */
+/* Victory Screen */
 
 .victory-screen {
     display: none;
 }
 
+/* Game Over screen */
+
 .game-over-screen {
     display: none;
 }
+
+/* Game Completion screen */
 
 .game-completion-screen {
     display: none;
 }
 
-/* Battle Screen */
-
-.battle-screen-container {
-  display: none;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-}
+/* Audio elements */
 
 .audio-container {
   position: fixed;
   height: 0;
   top: .5rem;
   right: .5rem;
-  
 
 }
-
-/* Fix audio container positioning with media query - height and width */
 
 .mute-btn-container {
     height: 0;
@@ -138,6 +130,15 @@ body {
     right: .5rem;
 }
 
+/* Battle Screen starts here */
+
+.battle-screen-container {
+    display: none;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
+
 .combatant-screen-container {
     display: grid;
     height: 70vh;
@@ -149,13 +150,99 @@ body {
     background-position: center;
 }
 
+/* Enemy health bar and name */
+
+#health-container-enemy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 4vmin;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    grid-area: enemyHealthBar;
+    width: 50vw;
+}
+
+#enemy-name {
+    margin-bottom: 1vh;
+}
+
+#enemy-healthbar {
+    height: 10vmin;
+  }
+  
+  #hp-container-enemy {
+    position: relative;
+    height: 0;
+    bottom: 12vmin;
+    right: 2.5vmin;
+  }
+  
+  #enemy-hp {
+    position: absolute;
+    height: 0;
+    width: 0;
+    font-size: 4.5vmin;
+  }
+
+/* Player health bar and name */
+
+#health-container-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+    color: white;
+    font-size: 4vmin;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+    grid-area: playerHealthBar;
+    width: 50vw;
+}
+
+#player-name {
+    margin-bottom: 1vh;
+}
+
+#player-healthbar {
+  height: 10vmin;
+}
+
+#hp-container-player {
+    position: relative;
+    height: 0;
+    bottom: 12vmin;
+    right: 2.75vmin;
+  }
+
+#player-hp {
+    position: absolute;
+    height: 0;
+    width: 0;
+    font-size: 4.5vmin;
+  }
+
+/* Combatant Images */
+
 #enemy-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
     grid-area: enemyImage;
     max-height: 50vh;
-    
+}
+
+#enemy-image {
+    max-height: 45vmin;
 }
 
 #player-image-container {
@@ -166,13 +253,11 @@ body {
     width: 50vw;
 }
 
-#enemy-image {
-    max-height: 45vmin;
-}
-
 #player-image {
     height: 50vmin;
 }
+
+/* Status Effects - Enemy */
 
 #sleep-enemy-container {
     position: relative;
@@ -188,20 +273,6 @@ body {
   display: none;
   height: 10vmin;
   position: absolute;
-}
-
-#enemy-speaking-container {
-  position: relative;
-  height: 30vmin;
-  bottom: 10vmin;
-  left: 3vmin;
-}
-
-#speaking-animation-enemy {
-    display: none;
-    height: 10vmin;
-    position: absolute;
-    animation: enlargeSlowly 2s ease-out;
 }
 
 #enemy-charging-container {
@@ -220,6 +291,20 @@ body {
 }
 
 /* special enemy animations */
+
+#enemy1-speaking-container {
+    position: relative;
+    height: 30vmin;
+    bottom: 10vmin;
+    left: 3vmin;
+  }
+  
+#speaking-animation-enemy {
+      display: none;
+      height: 10vmin;
+      position: absolute;
+      animation: enlargeSlowly 2s ease-out;
+}
 
 #enemy1-canteen-container {
     position: relative;
@@ -477,87 +562,6 @@ body {
     animation: clicked .5s ease-in-out;
 }
 
-#health-container-enemy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 4vmin;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    grid-area: enemyHealthBar;
-    width: 50vw;
-}
-
-#health-container-player {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-    color: white;
-    font-size: 4vmin;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    grid-area: playerHealthBar;
-    width: 50vw;
-}
-
-#enemy-name {
-  margin-bottom: 1vh;
-}
-
-#enemy-healthbar {
-  height: 10vmin;
-}
-
-#hp-container-enemy {
-  position: relative;
-  height: 0;
-  bottom: 12vmin;
-  right: 2.5vmin;
-}
-
-#enemy-hp {
-  position: absolute;
-  height: 0;
-  width: 0;
-  font-size: 4.5vmin;
-}
-
-/* use media query for font */
-
-
-
-#player-name {
-    margin-bottom: 1vh;
-}
-
-#player-healthbar {
-  height: 10vmin;
-}
-
-#hp-container-player {
-    position: relative;
-    height: 0;
-    bottom: 12vmin;
-    right: 2.75vmin;
-  }
-
-#player-hp {
-    position: absolute;
-    height: 0;
-    width: 0;
-    font-size: 4.5vmin;
-  }
-
 /* Battle Messages */
 
 .battle-message-container {
@@ -576,8 +580,7 @@ body {
     margin: auto, auto;
 }
 
-/* Action Buttons */
-/* RETURN HERE for responsiveness */
+/* Gameplay Buttons */
 
 .action-buttons-container {
     display: flex;
@@ -603,8 +606,9 @@ body {
     display: none;
 }
 
-
 /* Add media query to stop font size from getting too small */
+
+/* Keyframe animations */
 
 @keyframes moveInLeft {
     0% {

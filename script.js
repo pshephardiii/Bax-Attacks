@@ -495,7 +495,7 @@ class Enemy4 extends Character {
       document.getElementById('bomb-animation-enemy').style.display = 'inline'
       setTimeout(() => {
         document.getElementById('bomb-animation-enemy').style.display = 'none'
-      })
+      }, 2000)
     }
 
     if (enemyEpicAttackCounter === 1) {
