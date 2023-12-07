@@ -1,108 +1,108 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box
 }
 
 body {
-   height: 100vh;
-   width: 100vw;
-   margin: 0;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
 
 /* Buttons */
 
 .button {
-    margin-top: 1em;
-    font-size: 2.75vmin;
-    background-color: skyblue;
-    color: blue;
-    padding: .25em 1em;
-    position: relative;
-    border: 0;
-    border-radius: 0.5em;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+  margin-top: 1em;
+  font-size: 2.75vmin;
+  background-color: skyblue;
+  color: blue;
+  padding: .25em 1em;
+  position: relative;
+  border: 0;
+  border-radius: 0.5em;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer
 }
 
 .button:active {
-    top: 2px;
-    left: 1px;
-    box-shadow: none;
+  top: 2px;
+  left: 1px;
+  box-shadow: none
 }
 
 /* Default Screen */
 
 .default-screen {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem
 }
 
 #launch-button {
-    width: 15rem;
-    height: 4rem;
-    font-size: 2rem;
-    text-align: center;
+  width: 15rem;
+  height: 4rem;
+  font-size: 2rem;
+  text-align: center
 }
 
 /* Start Screen */
 
 .start-screen {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    text-align: center;
-    height: 100vh;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  text-align: center;
+  height: 100vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh
 }
 
 .start-welcome {
-    font-size: 6vh
+  font-size: 6vh
 }
 
 .start-title {
-    font-size: 8vh;
+  font-size: 8vh
 }
 
 .start-message {
-    font-size: 4vh;
+  font-size: 4vh
 }
 
 #start-button {
-    display: block;
-    font-size: 4vh;
-    background-color: white;
-    color: black;
+  display: block;
+  font-size: 4vh;
+  background-color: white;
+  color: black
 }
 
 #start-button:hover {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white
 }
 
 /* Victory Screen */
 
 .victory-screen {
-    display: none;
+  display: none
 }
 
 /* Game Over screen */
 
 .game-over-screen {
-    display: none;
+  display: none
 }
 
 /* Game Completion screen */
 
 .game-completion-screen {
-    display: none;
+  display: none
 }
 
 /* Audio elements */
@@ -111,499 +111,495 @@ body {
   position: fixed;
   height: 0;
   top: .5rem;
-  right: .5rem;
-
+  right: .5rem
 }
 
 .mute-btn-container {
-    height: 0;
-    position: relative;
-    margin: 0 auto
+  height: 0;
+  position: relative;
+  margin: 0 auto
 }
 
 .mute-button {
-    position: absolute;
-    height: 1.5rem;
-    border: 2px solid white;
-    border-radius: 30%;
-    background-color: white;
-    right: .5rem;
+  position: absolute;
+  height: 1.5rem;
+  border: 2px solid white;
+  border-radius: 30%;
+  background-color: white;
+  right: .5rem
 }
 
 /* Battle Screen starts here */
 
 .battle-screen-container {
-    display: none;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-  }
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw
+}
 
 .combatant-screen-container {
-    display: grid;
-    height: 70vh;
-    grid-template-areas: 
-    "enemyHealthBar enemyImage"
-    "playerImage enemyImage"
-    "playerImage playerHealthBar";
-    background-size: cover; 
-    background-position: center;
+  display: grid;
+  height: 70vh;
+  grid-template-areas: 
+  "enemyHealthBar enemyImage"
+  "playerImage enemyImage"
+  "playerImage playerHealthBar";
+  background-size: cover; 
+  background-position: center
 }
 
 /* Enemy health bar and name */
 
 #health-container-enemy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 4vmin;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    grid-area: enemyHealthBar;
-    width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 4vmin;
+  grid-area: enemyHealthBar;
+  width: 50vw
 }
 
 #enemy-name {
-    margin-bottom: 1vh;
+  margin-bottom: 1vh
 }
 
 #enemy-healthbar {
-    height: 10vmin;
-  }
+  height: 10vmin
+}
   
-  #hp-container-enemy {
-    position: relative;
-    height: 0;
-    bottom: 12vmin;
-    right: 2.5vmin;
-  }
+#hp-container-enemy {
+  position: relative;
+  height: 0;
+  bottom: 12vmin;
+  right: 2.5vmin
+}
   
-  #enemy-hp {
-    position: absolute;
-    height: 0;
-    width: 0;
-    font-size: 4.5vmin;
-  }
+ #enemy-hp {
+  position: absolute;
+  height: 0;
+  width: 0;
+  font-size: 4.5vmin;
+}
 
 /* Player health bar and name */
 
 #health-container-player {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-    color: white;
-    font-size: 4vmin;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
-    grid-area: playerHealthBar;
-    width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+  color: white;
+  font-size: 4vmin;
+  grid-area: playerHealthBar;
+  width: 50vw
 }
 
 #player-name {
-    margin-bottom: 1vh;
+  margin-bottom: 1vh
 }
 
 #player-healthbar {
-  height: 10vmin;
+  height: 10vmin
 }
 
 #hp-container-player {
-    position: relative;
-    height: 0;
-    bottom: 12vmin;
-    right: 2.75vmin;
-  }
+  position: relative;
+  height: 0;
+  bottom: 12vmin;
+  right: 2.75vmin;
+}
 
 #player-hp {
-    position: absolute;
-    height: 0;
-    width: 0;
-    font-size: 4.5vmin;
-  }
+  position: absolute;
+  height: 0;
+  width: 0;
+  font-size: 4.5vmin;
+}
 
 /* Combatant Images */
 
 #enemy-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-area: enemyImage;
-    max-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: enemyImage;
+  max-height: 50vh
 }
 
 #enemy-image {
-    max-height: 45vmin;
+  max-height: 45vmin
 }
 
 #player-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    grid-area: playerImage;
-    width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  grid-area: playerImage;
+  width: 50vw
 }
 
 #player-image {
-    height: 50vmin;
+  height: 50vmin;
 }
 
 /* Status Effects - Enemy */
 
 #sleep-enemy-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vmin;
-    left: 34vmin;
-    bottom: 18vmin;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vmin;
+  left: 34vmin;
+  bottom: 18vmin
 }
 
 #sleep-image-enemy {
   display: none;
   height: 10vmin;
-  position: absolute;
+  position: absolute
 }
 
 #enemy-charging-container {
-    position: relative;
-    height: 1vmin;
-    right: 30vmin;
-    bottom: 54vmin;
-    border: 2px solid red;
+  position: relative;
+  height: 1vmin;
+  right: 30vmin;
+  bottom: 54vmin;
+  border: 2px solid red
 }
 
 #charging-animation-enemy {
-    display: none;
-    height: 120vmin;
-    position: absolute;
-    animation: shrinkSlowly 2s ease-out;
+  display: none;
+  height: 120vmin;
+  position: absolute;
+  animation: shrinkSlowly 2s ease-out
 }
 
 /* special enemy animations */
 
+/* Enemy 1 */
+
 #enemy1-speaking-container {
-    position: relative;
-    height: 30vmin;
-    bottom: 10vmin;
-    left: 3vmin;
-  }
+  position: relative;
+  height: 30vmin;
+  bottom: 10vmin;
+  left: 3vmin
+}
   
 #speaking-animation-enemy {
-      display: none;
-      height: 10vmin;
-      position: absolute;
-      animation: enlargeSlowly 2s ease-out;
+  display: none;
+  height: 10vmin;
+  position: absolute;
+  animation: enlargeSlowly 2s ease-out
 }
 
 #enemy1-canteen-container {
-    position: relative;
-    height: 1vmin;
-    bottom: 20vmin;
-    left: 5vmin;
+  position: relative;
+  height: 1vmin;
+  bottom: 20vmin;
+  left: 5vmin
 }
 
 #canteen-animation-enemy {
-    display: none;
-    height: 5vmin;
-    position: absolute;
-    animation: smallWiggle 2s ease-out;
+  display: none;
+  height: 5vmin;
+  position: absolute;
+  animation: smallWiggle 2s ease-out
 }
 
+/* Enemy 2 */
+
 #enemy2-autograph-container {
-    position: relative;
-    height: 1vmin;
-    bottom: 20vmin;
-    left: 5vmin;
+  position: relative;
+  height: 1vmin;
+  bottom: 20vmin;
+  left: 5vmin
 }
 
 #autograph-animation-enemy {
-    display: none;
-    height: 10vmin;
-    position: absolute;
-    animation: flowTowardsPlayer 2s ease-out
+  display: none;
+  height: 10vmin;
+  position: absolute;
+  animation: flowTowardsPlayer 2s ease-out
 }
 
 #enemy2-burning-container {
-    position: relative;
-    height: 1vmin;
-    top: 10vmin;
-    right: 25vmin;
+  position: relative;
+  height: 1vmin;
+  top: 10vmin;
+  right: 25vmin
 }
 
 #burning-animation-enemy {
-    display: none;
-    height: 10vmin;
-    position: absolute;
-    animation: enlargeQuickly 2s ease-out
+  display: none;
+  height: 10vmin;
+  position: absolute;
+  animation: enlargeQuickly 2s ease-out
 }
 
 #enemy2-singing-container {
-    position: relative;
-    height: 0;
-    bottom: 18vmin;
-    right: 7vmin;
+  position: relative;
+  height: 0;
+  bottom: 18vmin;
+  right: 7vmin
 }
 
 #singing-animation-enemy {
-    display: none;
-    height: 15vmin;
-    position: absolute;
-    animation: flowTowardsPlayer 2s ease-out
+  display: none;
+  height: 15vmin;
+  position: absolute;
+  animation: flowTowardsPlayer 2s ease-out
 }
 
 #enemy2-spotlight-container {
-    position: relative;
-    height: 0;
-    top: 23vmin;
-    left: 4vmin;
+  position: relative;
+  height: 0;
+  top: 23vmin;
+  left: 4vmin
 }
 
 #spotlight-animation-enemy {
-    display: none;
-    height: 6vmin;
-    position: absolute;
+  display: none;
+  height: 6vmin;
+  position: absolute
 }
 
+/* Enemy 3 */
+
 #enemy3-scoff-container {
-    position: relative;
-    height: 0;
-    bottom: 25vmin;
-    right: 18vmin;
+  position: relative;
+  height: 0;
+  bottom: 25vmin;
+  right: 18vmin
 }
 
 #scoff-animation-enemy {
-    display: none;
-    height: 15vmin;
-    position: absolute;
-    animation: enlargeThenShrink 2s ease-out
+  display: none;
+  height: 15vmin;
+  position: absolute;
+  animation: enlargeThenShrink 2s ease-out
 }
 
 #enemy3-bribe-container {
   position: relative;
   height: 0;
-  bottom: 20vmin;
+  bottom: 20vmin
 }
 
 #bribe-animation-enemy {
   display: none;
   height: 10vmin;
   position: absolute;
-  animation: flowCloseToPlayer 2s linear;
+  animation: flowCloseToPlayer 2s linear
 }
 
 #enemy3-nepotism-container {
   position: relative;
   height: 0;
   bottom: 20vmin;
-  left: 80vmin;
+  left: 80vmin
 }
 
 #nepotism-animation-enemy {
-    display: none;
-    height: 60vmin;
-    position: absolute;
-    animation: slideInSlideOut 2s linear;
+  display: none;
+  height: 60vmin;
+  position: absolute;
+  animation: slideInSlideOut 2s linear
 }
 
 #enemy3-shock-container {
   position: relative;
   height: 0;
-  right: 45vmin;
+  right: 45vmin
 }
 
 #shock-animation-enemy {
   display: none;
   position: absolute;
   height: 30vmin;
-  animation: flash 2s linear;
+  animation: flash 2s linear
 }
 
+/* Enemy 4 */
+
 #enemy4-bomb-container {
-    position: relative;
-    height: 0;
-    bottom: 15vmin;
-    right: 5vmin;
+  position: relative;
+  height: 0;
+  bottom: 15vmin;
+  right: 5vmin
 }
 
 #bomb-animation-enemy {
-    display: none;
-    position: absolute;
-    height: 15vmin;
-    animation: rotatingToss 2s linear
+  display: none;
+  position: absolute;
+  height: 15vmin;
+  animation: rotatingToss 2s linear
 }
 
 #enemy4-explosion-container {
-    position: relative;
-    height: 0;
-    right: 40vmin;
-    top: 10vmin;
+  position: relative;
+  height: 0;
+  right: 40vmin;
+  top: 10vmin
 }
 
 #explosion-animation-enemy {
-    display: none;
-    position: absolute;
-    height: 15vmin;
-    animation: enlargeQuickly 2s ease-out;
+  display: none;
+  position: absolute;
+  height: 15vmin;
+  animation: enlargeQuickly 2s ease-out
 }
 
 #enemy4-dart-container {
-    position: relative;
-    height: 0;
-    right: 5vmin;
-    bottom: 15vmin;
+  position: relative;
+  height: 0;
+  right: 5vmin;
+  bottom: 15vmin
 }
 
 #dart-animation-enemy {
-    display: none;
-    position: absolute;
-    height: 10vmin;
-    animation: flowQuicklyToPlayer 1s linear;
+  display: none;
+  position: absolute;
+  height: 10vmin;
+  animation: flowQuicklyToPlayer 1s linear
 }
 
 /* Player animations */
 
 #sleep-player-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vmin;
-    left: 35vmin;
-    bottom: 16vmin;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vmin;
+  left: 35vmin;
+  bottom: 16vmin
 }
 
 #sleep-image-player {
-    display: none;
-    height: 10vmin;
-    position: absolute;
+  display: none;
+  height: 10vmin;
+  position: absolute
 }
 
 #noise-player-container {
-    height: 30vmin;
-    position: relative;
-    left: 20vmin;
-    bottom: 11vmin;
+  height: 30vmin;
+  position: relative;
+  left: 20vmin;
+  bottom: 11vmin
 }
 
 #noise-animation-player {
   display: none;
   height: 30vmin;
-  position: absolute;
+  position: absolute
 }
 
 #player-floating-hearts-container {
   height: 30vmin;
   position: relative;
   left: 31vmin;
-  bottom: 10vmin;
+  bottom: 10vmin
 }
 
 #hearts-animation-player {
   display: none;
   height: 20vmin;
   position: absolute;
-  animation: flowTowardsEnemy 2s linear;
+  animation: flowTowardsEnemy 2s linear
 }
 
 /* Animation Classes */
 
 .sleep-animate {
-    animation: sleepEffect 2s ease-out;
+  animation: sleepEffect 2s ease-out
   }
 
 .take-hit {
-    animation: takeHit 2s ease-out;
+  animation: takeHit 2s ease-out
 }
 
 .player-physical-attack {
-    animation: playerPhysicalAttack 1s ease-out;
+  animation: playerPhysicalAttack 1s ease-out
 }
 
 .enemy-physical-attack {
-    animation: enemyPhysicalAttack 1s ease-out;
+  animation: enemyPhysicalAttack 1s ease-out
 }
 
 .move-in-right {
-    animation: moveInRight 1s ease-out;
+  animation: moveInRight 1s ease-out
 }
 
 .move-in-left{
-  animation: moveInLeft 1s ease-out;
+  animation: moveInLeft 1s ease-out
 }
 
 .move-out-right {
-    animation: moveOutRight 2s ease-in;
+  animation: moveOutRight 2s ease-in
 }
 
 .move-out-left {
-    animation: moveOutLeft 2s ease-in;
+  animation: moveOutLeft 2s ease-in
 }
 
 .enemy-transform-slide {
-    animation: enemyTransformSlide 2s linear;
+  animation: enemyTransformSlide 2s linear
 }
 
 .upside-down-spin {
-    animation: upsideDownSpin 2s ease-out;
+  animation: upsideDownSpin 2s ease-out
 }
 
 .clicked {
-    animation: clicked .5s ease-in-out;
+  animation: clicked .5s ease-in-out
 }
 
 /* Battle Messages */
 
 .battle-message-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vh;
-    width: 100vw;
-    font-size: 4vmin;
-    background-color: beige;
-    border: 10px groove pink;
-    padding: 1em 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+  width: 100vw;
+  font-size: 4vmin;
+  background-color: beige;
+  border: 10px groove pink;
+  padding: 1em 2em
 }
 
 .battle-message-text {
-    margin: auto, auto;
+  margin: auto, auto
 }
 
 /* Gameplay Buttons */
 
 .action-buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    height: 15vh;
-    width: 100vw;
-    gap: 4vw;
-    border: 2px solid red;
-    background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 15vh;
+  width: 100vw;
+  gap: 4vw;
+  border: 2px solid red;
+  background-image: url("https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg")
 }
 
 .action-button {
-  display: inline-block;
+  display: inline-block
 }
 
 .action-command {
-    font-weight: bold;
-
+  font-weight: bold
 }
 
 #next-move {
-    display: none;
+  display: none
 }
 
 /* Add media query to stop font size from getting too small */
@@ -611,301 +607,298 @@ body {
 /* Keyframe animations */
 
 @keyframes moveInLeft {
-    0% {
-        transform: translateX(-15rem);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(-15rem)
+  }
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes moveInRight {
-    0% {
-        transform: translateX(15rem);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(15rem)
+  }
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes moveOutRight {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(45rem)
-    }
+  0% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(45rem)
+  }
 }
 
 @keyframes moveOutLeft {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-30rem);
-    }
+  0% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(-30rem)
+  }
 }
 
 @keyframes playerPhysicalAttack {
-    0% {
-        transform: translateY(0);
-    }
-    25% {
-        transform: translateY(-1rem);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0)
+  }
+  25% {
+    transform: translateY(-1rem)
+  }
+  100% {
+    transform: translateY(0)
+  }
 }
 
 @keyframes enemyPhysicalAttack {
-    0% {
-        transform: translateY(0);
-    }
-    25% {
-        transform: translateY(1rem);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0)
+  }
+  25% {
+    transform: translateY(1rem)
+  }
+  100% {
+    transform: translateY(0)
+  }
 }
 
 @keyframes takeHit {
-    0% {
-        transform: translateX(0);
-    }
-    10% {
-        transform: translateX(1rem);
-    }
-    25% {
-        transform: translateX(-1rem);
-    }
-    50% {
-        transform: translateX(1rem);
-    }
-    70% {
-        transform: translateX(-1rem);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(0)
+  }
+  10% {
+    transform: translateX(1rem)
+  }
+  25% {
+    transform: translateX(-1rem)
+  }
+  50% {
+    transform: translateX(1rem)
+  }
+  70% {
+    transform: translateX(-1rem)
+  }
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes sleepEffect {
-    0% {
-        height: 5vmin;
-    }
-    30% {
-        height: 15vmin;
-    }
-    60% {
-        height: 5vmin;
-    }
-    100% {
-        height: 10vmin;
-    }
+  0% {
+    height: 5vmin
+  }
+  30% {
+    height: 15vmin
+  }
+  60% {
+    height: 5vmin
+  }
+  100% {
+    height: 10vmin
+  }
 }
 
 @keyframes shrinkSlowly {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(.75);
-    }    
+  0% {
+    transform: scale(1)
+  }
+  100% {
+    transform: scale(.75)
+  }    
 }
 
 @keyframes enlargeSlowly {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(2)
-    }
+  0% {
+    transform: scale(1)
+  }
+  100% {
+    transform: scale(2)
+  }
 }
 
 @keyframes enlargeQuickly {
-    0% {
-        transform: scale(1)
-    }
-    100% {
-        transform: scale(4)
-    }
+  0% {
+    transform: scale(1)
+  }
+  100% {
+    transform: scale(4)
+  }
 }
 
 @keyframes enlargeThenShrink {
-    0% {
-        transform: scale(1)
-    }
-    50% {
-        transform: scale(2)
-    }
-    100% {
-        transform: scale(1)
-    }
-    
+  0% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(2)
+  }
+  100% {
+    transform: scale(1)
+  } 
 }
 
 @keyframes smallWiggle {
-    0% {
-        transform: rotate(0)
-    }
-    25% {
-        transform: rotate(8deg)
-    }
-    50% {
-        transform: rotate(-8deg)
-    }
-    75% {
-        transform: rotate(8deg)
-    }
-    100% {
-        transform: rotate(-8deg)
-    }
+  0% {
+    transform: rotate(0)
+  }
+  25% {
+    transform: rotate(8deg)
+  }
+  50% {
+    transform: rotate(-8deg)
+  }
+  75% {
+    transform: rotate(8deg)
+  }
+  100% {
+    transform: rotate(-8deg)
+  }
 }
 
 @keyframes flowTowardsPlayer {
-    0% {
-        transform: translate3d(0, 0, 0)
-        scale(1);
-    }
-    100% {
-        transform: translate3d(-35vmin, 30vmin, 0)
-        scale(1.5);
-    }
+  0% {
+    transform: translate3d(0, 0, 0)
+    scale(1)
+  }
+  100% {
+    transform: translate3d(-35vmin, 30vmin, 0)
+    scale(1.5)
+  }
 }
 
 @keyframes flowQuicklyToPlayer {
-    0% {
-        transform: translate3d(0, 0, 0)
-    }
-    100% {
-        transform: translate3d(-60vmin, 40vmin, 0)
-    }
-    
+  0% {
+    transform: translate3d(0, 0, 0)
+  }
+  100% {
+    transform: translate3d(-60vmin, 40vmin, 0)
+  } 
 }
 
 @keyframes flowCloseToPlayer {
-    0% {
-        transform: translate3d(0, 0, 0)
-        scale(1)
-    }
-    25% {
-        transform: translate3d(-15vmin, 10vmin, 0)
-        scale(1)
-    }
-    50% {
-        transform: translate3d(-30vmin, 20vmin, 0)
-        scale(1)
-    }
-    75% {
-        transform: translate3d(-45vmin, 30vmin, 0)
-        scale(1.5)
-    }
-    100% {
-        transform: translate3d(-60vmin, 40vmin, 0)
-        scale(2)
-    }
-
+  0% {
+    transform: translate3d(0, 0, 0)
+    scale(1)
+  }
+  25% {
+    transform: translate3d(-15vmin, 10vmin, 0)
+    scale(1)
+  }
+  50% {
+    transform: translate3d(-30vmin, 20vmin, 0)
+    scale(1)
+  }
+  75% {
+    transform: translate3d(-45vmin, 30vmin, 0)
+    scale(1.5)
+  }
+  100% {
+    transform: translate3d(-60vmin, 40vmin, 0)
+    scale(2)
+  }
 }
 
 @keyframes flowTowardsEnemy {
-    0% {
-        transform: translate3d(0, 0, 0)
-    }
-    100% {
-        transform: translate3d(20vmin, -15vmin, 0)
-    }
+  0% {
+    transform: translate3d(0, 0, 0)
+  }
+  100% {
+    transform: translate3d(20vmin, -15vmin, 0)
+  }
 }
 
 @keyframes upsideDownSpin {
-    0% {
-        transform: rotate(0)
-    }
-    50% {
-        transform: rotate(180deg)
-    }
-    100% {
-        transform: rotate(360deg)
-    }
+  0% {
+    transform: rotate(0)
+  }
+  50% {
+    transform: rotate(180deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
 }
 
 @keyframes slideInSlideOut {
-    0% {
-        transform: translateX(0)
-    }
-    30% {
-        transform: translateX(-120vmin);
-    }
-    70% { 
-        transform: translateX(-120vmin);
-    }
-    100% {
-        transform: translateX(0)
-    }   
+  0% {
+    transform: translateX(0)
+  }
+  30% {
+    transform: translateX(-120vmin)
+  }
+  70% { 
+    transform: translateX(-120vmin)
+  }
+  100% {
+    transform: translateX(0)
+  }   
 }
 
 @keyframes enemyTransformSlide {
-    0% {
-        transform: translateX(0)
-    }
-    50% {
-        transform: translateX(120vmin)
-    }
-    100% {
-        transform: translateX(0)
-    }
+  0% {
+    transform: translateX(0)
+  }
+  50% {
+    transform: translateX(120vmin)
+  }
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes rotatingToss {
-    0% {
-        transform: translate3d(0, 0, 0)
-        rotate(0)
-    }
-    25% {
-        transform: translate3d(-10vmin, -10vmin, 0)
-        rotate(90deg)
-    }
-    50% {
-        transform: translate3d(-20vmin, 5vmin, 0)
-        rotate(180deg)
-    }
-    75% {
-        transform: translate3d(-30vmin, 15vmin, 0)
-        rotate (270deg)
-    }
-    100% {
-        transform: translate3d(-40vmin, 35vmin, 0)
-        rotate(359deg)
-    }
+  0% {
+    transform: translate3d(0, 0, 0)
+    rotate(0)
+  }
+  25% {
+    transform: translate3d(-10vmin, -10vmin, 0)
+    rotate(90deg)
+  }
+  50% {
+    transform: translate3d(-20vmin, 5vmin, 0)
+    rotate(180deg)
+  }
+  75% {
+    transform: translate3d(-30vmin, 15vmin, 0)
+    rotate (270deg)
+  }
+  100% {
+    transform: translate3d(-40vmin, 35vmin, 0)
+    rotate(359deg)
+  }
 }
 
 @keyframes flash {
-    0% {
-        opacity: 0
-    }
-    25% {
-        opacity: 1
-    }
-    50% {
-        opacity: 0
-    }
-    75% {
-        opacity: 1
-    }
-    100% {
-        opacity: 0
-    }
+  0% {
+    opacity: 0
+  }
+  25% {
+    opacity: 1
+  }
+  50% {
+    opacity: 0
+  }
+  75% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
 }
 
 @keyframes clicked {
-    0% {
-        transform: scale(1)
-    }
-    50% {
-        transform: scale(.75)
-    }
-    100% {
-        transform: scale(1)
-    }
+  0% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(.75)
+  }
+  100% {
+    transform: scale(1)
+  }
 }
