@@ -51,9 +51,7 @@ class Player extends Character {
     } else if (this.useAct1 === 0) {
       battleMessages.textContent = `${this.name} is out of barks! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${this.name} is too confused to act!`
-      hideActionButtons()
-      renderPlayerUpdates()
+      tooConfused()
     }
   }
 
@@ -80,9 +78,7 @@ class Player extends Character {
     } else if (this.useAct2 === 0) {
       battleMessages.textContent = `${this.name} is out of bites! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${this.name} is too confused to act!`
-      hideActionButtons()
-      renderPlayerUpdates()
+      tooConfused()
     }
   }
 
@@ -115,9 +111,7 @@ class Player extends Character {
     } else if (this.useAct3 === 0) {
       battleMessages.textContent = `${this.name} is out of dashes! Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${this.name} is too confused to act!`
-      hideActionButtons()
-      renderPlayerUpdates()
+      tooConfused()
     }
   }
 
@@ -146,9 +140,7 @@ class Player extends Character {
     } else if (this.useAct4 === 0) {
       battleMessages.textContent = `${this.name} has no more cuteness left to give. Pick another action.`
     } else if ((playerConfuseCounter > 0) && !(confuseNum > .5)) {
-      battleMessages.textContent = `${this.name} is too confused to act!`
-      hideActionButtons()
-      renderPlayerUpdates()
+      tooConfused()
     }
   }
 }
@@ -538,12 +530,14 @@ class Enemy5 extends Character {
   }
 
   maniacalLaugh(target) {
-    // probably just make him move slightly up and down to look like laughing
+    enemyImage.classList.add('up-and-down-slightly')
     laughSound.play()
     laughSound.volume = .2
-    if (Math.random() < this.attackAcc - 2) {
+    if (Math.random() < this.attackAcc) {
       let randomNum = randomizer(1, 5)
       playerConfuseCounter = playerConfuseCounter + randomNum
+      playerConfuse.style.display = 'inline'
+      playerConfuse.classList.add('waggle-back-and-forth')
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${this.name} laughs maniacally! ${target.name} is confused.`
     } else {
@@ -555,6 +549,10 @@ class Enemy5 extends Character {
     if (Math.random() < this.buffAcc) {
       iceSound.play()
       iceSound.volume = .3
+      document.getElementById('blood-animation-enemy').style.display = 'inline'
+      setTimeout (() => {
+        document.getElementById('blood-animation-enemy').style.display = 'none'
+      }, 2000)
       let healthNum = randomizer(8, 12)
       let attackNum = randomizer(1, 2)
       this.hitPoints = this.hitPoints + healthNum
@@ -567,6 +565,10 @@ class Enemy5 extends Character {
   }
 
   psychicBark(target) {
+    document.getElementById('psybark-animation-enemy').style.display = 'inline'
+    setTimeout(() => {
+      document.getElementById('psybark-animation-enemy').style.display = 'none'
+    }, 2000)
     if (Math.random() < this.attackAcc) {
       psychicBarkSound.play()
       psychicBarkSound.volume = .3
@@ -586,6 +588,7 @@ class Enemy5 extends Character {
   }
 
   vampireBite(target) {
+    enemyImage.classList.add('flow-to-and-from-player')
     if (Math.random() < this.attackAcc) {
       vampireBiteSound.play()
       vampireBiteSound.volume = .3
@@ -804,12 +807,10 @@ const nextMoveBtn = document.getElementById('next-move')
 // Mute Button
 const muteBtn = document.querySelector('.mute-button')
 
-// Audio Slider
-const volumeRange = document.getElementById('volume-range')
-
 // Status Effect Items 
 const playerSleep = document.getElementById('sleep-image-player')
 const enemySleep = document.getElementById('sleep-image-enemy')
+const playerConfuse = document.getElementById('confuse-image-player')
 
 // Special Attack Effects - Enemy Shared
 const enemyCharges = document.getElementById('charging-animation-enemy')
@@ -832,9 +833,11 @@ const cutenessSound = new Audio('/Users/paulshephard/software_homework/project1/
 const chargingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Charging.mp3')
 const sleepingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/StillAsleep.mp3')
 const awakeSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Wake up.mp3')
+const confusedSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Boing.mp3')
+const confusedNoLongerSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Ta da.mp3')
 const playerLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Player Loss.mp3')
 const enemyLossSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/Enemy Loss.mp3')
-const breakingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/break_crate.mp3')
+const breakingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/break_crate.mp3')
 
 // Sound Effects - Enemy1
 const canteenSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy1.mp3/canteen-swill.mp3')
@@ -1063,7 +1066,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NVG6Y7n/fancy-Bax-final.png', 'https://i.ibb.co/Cw5f9wy/solidBAX.png', 'https://i.ibb.co/XCfCTP4/Baxula-final.png', 'https://i.ibb.co/gVBvTSK/baxter-prime.png']
+  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NVG6Y7n/fancy-Bax-final.png', 'https://i.ibb.co/Cw5f9wy/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.ibb.co/gVBvTSK/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
@@ -1200,6 +1203,8 @@ function checkWinner() {
     declareWinner()
     }, 2000)
   } 
+
+ 
 }
 
 // Brings up either the victory or game over screen based on the winner
@@ -1550,9 +1555,12 @@ function removeAnimationClasses() {
   enemyImage.classList.remove('enemy-physical-attack', 'take-hit', 'upside-down-spin')
   playerSleep.classList.remove('sleep-animate')
   enemySleep.classList.remove('sleep-animate')
+  playerConfuse.classList.remove('waggle-back-and-forth')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
   enemyImage.classList.remove('enemy-transform-slide')
+  enemyImage.classList.remove('up-and-down-slightly')
+  enemyImage.classList.remove('flow-to-and-from-player')
 
 }
 
@@ -1591,11 +1599,23 @@ function stopMusic() {
   musicTrack.pause()
 }
 
+function tooConfused() {
+  battleMessages.textContent = `${player.name} is too confused to act!`
+  confusedSound.play()
+  confusedSound.volume = .3
+  playerConfuse.classList.add('waggle-back-and-forth')
+  hideActionButtons()
+  renderPlayerUpdates()
+}
+
 function endConfusion() {
   if (playerConfuseCounter > 0) {
     playerConfuseCounter--
     if (playerConfuseCounter === 0) {
+      playerConfuse.style.display = 'none'
       battleMessages.textContent = `${player.name} shakes off his confusion!`
+      confusedNoLongerSound.play()
+      confusedNoLongerSound.volume = .3
     }
   }
 }
@@ -1634,13 +1654,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    enemy3.shockedExpression(player)
+    confuseNum = 3
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy3.nepotism()
+    enemy2.hitTheHighNote(player)
   }
 })
 
@@ -1649,6 +1669,6 @@ document.addEventListener('keydown', function(event) {
     enemy4.landmine(player)
   }
 })
-
+2
 
 

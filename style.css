@@ -64,20 +64,29 @@ body {
 }
 
 .start-welcome {
-  font-size: 6vh
+  font-size: 6vmin;
+  font-family: "Fuzzy Bubbles", serif
 }
 
 .start-title {
-  font-size: 8vh
+  font-size: 8vmin;
+  font-family: "Fuzzy Bubbles", serif
+}
+
+.volume-button-instructions {
+  font-size: 4vmin;
+  font-family: "Source Code Pro", serif;
+  margin: auto 5vmin
 }
 
 .start-message {
-  font-size: 4vh
+  font-size: 4vmin;
+  font-family: "Dhurjati", serif
 }
 
 #start-button {
   display: block;
-  font-size: 4vh;
+  font-size: 6vh;
   background-color: white;
   color: black
 }
@@ -163,7 +172,12 @@ body {
 }
 
 #enemy-name {
-  margin-bottom: 1vh
+  margin-bottom: 1vh;
+  text-shadow:
+  0.07em 0 black,
+  0 0.07em black,
+  -0.07em 0 black,
+  0 -0.07em black;
 }
 
 #enemy-healthbar {
@@ -182,6 +196,11 @@ body {
   height: 0;
   width: 0;
   font-size: 4.5vmin;
+  text-shadow:
+  0.07em 0 black,
+  0 0.07em black,
+  -0.07em 0 black,
+  0 -0.07em black
 }
 
 /* Player health bar and name */
@@ -199,7 +218,12 @@ body {
 }
 
 #player-name {
-  margin-bottom: 1vh
+  margin-bottom: 1vh;
+  text-shadow:
+  0.07em 0 black,
+  0 0.07em black,
+  -0.07em 0 black,
+  0 -0.07em black
 }
 
 #player-healthbar {
@@ -210,7 +234,7 @@ body {
   position: relative;
   height: 0;
   bottom: 12vmin;
-  right: 2.75vmin;
+  right: 2.75vmin
 }
 
 #player-hp {
@@ -218,6 +242,11 @@ body {
   height: 0;
   width: 0;
   font-size: 4.5vmin;
+  text-shadow:
+  0.07em 0 black,
+  0 0.07em black,
+  -0.07em 0 black,
+  0 -0.07em black
 }
 
 /* Combatant Images */
@@ -373,8 +402,7 @@ body {
 #enemy3-scoff-container {
   position: relative;
   height: 0;
-  bottom: 25vmin;
-  right: 18vmin
+  bottom: 25vmin
 }
 
 #scoff-animation-enemy {
@@ -400,13 +428,13 @@ body {
 #enemy3-nepotism-container {
   position: relative;
   height: 0;
-  bottom: 20vmin;
-  left: 80vmin
+  bottom: 15vh;
+  left: 85vw
 }
 
 #nepotism-animation-enemy {
   display: none;
-  height: 60vmin;
+  height: 60vh;
   position: absolute;
   animation: slideInSlideOut 2s linear
 }
@@ -468,6 +496,36 @@ body {
   animation: flowQuicklyToPlayer 1s linear
 }
 
+/* Enemy 5 */
+
+#enemy5-blood-container {
+  position: relative;
+  height: 0;
+  bottom: 20vmin;
+  left: 3vmin
+}
+
+#blood-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 10vmin;
+  animation: waggleBackAndForth 2s linear
+}
+
+#enemy5-psybark-container {
+  position: relative;
+  height: 0;
+  bottom: 15vmin;
+  right: 15vmin
+}
+
+#psybark-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 18vmin;
+  animation: flowQuicklyToPlayer 2s ease-out
+}
+
 /* Player animations */
 
 #sleep-player-container {
@@ -483,6 +541,19 @@ body {
 #sleep-image-player {
   display: none;
   height: 10vmin;
+  position: absolute
+}
+
+#confuse-player-container {
+  position: relative;
+  height: 0;
+  bottom: 35vmin;
+  left: 20vmin
+}
+
+#confuse-image-player {
+  display: none;
+  height: 12vmin;
   position: absolute
 }
 
@@ -553,6 +624,18 @@ body {
 
 .upside-down-spin {
   animation: upsideDownSpin 2s ease-out
+}
+
+.up-and-down-slightly {
+  animation: upAndDownSlightly 2s ease-out
+}
+
+.waggle-back-and-forth {
+  animation: waggleBackAndForth 2s ease-out
+}
+
+.flow-to-and-from-player {
+  animation: flowToAndFromPlayer 2s linear
 }
 
 .clicked {
@@ -765,7 +848,7 @@ body {
     scale(1)
   }
   100% {
-    transform: translate3d(-35vmin, 30vmin, 0)
+    transform: translate3d(-35vw, 30vh, 0)
     scale(1.5)
   }
 }
@@ -775,8 +858,29 @@ body {
     transform: translate3d(0, 0, 0)
   }
   100% {
-    transform: translate3d(-60vmin, 40vmin, 0)
+    transform: translate3d(-60vw, 50vh, 0)
   } 
+}
+
+@keyframes flowToAndFromPlayer {
+  0% {
+    transform: translate3d(0, 0, 0)
+  }
+  7% {
+    transform: translate3d(-15vw, 7vh, 0)
+  }
+  14% {
+    transform: translate3d(-30vw, 14vh, 0)
+  }
+  21% {
+    transform: translate3d(-45vw, 21vh, 0)
+  }
+  28% {
+    transform: translate3d(-60vw, 28vh, 0)
+  }
+  100% {
+    transform: translate3d((0, 0, 0))
+  }
 }
 
 @keyframes flowCloseToPlayer {
@@ -785,19 +889,19 @@ body {
     scale(1)
   }
   25% {
-    transform: translate3d(-15vmin, 10vmin, 0)
+    transform: translate3d(-12vw, 12vh, 0)
     scale(1)
   }
   50% {
-    transform: translate3d(-30vmin, 20vmin, 0)
+    transform: translate3d(-24vw, 24vh, 0)
     scale(1)
   }
   75% {
-    transform: translate3d(-45vmin, 30vmin, 0)
+    transform: translate3d(-36vw, 36vh, 0)
     scale(1.5)
   }
   100% {
-    transform: translate3d(-60vmin, 40vmin, 0)
+    transform: translate3d(-48vw, 48vh, 0)
     scale(2)
   }
 }
@@ -807,7 +911,7 @@ body {
     transform: translate3d(0, 0, 0)
   }
   100% {
-    transform: translate3d(20vmin, -15vmin, 0)
+    transform: translate3d(20vw, -15vh, 0)
   }
 }
 
@@ -828,10 +932,10 @@ body {
     transform: translateX(0)
   }
   30% {
-    transform: translateX(-120vmin)
+    transform: translateX(-110vw)
   }
   70% { 
-    transform: translateX(-120vmin)
+    transform: translateX(-110vw)
   }
   100% {
     transform: translateX(0)
@@ -843,7 +947,7 @@ body {
     transform: translateX(0)
   }
   50% {
-    transform: translateX(120vmin)
+    transform: translateX(120vw)
   }
   100% {
     transform: translateX(0)
@@ -856,19 +960,19 @@ body {
     rotate(0)
   }
   25% {
-    transform: translate3d(-10vmin, -10vmin, 0)
+    transform: translate3d(-10vw, -10vh, 0)
     rotate(90deg)
   }
   50% {
-    transform: translate3d(-20vmin, 5vmin, 0)
+    transform: translate3d(-20vw, 5vh, 0)
     rotate(180deg)
   }
   75% {
-    transform: translate3d(-30vmin, 15vmin, 0)
+    transform: translate3d(-30vw, 15vh, 0)
     rotate (270deg)
   }
   100% {
-    transform: translate3d(-40vmin, 35vmin, 0)
+    transform: translate3d(-40vw, 35vh, 0)
     rotate(359deg)
   }
 }
@@ -889,6 +993,49 @@ body {
   100% {
     opacity: 0
   }
+}
+
+@keyframes upAndDownSlightly {
+  0% {
+    transform: translateY(0)
+  }
+  25% {
+    transform: translateY(1rem)
+  }
+  50% {
+    transform: translateY(0)
+  }
+  75% {
+    transform: translateY(1rem)
+  }
+  100% {
+    transform: translateY(0)
+  }
+}
+
+@keyframes waggleBackAndForth {
+  0% {
+    transform: rotate(0)
+  }
+  10% {
+    transform: roate(15deg)
+  }
+  30% {
+    transform: rotate(-15deg)
+  }
+  50% {
+    transform: rotate(15deg)
+  }
+  70% {
+    transform: rotate(-15deg)
+  }
+  90% {
+    transform: rotate(15deg)
+  }
+  100% {
+    transform: rotate(0)
+  }
+
 }
 
 @keyframes clicked {
