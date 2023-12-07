@@ -1032,10 +1032,11 @@ function initBattleDisplay() {
   battleMessages.textContent = 'Get ready to rumble!'
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
-  if (musicTrack.play()) {
+  if (muteBtn.src === 'https://i.ibb.co/xFMcFPR/greens2150520-06.png') {
+    musicTrack.pause()
+  } else {
     musicTrack.play()
   }
-  
 }
 
 function initBattleStatus() {
