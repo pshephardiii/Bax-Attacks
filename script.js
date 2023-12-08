@@ -778,6 +778,10 @@ let musicArr
 
 let winner
 
+// current volume variable
+
+let currentVolume
+
 // CACHED ELEMENTS
 
 // Screen containers
@@ -901,7 +905,10 @@ const musicTrack = document.getElementById('music-track')
 document.getElementById('launch-button').addEventListener('click', () => {
   document.querySelector('.default-screen').style.display = 'none'
   startScreen.style.display = 'flex'
+  muteBtn.style.display = 'inline'
   musicTrack.play()
+  currentVolume = .1
+  musicTrack.volume = currentVolume
   musicTrack.loop = true
 })
 
@@ -921,8 +928,13 @@ resetBtn.addEventListener('click', () => {
   gameCompletionScreen.style.display = 'none'
   startScreen.style.display = 'flex'
   musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Play.mp3'
-  musicTrack.play()
-  musicTrack.loop = true
+  if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
+    musicTrack.pause()
+  } else {
+    musicTrack.play()
+    musicTrack.loop = true
+    musicTrack.volume = currentVolume
+  }
 })
 
 actionBtn1.addEventListener('click', () => {
@@ -953,6 +965,7 @@ nextMoveBtn.addEventListener('click', () => {
 muteBtn.addEventListener('click', () => {
   if (musicTrack.paused) {
     musicTrack.play()
+    musicTrack.volume = currentVolume
     muteBtn.classList.add('clicked')
     setTimeout(() => {
       muteBtn.src = 'https://i.postimg.cc/zvh0v9qG/ufuf.png'
@@ -974,6 +987,7 @@ document.addEventListener('keydown', function(event) {
   if (event.key === 'm') {
     if (musicTrack.paused) {
       musicTrack.play()
+      musicTrack.volume = currentVolume
       muteBtn.classList.add('clicked')
       setTimeout(() => {
         muteBtn.src = 'https://i.postimg.cc/zvh0v9qG/ufuf.png'
@@ -992,13 +1006,15 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '-') {
-    musicTrack.volume = musicTrack.volume - .02
+    currentVolume = currentVolume - .01
+    musicTrack.volume = currentVolume
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '+') {
-    musicTrack.volume = musicTrack.volume + .02
+    currentVolume = currentVolume + .01
+    musicTrack.volume = currentVolume
   }
 })
 
@@ -1077,6 +1093,7 @@ function initBattleDisplay() {
     musicTrack.pause()
   } else {
     musicTrack.play()
+    musicTrack.volume = currentVolume
   }
 }
 
@@ -1252,8 +1269,13 @@ function declareWinner() {
       victoryScreen.style.display = 'flex'
       document.querySelector('.victory-message').textContent = victoryMessageArr[0]
       musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/victory-screen.mp3'
-      musicTrack.play()
-      musicTrack.loop = true
+      if (muteBtn.src === 'background-music.mp3/victory-screen.mp3') {
+        musicTrack.pause()
+      } else {
+        musicTrack.play()
+        musicTrack.volume = currentVolume
+        musicTrack.loop = true
+      }
     }, 2000)
   } else {
     setTimeout(() => {
