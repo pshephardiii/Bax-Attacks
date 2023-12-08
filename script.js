@@ -612,7 +612,7 @@ class Enemy6 extends Character {
   squirtBottle(target) {
     waterSound.play()
     waterSound.volume = .4
-    if (Math.random() < this.attackAcc - .1) {
+    if (Math.random() < this.attackAcc) {
       let attackDecrease = randomizer(1, 3)
       let defenseDecrease = randomizer(1, 3)
       if (target.attack - attackDecrease > 0) {
@@ -639,7 +639,7 @@ class Enemy6 extends Character {
   }
 
   crate(target) {
-    if (Math.random() < this.attackAcc - .3) {
+    if (Math.random() < this.attackAcc - .2) {
       playerStunCounter = playerStunCounter + randomizer(2, 4)
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('player-transform-slide')
@@ -681,7 +681,7 @@ class Enemy6 extends Character {
       battleMessages.textContent = `${this.name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
-        if(Math.random() < this.attackAcc - .1) {
+        if(Math.random() < this.attackAcc) {
           let attackDamage = randomizer((this.attack + 6), (this.attack + 9))
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -769,6 +769,8 @@ let enemyImageArr
 let backgroundImageArr
 
 let gameOverMessageArr
+
+let victoryMessageArr
 
 let musicArr
 
@@ -900,7 +902,6 @@ document.getElementById('launch-button').addEventListener('click', () => {
   document.querySelector('.default-screen').style.display = 'none'
   startScreen.style.display = 'flex'
   musicTrack.play()
-  musicTrack.volume = .1
   musicTrack.loop = true
 })
 
@@ -912,6 +913,16 @@ startBtn.addEventListener('click', () => {
 continueBtn.addEventListener('click', () => {
   initNextBattle()
   init()
+})
+
+resetBtn.addEventListener('click', () => {
+  victoryScreen.style.display = 'none'
+  gameOverScreen.style.display = 'none'
+  gameCompletionScreen.style.display = 'none'
+  startScreen.style.display = 'flex'
+  musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Play.mp3'
+  musicTrack.play()
+  musicTrack.loop = true
 })
 
 actionBtn1.addEventListener('click', () => {
@@ -1027,6 +1038,7 @@ function initPlayerStats() {
   playerHealth.value = player.hitPoints
   playerHealthNum.textContent = `${player.hitPoints}`
   playerImageContainer.classList.add('move-in-left')
+  actionBtnUpdate()
   playerChargeCounter = 0
   playerSleepCounter = 0
   playerStunCounter = 0
@@ -1079,10 +1091,12 @@ function initDefeatMessages() {
 }
 
 function initFirstBattle() {
+  resetHitPoints()
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
+  victoryMessageArr = ['The next opponent truly dances around the ring!', 'The next opponent always puts his money where his mouth is!', 'The next opponent is sneaky good!', 'The next opponent only fights at night!', 'Are you ready to face your greatest fears?']
 }
 
 function initNextBattle() {
@@ -1090,6 +1104,7 @@ function initNextBattle() {
   enemyImageArr.shift()
   backgroundImageArr.shift()
   musicArr.shift()
+  victoryMessageArr.shift()
 }
 
 // Randomizer Function
@@ -1103,11 +1118,7 @@ function randomizer(min, max) {
 function renderPlayerUpdates() {
 
   healthUpdates()
-
-  actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
-  actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
-  actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
-  actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
+  actionBtnUpdate()
 
   if (playerSleepCounter > 0) {
     if (playerSleepCounter === 1) {
@@ -1239,7 +1250,10 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       victoryScreen.style.display = 'flex'
-      stopMusic()
+      document.querySelector('.victory-message').textContent = victoryMessageArr[0]
+      musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/victory-screen.mp3'
+      musicTrack.play()
+      musicTrack.loop = true
     }, 2000)
   } else {
     setTimeout(() => {
@@ -1598,6 +1612,16 @@ function displayNextTurnBtn() {
   nextMoveBtn.style.display = 'inline'
 }
 
+function resetHitPoints() {
+  enemy1.hitPoints = 30
+  enemy2.hitPoints = 40
+  enemy3.hitPoints = 50
+  enemy4.hitPoints = 60
+  enemy5.hitPoints = 40
+  enemy6.hitPoints = 70
+
+}
+
 function outOfBox() {
   if ((playerAccuracyDecreaseCounter === 1) && (enemyArr[0] === enemy4)) {
     battleMessages.textContent = `${enemy4.name} leaps out of the box!` 
@@ -1634,6 +1658,13 @@ function endConfusion() {
       confusedNoLongerSound.volume = .3
     }
   }
+}
+
+function actionBtnUpdate() {
+  actionBtn1.innerHTML = `<span class="action-command">Bark</span><br /> Uses Left: ${player.useAct1}`
+  actionBtn2.innerHTML = `<span class="action-command">Bite</span><br /> Uses Left: ${player.useAct2}`
+  actionBtn3.innerHTML = `<span class="action-command">Dash</span><br /> Uses Left: ${player.useAct3}`
+  actionBtn4.innerHTML = `<span class="action-command">Cuteness</span> <br />Uses Left: ${player.useAct4}`
 }
 
 // Cheat Codes (thank you Revenge of the Garbage Man!)
