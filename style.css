@@ -41,7 +41,7 @@ body {
   width: 100vw;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem;
+  font-size: 6vmin;
   text-shadow:
   0.07em 0 white,
   0 0.07em white,
@@ -52,10 +52,31 @@ body {
 }
 
 #launch-button {
-  width: 15rem;
-  height: 4rem;
-  font-size: 2rem;
+  padding: 1vmin 4vmin;
+  height: 8vmin;
+  font-size: 6vmin;
   text-align: center
+}
+
+/* Change font color with height media-query */
+
+.volume-button-instructions {
+  font-size: 5vminvmin;
+  color: black;
+}
+
+#music-volume-first-line {
+  margin-top: 3rem;
+  margin-bottom: .5rem
+}
+
+#music-volume-second-line {
+  margin-top: .5rem;
+  margin-bottom: .5rem
+}
+
+#music-volume-third-line {
+  margin-top: .5rem;
 }
 
 /* Start Screen */
@@ -65,39 +86,54 @@ body {
   flex-direction: column;
   align-items: center;
   background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-image: url('https://i.postimg.cc/ryPGv4Dj/9548381.jpg');
   text-align: center;
   height: 100vh;
-  margin-top: 5vh;
-  margin-bottom: 5vh
+  width: 100vw;
 }
 
 .start-welcome {
-  font-size: 6vmin;
-  font-family: "Fuzzy Bubbles", serif
+  font-size: 4vmin;
+  color: white;
+  font-family: "Fuzzy Bubbles", serif;
+  margin-bottom: 1rem;
 }
 
 .start-title {
-  font-size: 8vmin;
-  font-family: "Fuzzy Bubbles", serif
+  font-size: 6vmin;
+  color: red;
+  text-shadow:
+  0.07em 0 black,
+  0 0.07em black,
+  -0.07em 0 black,
+  0 -0.07em black;
+  font-family: "Fuzzy Bubbles", serif;
+  margin-top: 0;
 }
 
-.volume-button-instructions {
-  font-size: 4vmin;
-  font-family: "Source Code Pro", serif;
-  margin: auto 5vmin
+.start-image {
+  position: absolute;
+  height: 60vmin;
+  top: 20vmin;
 }
 
 .start-message {
-  font-size: 4vmin;
+  font-size: 6vmin;
   font-family: "Dhurjati", serif;
-  animation: blinking 1.5s linear infinite
+  color: white;
+  animation: blinking 1.5s linear infinite;
+  z-index: 1;
+  margin-top: 20vmin;
 }
 
 #start-button {
   display: block;
   font-size: 6vh;
-  background-color: white;
-  color: black
+  background-color: red;
+  color: white;
+  margin-top: 27vmin;
 }
 
 #start-button:hover {
