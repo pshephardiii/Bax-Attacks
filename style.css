@@ -38,9 +38,17 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem
+  font-size: 2.5rem;
+  text-shadow:
+  0.07em 0 white,
+  0 0.07em white,
+  -0.07em 0 white,
+  0 -0.07em white;
+  background-size: contain;
+  background-image: url('https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg')
 }
 
 #launch-button {
@@ -81,7 +89,8 @@ body {
 
 .start-message {
   font-size: 4vmin;
-  font-family: "Dhurjati", serif
+  font-family: "Dhurjati", serif;
+  animation: blinking 1.5s linear infinite
 }
 
 #start-button {
@@ -310,7 +319,7 @@ body {
 
 /* special enemy animations */
 
-/* Enemy 1 */
+/* Enemy 1 Animation Elements */
 
 #enemy1-speaking-container {
   position: relative;
@@ -340,7 +349,7 @@ body {
   animation: smallWiggle 2s ease-out
 }
 
-/* Enemy 2 */
+/* Enemy 2 Animation Elements */
 
 #enemy2-autograph-container {
   position: relative;
@@ -397,7 +406,7 @@ body {
   position: absolute
 }
 
-/* Enemy 3 */
+/* Enemy 3  Animation Elements */
 
 #enemy3-scoff-container {
   position: relative;
@@ -452,7 +461,7 @@ body {
   animation: flash 2s linear
 }
 
-/* Enemy 4 */
+/* Enemy 4 Animation Elements */
 
 #enemy4-bomb-container {
   position: relative;
@@ -496,7 +505,7 @@ body {
   animation: flowQuicklyToPlayer 1s linear
 }
 
-/* Enemy 5 */
+/* Enemy 5 Animation Elements */
 
 #enemy5-blood-container {
   position: relative;
@@ -524,6 +533,76 @@ body {
   position: absolute;
   height: 18vmin;
   animation: flowQuicklyToPlayer 2s ease-out
+}
+
+/* Enemy6 Animation Elements */
+
+#enemy6-bottle-container {
+  position: relative;
+  height: 0;
+  bottom: 10vmin;
+  left: 5vmin
+}
+
+#bottle-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 15vmin
+}
+
+#enemy6-squirt-container {
+  position: relative;
+  height: 0;
+  right: 1vmin;
+  bottom: 14vmin
+}
+
+#squirt-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 15vmin;
+  animation: getBigAndFlowToPlayer 2s ease-out
+}
+
+#enemy6-vacuum-container {
+  position: relative;
+  height: 0;
+  bottom: 15vmin
+}
+
+#vacuum-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 40vmin;
+  animation: slowlyApproachPlayer 2.5s ease-out
+}
+
+#enemy6-supercharging-container {
+  position: relative;
+  height: 0;
+  bottom: 48vmin;
+  right: 12vmin;
+}
+
+#supercharging-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 90vmin;
+  animation: slowSlideLeftAndSpin 3s linear
+}
+
+#enemy6-groomer-container {
+  position: relative;
+  height: 0;
+  bottom: 20vmin;
+  left: 30vw
+}
+
+#groomer-animation-enemy {
+  display: none;
+  position: absolute;
+  height: 80vmin;
+  animation: offScreenApproachPlayer 3s linear
 }
 
 /* Player animations */
@@ -622,6 +701,10 @@ body {
   animation: enemyTransformSlide 2s linear
 }
 
+.player-transform-slide {
+  animation: playerTransformSlide 2s linear
+}
+
 .upside-down-spin {
   animation: upsideDownSpin 2s ease-out
 }
@@ -640,6 +723,10 @@ body {
 
 .clicked {
   animation: clicked .5s ease-in-out
+}
+
+.slow-slide-left {
+  animation: slowSlideLeft 3s linear
 }
 
 /* Battle Messages */
@@ -722,6 +809,36 @@ body {
   }
   100% {
     transform: translateX(-30rem)
+  }
+}
+
+@keyframes slowSlideLeft {
+  0% {
+    transform: translateX(0)
+  }
+  75% {
+    transform: translateX(-35vw)
+  }
+  100% {
+    transform: translateX(0)
+  }
+}
+
+@keyframes slowSlideLeftAndSpin {
+  0% {
+    transform: translateX(0)
+    rotate(0)
+    
+  }
+  80% {
+    transform: translateX(-35vw)
+    rotate(90deg)
+    
+  }
+  100% {
+    transform: translateX(0)
+    rotate(120deg)
+    
   }
 }
 
@@ -842,6 +959,15 @@ body {
   }
 }
 
+@keyframes slowlyApproachPlayer {
+  0% {
+    transform: translate3d(0, 0, 0)
+  }
+  100% {
+    transform: translate3d(-40vw, 25vh, 0)
+  }
+}
+
 @keyframes flowTowardsPlayer {
   0% {
     transform: translate3d(0, 0, 0)
@@ -906,6 +1032,29 @@ body {
   }
 }
 
+@keyframes offScreenApproachPlayer {
+  0% {
+    transform: translateX(0)
+  }
+  80% {
+    transform: translateX(-63vw)
+  }
+  100% {
+    transform: translateX(0)
+  }
+}
+
+@keyframes getBigAndFlowToPlayer {
+  0% {
+    transform: scale(1)
+    translate3d(0, 0, 0)
+  }
+  100% {
+    transform: scale(3)
+    translate3d(-15vw, 15vh, 0)
+  }
+}
+
 @keyframes flowTowardsEnemy {
   0% {
     transform: translate3d(0, 0, 0)
@@ -954,6 +1103,18 @@ body {
   }
 }
 
+@keyframes playerTransformSlide {
+  0% {
+    transform: translateX(0)
+  }
+  50% {
+    transform: translateX(-120vw)
+  }
+  100% {
+    transform: translateX(0)
+  }
+} 
+  
 @keyframes rotatingToss {
   0% {
     transform: translate3d(0, 0, 0)
@@ -1047,5 +1208,17 @@ body {
   }
   100% {
     transform: scale(1)
+  }
+}
+
+@keyframes blinking {
+  0% {
+    opacity: 1
+  }
+  50% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
   }
 }

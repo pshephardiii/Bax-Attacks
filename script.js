@@ -453,7 +453,7 @@ class Enemy4 extends Character {
       setTimeout(() => {
         boxSound.play()
         boxSound.volume = .7
-        enemyImage.src = 'https://i.ibb.co/bK3FV2J/1149.png'
+        enemyImage.src = 'https://i.postimg.cc/Y92qRHvh/1149.png'
       }, 1000)
       battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
     }  else {
@@ -625,6 +625,12 @@ class Enemy6 extends Character {
       } else {
         target.defense = 0
       }
+      document.getElementById('bottle-animation-enemy').style.display = 'inline'
+      document.getElementById('squirt-animation-enemy').style.display = 'inline'
+      setTimeout(() => {
+        document.getElementById('bottle-animation-enemy').style.display = 'none'
+      document.getElementById('squirt-animation-enemy').style.display = 'none'
+      }, 2000)
       this.useAct1 = this.useAct1 - 1
       battleMessages.textContent = `${this.name} squirts ${target.name} with water, and it is DEVASTATING! His attack and defense are lowered.`
     } else {
@@ -636,6 +642,10 @@ class Enemy6 extends Character {
     if (Math.random() < this.attackAcc - .3) {
       playerStunCounter = playerStunCounter + randomizer(2, 4)
       this.useAct2 = this.useAct2 - 1
+      playerImage.classList.add('player-transform-slide')
+      setTimeout(() => {
+        playerImage.src = 'https://i.postimg.cc/1RdJqx5H/pet-travel-plastic-cage-carrier-box-wooden-table-3d-rendering.png'
+      }, 1000)
       battleMessages.textContent = `${this.name} puts ${target.name} in the crate! ${target.name} is stunned by this madness!`
     } else {
       battleMessages.textContent = `${this.name} tries to put ${target.name} in the crate, but gets his hand bit instead!`
@@ -650,8 +660,10 @@ class Enemy6 extends Character {
       battleMessages.textContent = `${this.name} brings out the vacuum, and ${player.name} can't handle it! It does ${attackDamage} damage.`
       vacuumSound.play()
       vacuumSound.volume = .3
+      document.getElementById('vacuum-animation-enemy').style.display = 'inline'
       setTimeout(() => {
         vacuumSound.pause()
+        document.getElementById('vacuum-animation-enemy').style.display = 'none'
       }, 2500)
     } else battleMessages.textContent = `${this.name} tries to bring out the vacuum, but ${target.name} won't let him!`
   }
@@ -659,18 +671,17 @@ class Enemy6 extends Character {
   groomer(target) {
     enemyChargeCounter++
     if (enemyChargeCounter === 1) {
-      chargingSound.play()
-      chargingSound.volume = .3
-      enemyCharges.style.display = 'inline'
+      superchargingSound.play()
+      superchargingSound.volume = .4
+      enemyImage.classList.add('slow-slide-left')
+      document.getElementById('supercharging-animation-enemy').style.display = 'inline'
       setTimeout( () => {
-        enemyCharges.style.display = 'none'
-      }, 2000)
+        document.getElementById('supercharging-animation-enemy').style.display = 'none'
+      }, 2250)
       battleMessages.textContent = `${this.name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
         if(Math.random() < this.attackAcc - .1) {
-        
-          // highNoteAnimation
           let attackDamage = randomizer((this.attack + 6), (this.attack + 9))
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -680,9 +691,11 @@ class Enemy6 extends Character {
           battleMessages.textContent = ` Oh the humanity! ${this.name} takes ${target.name} to the groomer! ${target.name} suffers ${attackDamage} damage.` 
           warningSound.play()
           warningSound.volume = .3
+          document.getElementById('groomer-animation-enemy').style.display = 'inline'
           setTimeout(() => {
+            document.getElementById('groomer-animation-enemy').style.display = 'none'
             warningSound.pause()
-          }, 2500)
+          }, 3000)
         } else {
           battleMessages.textContent = `${this.name} tries to take ${target.name} to the groomer, but ${target.name} flees in terror!`
           enemyChargeCounter = 0
@@ -875,6 +888,7 @@ const waterSound = new Audio('/Users/paulshephard/software_homework/project1/Bax
 const whimperingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/dog_whimper.mp3')
 const vacuumSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/vacuum.mp3')
 const warningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/groomer_warning.mp3')
+const superchargingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/charge-final-boss.mp3')
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -930,14 +944,14 @@ muteBtn.addEventListener('click', () => {
     musicTrack.play()
     muteBtn.classList.add('clicked')
     setTimeout(() => {
-      muteBtn.src = 'https://i.ibb.co/WfT95nh/ufuf.png'
+      muteBtn.src = 'https://i.postimg.cc/zvh0v9qG/ufuf.png'
       muteBtn.classList.remove('clicked')
     }, 500)
   } else {
     musicTrack.pause()
     muteBtn.classList.add('clicked')
     setTimeout(() => {
-      muteBtn.src = 'https://i.ibb.co/xFMcFPR/greens2150520-06.png'
+      muteBtn.src = 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png'
       muteBtn.classList.remove('clicked')
     }, 500)
   }
@@ -951,14 +965,14 @@ document.addEventListener('keydown', function(event) {
       musicTrack.play()
       muteBtn.classList.add('clicked')
       setTimeout(() => {
-        muteBtn.src = 'https://i.ibb.co/WfT95nh/ufuf.png'
+        muteBtn.src = 'https://i.postimg.cc/zvh0v9qG/ufuf.png'
         muteBtn.classList.remove('clicked')
       }, 500)
     } else {
       musicTrack.pause()
       muteBtn.classList.add('clicked')
       setTimeout(() => {
-        muteBtn.src = 'https://i.ibb.co/xFMcFPR/greens2150520-06.png'
+        muteBtn.src = 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png'
         muteBtn.classList.remove('clicked')
       }, 500)
     }
@@ -1047,7 +1061,7 @@ function initBattleDisplay() {
   battleMessages.textContent = 'Get ready to rumble!'
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
-  if (muteBtn.src === 'https://i.ibb.co/xFMcFPR/greens2150520-06.png') {
+  if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
     musicTrack.pause()
   } else {
     musicTrack.play()
@@ -1066,7 +1080,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyImageArr = ['https://i.ibb.co/Cw7v0NK/Baxter-The-Malcontent.png', 'https://i.ibb.co/PWQLg5P/072drbw.png', 'https://i.ibb.co/NVG6Y7n/fancy-Bax-final.png', 'https://i.ibb.co/Cw5f9wy/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.ibb.co/gVBvTSK/baxter-prime.png']
+  enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
 }
@@ -1118,11 +1132,17 @@ function renderPlayerUpdates() {
       playerStunCounter--
       breakingSound.play()
       breakingSound.volume = .2
+      playerImage.classList.add('player-transform-slide')
+      setTimeout(() => {
+        playerImage.src = 'https://i.imgur.com/0sgCwy1.png'
+      }, 1000)
     } else if (playerStunCounter > 1) {
       battleMessages.textContent = `${player.name} is stuck in the crate!`
       playerStunCounter--
+      // animation
       whimperingSound.play()
       whimperingSound.volume = .3
+      playerImage.classList.add('up-and-down-slightly')
       setTimeout(() => {
         whimperingSound.pause()
       }, 2000)
@@ -1528,7 +1548,7 @@ function fightRound6() {
       }
     }
 
-    if (enemy6.hitPoints > 30) {
+    if (enemy6.hitPoints > 35) {
       if ((randomNum < .33) && (enemy6.useAct2 > 0) && (playerStunCounter === 0)) {
         enemy6.crate(player)
       } else if ((randomNum > .66) && (enemy6.useAct4 > 0)) {
@@ -1551,17 +1571,13 @@ function fightRound6() {
 // Removes the classes associated with various animations to prime the player and enemy to repeat animations if necessary
 
 function removeAnimationClasses() {
-  playerImage.classList.remove('player-physical-attack', 'take-hit')
-  enemyImage.classList.remove('enemy-physical-attack', 'take-hit', 'upside-down-spin')
+  playerImage.classList.remove('player-physical-attack', 'take-hit', 'player-transform-slide', 'up-and-down-slightly')
+  enemyImage.classList.remove('enemy-physical-attack', 'take-hit', 'upside-down-spin', 'enemy-transform-slide', 'up-and-down-slightly', 'flow-to-and-from-player', 'slow-slide-left')
   playerSleep.classList.remove('sleep-animate')
   enemySleep.classList.remove('sleep-animate')
   playerConfuse.classList.remove('waggle-back-and-forth')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
-  enemyImage.classList.remove('enemy-transform-slide')
-  enemyImage.classList.remove('up-and-down-slightly')
-  enemyImage.classList.remove('flow-to-and-from-player')
-
 }
 
 // Hides action buttons and displays next turn button
@@ -1588,7 +1604,7 @@ function outOfBox() {
     enemyImage.classList.add('enemy-transform-slide')
     setTimeout(() => {
     boxSound.play()
-    enemyImage.src = 'https://i.ibb.co/Cw5f9wy/solidBAX.png'
+    enemyImage.src = 'https://i.postimg.cc/MZNf6nc5/solidBAX.png'
     }, 1000)
   }
 }
@@ -1660,13 +1676,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy2.hitTheHighNote(player)
+    enemy6.squirtBottle(player)
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '7') {
-    enemy4.landmine(player)
+    enemy6.groomer(player)
   }
 })
 2
