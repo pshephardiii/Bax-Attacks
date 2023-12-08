@@ -186,7 +186,6 @@ class Enemy1 extends Character {
     }
   }
   
-
   epicThrust(target) { 
     enemyChargeCounter++
     if (enemyChargeCounter === 1) {
@@ -764,6 +763,8 @@ let enemyEpicAttackCounter
 
 let enemyArr
 
+let enemyMaxHealthArr
+
 let enemyImageArr
 
 let backgroundImageArr
@@ -786,8 +787,8 @@ let currentVolume
 
 // Screen containers
 const startScreen = document.querySelector('.start-screen')
-const gameOverScreen = document.querySelector('.game-over-screen')
-const victoryScreen = document.querySelector('.victory-screen')
+const gameOverScreen = document.querySelector('#game-over-screen')
+const victoryScreen = document.querySelector('#victory-screen')
 const gameCompletionScreen = document.querySelector('.game-completion-screen')
 
 // Content containers
@@ -937,6 +938,11 @@ resetBtn.addEventListener('click', () => {
   }
 })
 
+tryAgainBtn.addEventListener('click', () => {
+  init()
+  nextMoveBtn.style.display = 'none'
+})
+
 actionBtn1.addEventListener('click', () => {
   player.bark()
 })
@@ -1055,6 +1061,8 @@ function initPlayerStats() {
   playerHealthNum.textContent = `${player.hitPoints}`
   playerImageContainer.classList.add('move-in-left')
   actionBtnUpdate()
+  endConfusion()
+  outOfBox()
   playerChargeCounter = 0
   playerSleepCounter = 0
   playerStunCounter = 0
@@ -1064,8 +1072,9 @@ function initPlayerStats() {
 
 function initEnemy() {
   enemyName.textContent = `${enemyArr[0].name}`
-  enemyHealth.max = enemyArr[0].hitPoints
-  enemyHealth.value = enemyArr[0].hitPoints
+  enemyArr[0].hitPoints = enemyMaxHealthArr[0]
+  enemyHealth.max = enemyMaxHealthArr[0]
+  enemyHealth.value = enemyMaxHealthArr[0]
   enemyHealthNum.textContent = `${enemyArr[0].hitPoints}`
   enemyImage.src = enemyImageArr[0]
   enemyImage.style.display = 'inline'
@@ -1083,9 +1092,7 @@ function initBattleDisplay() {
   victoryScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
   battleScreen.style.display = 'flex'
-  for (let button of actionBtnArr) {
-    button.style.display = 'inline'
-  }
+  displayActionButtons()
   battleMessages.textContent = 'Get ready to rumble!'
   document.querySelector('.combatant-screen-container').style.backgroundImage = backgroundImageArr[0]
   musicTrack.src = musicArr[0]
@@ -1110,6 +1117,7 @@ function initDefeatMessages() {
 function initFirstBattle() {
   resetHitPoints()
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
+  enemyMaxHealthArr = [30, 40, 50, 60, 40, 70]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
@@ -1118,6 +1126,7 @@ function initFirstBattle() {
 
 function initNextBattle() {
   enemyArr.shift()
+  enemyMaxHealthArr.shift()
   enemyImageArr.shift()
   backgroundImageArr.shift()
   musicArr.shift()
@@ -1224,6 +1233,10 @@ function healthUpdates() {
   enemyHealthNum.textContent = enemyArr[0].hitPoints < 0 ? '0' : `${enemyArr[0].hitPoints}`
 }
 
+function resetHealth() {
+  
+}
+
 // put box thing here... if enemy4 and playerSleep counter is 0, add animation and change picture at 1 second
 
 // checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
@@ -1251,8 +1264,6 @@ function checkWinner() {
     declareWinner()
     }, 2000)
   } 
-
- 
 }
 
 // Brings up either the victory or game over screen based on the winner
@@ -1269,7 +1280,7 @@ function declareWinner() {
       victoryScreen.style.display = 'flex'
       document.querySelector('.victory-message').textContent = victoryMessageArr[0]
       musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/victory-screen.mp3'
-      if (muteBtn.src === 'background-music.mp3/victory-screen.mp3') {
+      if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
         musicTrack.pause()
       } else {
         musicTrack.play()
@@ -1281,8 +1292,15 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       gameOverScreen.style.display = 'flex'
-      document.querySelector('.game-over-message').textContent = gameOverMessageArr[Math.floor(Math.random() * 10)]
-      stopMusic()
+      document.querySelector('#game-over-message').textContent = gameOverMessageArr[Math.floor(Math.random() * 10)]
+      musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/gameover-screen.mp3'
+      if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
+        musicTrack.pause()
+      } else {
+        musicTrack.play()
+        musicTrack.volume = currentVolume
+        musicTrack.loop = true
+      }
     }, 2000)  
   }
 }
@@ -1520,8 +1538,6 @@ function fightRound4() {
       }
     } 
   }
-
-
   healthUpdates()
   checkWinner()
   displayNextTurnBtn()

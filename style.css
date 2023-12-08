@@ -32,6 +32,31 @@ body {
   box-shadow: none
 }
 
+/* Audio elements */
+
+.audio-container {
+  position: fixed;
+  height: 0;
+  top: .5rem;
+  right: .5rem
+}
+
+.mute-btn-container {
+  height: 0;
+  position: relative;
+  margin: 0 auto
+}
+
+.mute-button {
+  display: none;
+  position: absolute;
+  height: 1.5rem;
+  border: 2px solid white;
+  border-radius: 30%;
+  background-color: white;
+  right: .5rem
+}
+
 /* Default Screen */
 
 .default-screen {
@@ -53,8 +78,6 @@ body {
   font-size: 6vmin;
   text-align: center
 }
-
-/* Change font color with height media-query */
 
 .volume-button-instructions {
   font-size: 5vmin;
@@ -138,9 +161,9 @@ body {
   color: white
 }
 
-/* Victory Screen */
+/* Victory and Game Over Screen */
 
-.victory-screen {
+.between-screen {
   display: none;
   height: 100vh;
   width: 100vw;
@@ -151,76 +174,38 @@ body {
   background-image: url('https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg')
 }
 
-.victory-message {
+.between-message {
   font-family: "Libre Baskerville";
   font-size: 4vmin;
   margin-top: 6vmin;
   margin-bottom: 0
 }
 
-.victory-button-container {
+.between-button-container {
   display: flex;
   gap: 5vmin;
   margin-top: .5vmin;
   margin-bottom: 2vmin;
 }
 
-#reset-button {
+.between-button {
   font-size: 3vmin;
   font-weight: bold;
   text-align: center;
   width: 25vmin
 }
 
-#continue-button {
-  font-size: 3vmin;
-  font-weight: bold;
-  text-align: center;
-  width: 25vmin
-}
-
-.victory-image {
+.between-image {
   height: 80vmin;
   border-radius: 10%;
   border: 10px solid red;
   margin-bottom: 8vmin;
 }
 
-/* Game Over screen */
-
-.game-over-screen {
-  display: none
-}
-
 /* Game Completion screen */
 
 .game-completion-screen {
   display: none
-}
-
-/* Audio elements */
-
-.audio-container {
-  position: fixed;
-  height: 0;
-  top: .5rem;
-  right: .5rem
-}
-
-.mute-btn-container {
-  height: 0;
-  position: relative;
-  margin: 0 auto
-}
-
-.mute-button {
-  display: none;
-  position: absolute;
-  height: 1.5rem;
-  border: 2px solid white;
-  border-radius: 30%;
-  background-color: white;
-  right: .5rem
 }
 
 /* Battle Screen starts here */

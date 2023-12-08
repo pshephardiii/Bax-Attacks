@@ -54,23 +54,26 @@
     <button class="button" id="start-button">Start</button>
   </div>
 
-  <!-- Screen shown after player loses a battle (can either try the battle over or go back to start) -->
-
-  <div class="game-over-screen">
-    <h3 class="game-over-message"></h3>
-    <button class="button" id="try-again-button">Try Again</button>
-    <button class="button" id="back-to-start-button">Back to Start</button>
-  </div>
-
   <!-- Screen shown after player wins a battle (can either continue or start over) -->
 
-  <div class="victory-screen">
-    <h3 class="victory-message">Are you ready for the next challenger?</h3>
-    <div class="victory-button-container">
-      <button class="button" id="reset-button">Reset</button>
-      <button class="button" id="continue-button">Continue</button>
+  <div class="between-screen" id="victory-screen">
+    <h3 class="between-message" i="victory-message">Are you ready for the next challenger?</h3>
+    <div class="between-button-container" id="victory-button-container">
+      <button class="button between-button" id="reset-button">Reset</button>
+      <button class="button between-button" id="continue-button">Continue</button>
     </div>
-    <img src="https://i.postimg.cc/0NsXDwm6/baxter-next-Battle.jpg" class="victory-image">
+    <img src="https://i.postimg.cc/0NsXDwm6/baxter-next-Battle.jpg" class="between-image" id="victory-image">
+  </div>
+
+   <!-- Screen shown after player loses a battle (can either try the battle over or go back to start) -->
+
+   <div class="between-screen" id="game-over-screen">
+    <h3 class="between-message" id="game-over-message"></h3>
+    <div class="between-button-container" id="game-over-button-container">
+      <button class="button between-button" id="try-again-button">Try Again</button>
+      <button class="button between-button" id="back-to-start-button">Back to Start</button>
+    </div>
+    <img src="https://i.postimg.cc/6qv5vfZV/bax-defeat.jpg" class="between-image" id="game-over-image">
   </div>
 
   <!-- Screen shown after player wins every battle -->
