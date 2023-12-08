@@ -169,6 +169,7 @@ body {
   width: 100vw;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   align-items: center;
   background-size: cover;
   background-image: url('https://img.freepik.com/premium-vector/pastel-pink-white-paw-pattern-with-hearts-background_654662-3016.jpg')
@@ -177,8 +178,7 @@ body {
 .between-message {
   font-family: "Libre Baskerville";
   font-size: 4vmin;
-  margin-top: 6vmin;
-  margin-bottom: 0
+  margin: 6vmin auto 0 auto
 }
 
 .between-button-container {

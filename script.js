@@ -1278,7 +1278,7 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       victoryScreen.style.display = 'flex'
-      document.querySelector('.victory-message').textContent = victoryMessageArr[0]
+      document.querySelector('#victory-message').textContent = victoryMessageArr[0]
       musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/victory-screen.mp3'
       if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
         musicTrack.pause()
