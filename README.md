@@ -37,9 +37,9 @@ SCREENSHOTS:
 
 ![StartScreen](https://i.imgur.com/jWpta2R.png)
 
-![VictoryScreen](blob:https://imgur.com/64ff0e17-0691-400d-8e1c-6c90d974c87c)
+![VictoryScreen](https://i.imgur.com/CoFAJwU.png)
 
-![Battle](blob:https://imgur.com/10c2bd76-3ae7-4d96-8f83-9311224a1fa9)
+![Battle](https://i.imgur.com/3ylOlrS.png)
 
 TECHNOLOGIES USED:
 
