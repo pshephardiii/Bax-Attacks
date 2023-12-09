@@ -832,61 +832,61 @@ const playerConfuse = document.getElementById('confuse-image-player')
 const enemyCharges = document.getElementById('charging-animation-enemy')
 
 // Sound Effects - Player
-const barkSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/player/bark.mp3')
-const biteSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/player/bite.mp3')
-const dashSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/player/dash.mp3')
-const cutenessSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/player/cuteness.mp3')
+const barkSound = new Audio('./sound-effects/player/bark.mp3')
+const biteSound = new Audio('./sound-effects/player/bite.mp3')
+const dashSound = new Audio('./sound-effects/player/dash.mp3')
+const cutenessSound = new Audio('./sound-effects/player/cuteness.mp3')
 
 // Sound Effects - Misc
-const chargingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Charging.mp3')
-const sleepingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/StillAsleep.mp3')
-const awakeSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Wake up.mp3')
-const confusedSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Boing.mp3')
-const confusedNoLongerSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Ta da.mp3')
-const playerLossSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Player Loss.mp3')
-const enemyLossSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/Enemy Loss.mp3')
-const breakingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/break_crate.mp3')
+const chargingSound = new Audio('./sound-effects/misc/Charging.mp3')
+const sleepingSound = new Audio('./sound-effects/misc/StillAsleep.mp3')
+const awakeSound = new Audio('./sound-effects/misc/Wake up.mp3')
+const confusedSound = new Audio('./sound-effects/misc/Boing.mp3')
+const confusedNoLongerSound = new Audio('./sound-effects/misc/Ta da.mp3')
+const playerLossSound = new Audio('./sound-effects/misc/Player Loss.mp3')
+const enemyLossSound = new Audio('./sound-effects/misc/Enemy Loss.mp3')
+const breakingSound = new Audio('./sound-effects/misc/break_crate.mp3')
 
 // Sound Effects - Enemy1
-const canteenSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy1/canteen-swill.mp3')
-const loreDumpSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy1/lore-dump.mp3')
-const epicThrustSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy1/epic-thrust.mp3')
-const halfHeartedSwipeSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy1/halfhearted-swipe.mp3')
+const canteenSound = new Audio('./sound-effects/enemy1/canteen-swill.mp3')
+const loreDumpSound = new Audio('./sound-effects/enemy1/lore-dump.mp3')
+const epicThrustSound = new Audio('./sound-effects/enemy1/epic-thrust.mp3')
+const halfHeartedSwipeSound = new Audio('./sound-effects/enemy1/halfhearted-swipe.mp3')
 
 // Sound Effects - Enemy2
-const autographSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy2/autograph-wow.mp3')
-const burningSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy2/burning-desire.mp3')
-const breakdanceSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy2/Airhorn blast.mp3')
-const singingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy2/singing.mp3')
+const autographSound = new Audio('./sound-effects/enemy2/autograph-wow.mp3')
+const burningSound = new Audio('./sound-effects/enemy2/burning-desire.mp3')
+const breakdanceSound = new Audio('./sound-effects/enemy2/Airhorn blast.mp3')
+const singingSound = new Audio('./sound-effects/enemy2/singing.mp3')
 
 // Sound Effects - Enemy 3
-const scoffSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy3/scoff.mp3')
-const bribeSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy3/bribe.mp3')
-const nepotismSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy3/nepotism.mp3')
-const shockedSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy3/shocked.mp3')
+const scoffSound = new Audio('./sound-effects/enemy3/scoff.mp3')
+const bribeSound = new Audio('./sound-effects/enemy3/bribe.mp3')
+const nepotismSound = new Audio('./sound-effects/enemy3/nepotism.mp3')
+const shockedSound = new Audio('./sound-effects/enemy3/shocked.mp3')
 
 // Sound Effects - Enemy 4
-const boxSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy4/box_thud.mp3')
-const cqcSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy4/cqc.mp3')
-const tickingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy4/clock _ticking.mp3')
-const explosionSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy4/bomb_explosion.mp3')
-const dartSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy4/dart.mp3')
+const boxSound = new Audio('./sound-effects/enemy4/box_thud.mp3')
+const cqcSound = new Audio('./sound-effects/enemy4/cqc.mp3')
+const tickingSound = new Audio('./sound-effects/enemy4/clock _ticking.mp3')
+const explosionSound = new Audio('./sound-effects/enemy4/bomb_explosion.mp3')
+const dartSound = new Audio('./sound-effects/enemy4/dart.mp3')
 
 // Sound Effects - Enemy 5
-const laughSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy5/laugh.mp3')
-const iceSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy5/ice.mp3')
-const psychicBarkSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy5/Psychic_bark.mp3')
-const vampireBiteSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy5/vampire_bite.mp3')
+const laughSound = new Audio('./sound-effects/enemy5/laugh.mp3')
+const iceSound = new Audio('./sound-effects/enemy5/ice.mp3')
+const psychicBarkSound = new Audio('./sound-effects/enemy5/Psychic_bark.mp3')
+const vampireBiteSound = new Audio('./sound-effects/enemy5/vampire_bite.mp3')
 
 // Sound Effects - Enemy 6
-const waterSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy6/water.mp3')
-const whimperingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy6/dog_whimper.mp3')
-const vacuumSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy6/vacuum.mp3')
-const warningSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy6/groomer_warning.mp3')
-const superchargingSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/enemy6/charge-final-boss.mp3')
+const waterSound = new Audio('./sound-effects/enemy6/water.mp3')
+const whimperingSound = new Audio('./sound-effects/enemy6/dog_whimper.mp3')
+const vacuumSound = new Audio('/sound-effects/enemy6/vacuum.mp3')
+const warningSound = new Audio('./sound-effects/enemy6/groomer_warning.mp3')
+const superchargingSound = new Audio('./sound-effects/enemy6/charge-final-boss.mp3')
 
 // Cute Bax Sound (Game Completion Award)
-const cuteBaxSound = new Audio('/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/sound-effects/misc/completion-whimper.mp3')
+const cuteBaxSound = new Audio('./sound-effects/misc/completion-whimper.mp3')
 
 // Background Music
 const musicTrack = document.getElementById('music-track')
@@ -1121,7 +1121,7 @@ function initFirstBattle() {
   enemyDefaultStats = [[5, 0, 30, .8, .8, 5, 5, 2, 18], [7, 0, 40, .85, .9, 12, 5, 10, 3], [5, 5, 50, .9, .8, 10, 17, 3, 5], [10, 0, 60, .9, .9, 7, 15, 1, 7], [10, 7, 40, .9, .9, 5, 3, 8, 17], [12, 5, 70, .95, .9, 3, 5, 18, 5]]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
-  musicArr = ['/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Unite The Clans.mp3', '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Bad Boys.mp3', '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Dance With Fate.mp3', '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/thriller_music.mp3', '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Unholy Knight.mp3', '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Arasaka.mp3']
+  musicArr = ['./background-music/Unite The Clans.mp3', './background-music/Bad Boys.mp3', './background-music/Dance With Fate.mp3', './background-music/thriller_music.mp3', './background-music/Unholy Knight.mp3', './background-music/Arasaka.mp3']
   victoryMessageArr = ['The next opponent truly dances around the ring!', 'The next opponent always puts his money where his mouth is!', 'The next opponent is sneaky good!', 'The next opponent only fights at night!', 'Are you ready to face your greatest fears?']
 }
 
@@ -1272,7 +1272,7 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       gameCompletionScreen.style.display = 'flex'
-      musicTrack.src = '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Game-completion.mp3'
+      musicTrack.src = './background-music/Game-completion.mp3'
       if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
         musicTrack.pause()
       } else {
@@ -1286,7 +1286,7 @@ function declareWinner() {
       battleScreen.style.display = 'none'
       victoryScreen.style.display = 'flex'
       document.querySelector('#victory-message').textContent = victoryMessageArr[0]
-      musicTrack.src = '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/victory-screen.mp3'
+      musicTrack.src = './background-music/victory-screen.mp3'
       if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
         musicTrack.pause()
       } else {
@@ -1300,7 +1300,7 @@ function declareWinner() {
       battleScreen.style.display = 'none'
       gameOverScreen.style.display = 'flex'
       document.querySelector('#game-over-message').textContent = gameOverMessageArr[Math.floor(Math.random() * 10)]
-      musicTrack.src = '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/gameover-screen.mp3'
+      musicTrack.src = './background-music/gameover-screen.mp3'
       if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
         musicTrack.pause()
       } else {
@@ -1643,7 +1643,7 @@ function resetToStart() {
   gameOverScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
   startScreen.style.display = 'flex'
-  musicTrack.src = '/Users/paulshephard/software_classwork/unit_1/Bax-Attacks/background-music/Play.mp3'
+  musicTrack.src = './background-music/Play.mp3'
   if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
     musicTrack.pause()
   } else {
@@ -1771,6 +1771,3 @@ document.addEventListener('keydown', function(event) {
     enemy6.groomer(player)
   }
 })
-
-// text hide in box
-
