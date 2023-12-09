@@ -763,7 +763,7 @@ let enemyEpicAttackCounter
 
 let enemyArr
 
-let enemyMaxHealthArr
+let enemyDefaultStats
 
 let enemyImageArr
 
@@ -923,20 +923,9 @@ continueBtn.addEventListener('click', () => {
   init()
 })
 
-resetBtn.addEventListener('click', () => {
-  victoryScreen.style.display = 'none'
-  gameOverScreen.style.display = 'none'
-  gameCompletionScreen.style.display = 'none'
-  startScreen.style.display = 'flex'
-  musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Play.mp3'
-  if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
-    musicTrack.pause()
-  } else {
-    musicTrack.play()
-    musicTrack.loop = true
-    musicTrack.volume = currentVolume
-  }
-})
+resetBtn.addEventListener('click', resetToStart)
+
+document.getElementById('back-to-start-button').addEventListener('click', resetToStart)
 
 tryAgainBtn.addEventListener('click', () => {
   init()
@@ -1072,9 +1061,20 @@ function initPlayerStats() {
 
 function initEnemy() {
   enemyName.textContent = `${enemyArr[0].name}`
-  enemyArr[0].hitPoints = enemyMaxHealthArr[0]
-  enemyHealth.max = enemyMaxHealthArr[0]
-  enemyHealth.value = enemyMaxHealthArr[0]
+  // Reset enemy stats
+  for (let i = 0; i < enemyDefaultStats.length; i++) {
+    enemyArr[i].attack = enemyDefaultStats[i][0]
+    enemyArr[i].defense = enemyDefaultStats[i][1]
+    enemyArr[i].hitPoints = enemyDefaultStats[i][2]
+    enemyArr[i].attackAcc = enemyDefaultStats[i][3]
+    enemyArr[i].buffAcc = enemyDefaultStats[i][4]
+    enemyArr[i].useAct1 = enemyDefaultStats[i][5]
+    enemyArr[i].useAct2 = enemyDefaultStats[i][6]
+    enemyArr[i].useAct3 = enemyDefaultStats[i][7]
+    enemyArr[i].useAct4 = enemyDefaultStats[i][8]
+  }
+  enemyHealth.max = enemyDefaultStats[0][2]
+  enemyHealth.value = enemyDefaultStats[0][2]
   enemyHealthNum.textContent = `${enemyArr[0].hitPoints}`
   enemyImage.src = enemyImageArr[0]
   enemyImage.style.display = 'inline'
@@ -1117,7 +1117,7 @@ function initDefeatMessages() {
 function initFirstBattle() {
   resetHitPoints()
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyMaxHealthArr = [30, 40, 50, 60, 40, 70]
+  enemyDefaultStats = [[5, 0, 30, .8, .8, 5, 5, 2, 18], [7, 0, 40, .85, .9, 12, 5, 10, 3], [5, 5, 50, .9, .8, 10, 17, 3, 5], [10, 0, 60, .9, .9, 7, 15, 1, 7], [10, 7, 40, .9, .9, 5, 3, 8, 17], [12, 5, 70, .95, .9, 3, 5, 18, 5]]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unite The Clans.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Bad Boys.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Dance With Fate.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/thriller_music.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Unholy Knight.mp3', '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Arasaka.mp3']
@@ -1126,7 +1126,7 @@ function initFirstBattle() {
 
 function initNextBattle() {
   enemyArr.shift()
-  enemyMaxHealthArr.shift()
+  enemyDefaultStats.shift()
   enemyImageArr.shift()
   backgroundImageArr.shift()
   musicArr.shift()
@@ -1630,6 +1630,23 @@ function removeAnimationClasses() {
   playerConfuse.classList.remove('waggle-back-and-forth')
   enemyImageContainer.classList.remove('move-in-right')
   playerImageContainer.classList.remove('move-in-left')
+}
+
+// Full reset to start screen
+
+function resetToStart() {
+  victoryScreen.style.display = 'none'
+  gameOverScreen.style.display = 'none'
+  gameCompletionScreen.style.display = 'none'
+  startScreen.style.display = 'flex'
+  musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Play.mp3'
+  if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
+    musicTrack.pause()
+  } else {
+    musicTrack.play()
+    musicTrack.loop = true
+    musicTrack.volume = currentVolume
+  }
 }
 
 // Hides action buttons and displays next turn button
