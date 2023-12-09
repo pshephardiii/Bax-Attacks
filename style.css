@@ -649,7 +649,7 @@ body {
   position: relative;
   height: 0;
   bottom: 48vmin;
-  right: 12vmin;
+  right: 12vmin
 }
 
 #supercharging-animation-enemy {
@@ -717,7 +717,7 @@ body {
   position: absolute
 }
 
-#player-floating-hearts-container {
+#floating-hearts-player-container {
   height: 30vmin;
   position: relative;
   left: 31vmin;

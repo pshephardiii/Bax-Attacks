@@ -34,9 +34,9 @@ class Player extends Character {
         if (Math.random() < this.buffAcc) {
           barkSound.play()
           barkSound.volume = .3
-          playerNoise.style.display = 'inline'
+          document.getElementById('noise-animation-player').style.display = 'inline'
           setTimeout( () => {
-            playerNoise.style.display = 'none'
+            document.getElementById('noise-animation-player').style.display = 'none'
           }, 500)
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
@@ -121,9 +121,9 @@ class Player extends Character {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         cutenessSound.play()
         cutenessSound.volume = .3
-        playerHearts.style.display = 'block'
+        document.getElementById('hearts-animation-player').style.display = 'block'
         setTimeout( () => {
-          playerHearts.style.display = 'none'
+          document.getElementById('hearts-animation-player').style.display = 'none'
         }, 2000)
         if (Math.random() < this.attackAcc) {
           enemyImage.classList.add('take-hit')
@@ -153,9 +153,9 @@ class Enemy1 extends Character {
   }
 
   canteenSwill() {
-    enemyCanteen.style.display = 'inline'
+    document.getElementById('canteen-animation-enemy').style.display = 'inline'
     setTimeout( () => {
-      enemyCanteen.style.display = 'none'
+      document.getElementById('canteen-animation-enemy').style.display = 'none'
     }, 2000)
     if (Math.random() < this.buffAcc) {
       canteenSound.play()
@@ -172,9 +172,9 @@ class Enemy1 extends Character {
   loreDump(target) {
     loreDumpSound.play()
     loreDumpSound.volume = .3
-    enemySpeaks.style.display = 'inline'
+    document.getElementById('speaking-animation-enemy').style.display = 'inline'
     setTimeout( () => {
-      enemySpeaks.style.display = 'none'
+      document.getElementById('speaking-animation-enemy').style.display = 'none'
     }, 2000)
     if (Math.random() < this.attackAcc - .2) {
       playerSleepCounter = playerSleepCounter + randomizer(1, 3)
@@ -808,14 +808,10 @@ const enemyImage = document.getElementById('enemy-image')
 const playerImage = document.getElementById('player-image')
 const battleMessages = document.querySelector('.battle-message-text')
 
-// Gameflow Initiation buttons
+// Start Button
 const startBtn = document.getElementById('start-button')
-const resetBtn = document.getElementById('reset-button')
-const continueBtn = document.getElementById('continue-button')
-const tryAgainBtn = document.getElementById('try-again-button')
 
 // Action buttons
-const actionBtns = document.querySelector('.action-buttons-container')
 const everyActionBtn = document.querySelectorAll('.action-button')
 const actionBtnArr = Array.from(everyActionBtn)
 const actionBtn1 = document.getElementById('action-1')
@@ -834,14 +830,6 @@ const playerConfuse = document.getElementById('confuse-image-player')
 
 // Special Attack Effects - Enemy Shared
 const enemyCharges = document.getElementById('charging-animation-enemy')
-const enemySpeaks = document.getElementById('speaking-animation-enemy')
-
-// Special Attack Effects - Enemy Unique
-const enemyCanteen = document.getElementById('canteen-animation-enemy')
-
-// Special Attack Effects - Player
-const playerNoise = document.getElementById('noise-animation-player')
-const playerHearts = document.getElementById('hearts-animation-player')
 
 // Sound Effects - Player
 const barkSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/player.mp3/bark.mp3')
@@ -897,8 +885,7 @@ const vacuumSound = new Audio('/Users/paulshephard/software_homework/project1/Ba
 const warningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/groomer_warning.mp3')
 const superchargingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/charge-final-boss.mp3')
 
-// Cute Bax Sound
-
+// Cute Bax Sound (Game Completion Award)
 const cuteBaxSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/completion-whimper.mp3')
 
 // Background Music
@@ -922,18 +909,18 @@ startBtn.addEventListener('click', () => {
   init()
 })
 
-continueBtn.addEventListener('click', () => {
+document.getElementById('continue-button').addEventListener('click', () => {
   initNextBattle()
   init()
 })
 
-resetBtn.addEventListener('click', resetToStart)
+document.getElementById('reset-button').addEventListener('click', resetToStart)
 
 document.getElementById('back-to-start-button').addEventListener('click', resetToStart)
 
 document.getElementById('completion-reset-button').addEventListener('click', resetToStart)
 
-tryAgainBtn.addEventListener('click', () => {
+document.getElementById('try-again-button').addEventListener('click', () => {
   init()
   nextMoveBtn.style.display = 'none'
 })
@@ -1028,7 +1015,6 @@ document.addEventListener('keydown', function(event) {
     musicTrack.volume = currentVolume
   }
 })
-
 
 // FUNCTIONS
 
@@ -1131,7 +1117,6 @@ function initDefeatMessages() {
 }
 
 function initFirstBattle() {
-  resetHitPoints()
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
   enemyDefaultStats = [[5, 0, 30, .8, .8, 5, 5, 2, 18], [7, 0, 40, .85, .9, 12, 5, 10, 3], [5, 5, 50, .9, .8, 10, 17, 3, 5], [10, 0, 60, .9, .9, 7, 15, 1, 7], [10, 7, 40, .9, .9, 5, 3, 8, 17], [12, 5, 70, .95, .9, 3, 5, 18, 5]]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
@@ -1252,8 +1237,6 @@ function healthUpdates() {
 function resetHealth() {
   
 }
-
-// put box thing here... if enemy4 and playerSleep counter is 0, add animation and change picture at 1 second
 
 // checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
 
@@ -1433,8 +1416,7 @@ function fightRound2() {
         enemy2.burningDesire(player)
       } else if (enemy2.useAct3) {
         enemy2.breakDance()
-      }
-        else {
+      } else {
           battleMessages.textContent = `${enemy2.name} skips his turn!`
         }
       }
@@ -1546,12 +1528,12 @@ function fightRound4() {
       }
     } else {
       if ((enemy4.hitPoints >= 25) || (enemy4.useAct3 === 0)) {
-        if ((randomNum > .66) && (enemy4.useAct2 > 0)) {
-          enemy4.cqc(player)
+        if ((randomNum > .66) && (enemy4.useAct2 > 0)) { 
+          enemy4.cqc(player) 
         } else if ((randomNum > .33) && (enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
           enemy4.tranqDart(player)
         } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0) && !(enemyImage.classList.contains('enemy-transform-slide'))) {
-          enemy4.hideInBox(player)
+          enemy4.hideInBox(player) 
         } else if (enemy4.useAct2 > 0) {
           enemy4.cqc(player)
         } else if ((enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
@@ -1607,10 +1589,8 @@ function fightRound6() {
   if (enemyChargeCounter > 0) {
     enemy6.groomer(player)
   } else {
-
     let randomNum = Math.random()
     if (enemy6.hitPoints <= 35) {
-
       if ((randomNum > .5) && (enemy6.useAct1 > 0)) {
         enemy6.squirtBottle(player)
       } else if (enemy6.useAct4 > 0) {
@@ -1691,15 +1671,7 @@ function displayNextTurnBtn() {
   nextMoveBtn.style.display = 'inline'
 }
 
-function resetHitPoints() {
-  enemy1.hitPoints = 30
-  enemy2.hitPoints = 40
-  enemy3.hitPoints = 50
-  enemy4.hitPoints = 60
-  enemy5.hitPoints = 40
-  enemy6.hitPoints = 70
-
-}
+// This triggers enemy4's animation to leave box
 
 function outOfBox() {
   if ((playerAccuracyDecreaseCounter === 1) && (enemyArr[0] === enemy4)) {
@@ -1718,6 +1690,8 @@ function stopMusic() {
   musicTrack.pause()
 }
 
+// Is triggered if player is confused and the confuseNum doeesn't meet the value range needed to move
+
 function tooConfused() {
   battleMessages.textContent = `${player.name} is too confused to act!`
   confusedSound.play()
@@ -1726,6 +1700,8 @@ function tooConfused() {
   hideActionButtons()
   renderPlayerUpdates()
 }
+
+// Ends Baxter's confusion after set number of turns
 
 function endConfusion() {
   if (playerConfuseCounter > 0) {
@@ -1795,6 +1771,6 @@ document.addEventListener('keydown', function(event) {
     enemy6.groomer(player)
   }
 })
-2
 
+// text hide in box
 
