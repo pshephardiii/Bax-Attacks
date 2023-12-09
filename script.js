@@ -1756,13 +1756,13 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '5') {
-    confuseNum = 3
+    enemy2.breakDance()
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy6.squirtBottle(player)
+    enemy3.hideInBox(player)
   }
 })
 
