@@ -121,7 +121,7 @@ body {
   margin-bottom: 1rem
 }
 
-.start-title {
+.screen-title {
   font-size: 6vmin;
   color: red;
   text-shadow:
@@ -204,8 +204,15 @@ body {
 
 /* Game Completion screen */
 
-.game-completion-screen {
-  display: none
+#completion-image {
+  height: 40vmin;
+  margin-top: 4vmin;
+  border: none
+}
+
+#completion-image:hover {
+  cursor: grab;
+  animation: slightWaggle 2s linear infinite
 }
 
 /* Battle Screen starts here */
@@ -1235,7 +1242,21 @@ body {
   100% {
     transform: rotate(0)
   }
+}
 
+@keyframes slightWaggle {
+  0% {
+    transform: rotate(0)
+  }
+  33% {
+    transform: rotate(7deg)
+  }
+  66% {
+    transform: rotate(-7deg)
+  }
+  100% {
+    transform: rotate(0)
+  }
 }
 
 @keyframes clicked {

@@ -789,7 +789,7 @@ let currentVolume
 const startScreen = document.querySelector('.start-screen')
 const gameOverScreen = document.querySelector('#game-over-screen')
 const victoryScreen = document.querySelector('#victory-screen')
-const gameCompletionScreen = document.querySelector('.game-completion-screen')
+const gameCompletionScreen = document.querySelector('#game-completion-screen')
 
 // Content containers
 const battleScreen = document.querySelector('.battle-screen-container')
@@ -897,6 +897,10 @@ const vacuumSound = new Audio('/Users/paulshephard/software_homework/project1/Ba
 const warningSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/groomer_warning.mp3')
 const superchargingSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/enemy6.mp3/charge-final-boss.mp3')
 
+// Cute Bax Sound
+
+const cuteBaxSound = new Audio('/Users/paulshephard/software_homework/project1/Baxter-Battle/sound-effects.mp3/misc.mp3/completion-whimper.mp3')
+
 // Background Music
 const musicTrack = document.getElementById('music-track')
 
@@ -927,6 +931,8 @@ resetBtn.addEventListener('click', resetToStart)
 
 document.getElementById('back-to-start-button').addEventListener('click', resetToStart)
 
+document.getElementById('completion-reset-button').addEventListener('click', resetToStart)
+
 tryAgainBtn.addEventListener('click', () => {
   init()
   nextMoveBtn.style.display = 'none'
@@ -947,6 +953,16 @@ actionBtn3.addEventListener('click', () => {
 
 actionBtn4.addEventListener('click', () => {
   player.cuteness(enemyArr[0])
+})
+
+document.getElementById('completion-image').addEventListener('mouseover', () => {
+  cuteBaxSound.play()
+  cuteBaxSound.volume = .3
+  cuteBaxSound.loop = true
+})
+
+document.getElementById('completion-image').addEventListener('mouseout', () => {
+  cuteBaxSound.pause()
 })
 
 nextMoveBtn.addEventListener('click', () => {
@@ -1273,6 +1289,14 @@ function declareWinner() {
     setTimeout(() => {
       battleScreen.style.display = 'none'
       gameCompletionScreen.style.display = 'flex'
+      musicTrack.src = '/Users/paulshephard/software_homework/project1/Baxter-Battle/background-music.mp3/Game-completion.mp3'
+      if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
+        musicTrack.pause()
+      } else {
+        musicTrack.play()
+        musicTrack.volume = currentVolume
+        musicTrack.loop = true
+      }
     }, 2000)
   } else if (winner === player) {
     setTimeout(() => {

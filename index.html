@@ -48,7 +48,7 @@
 
   <div class="start-screen">
     <h3 class="start-welcome">Welcome to</h3>
-    <h1 class="start-title">Bax Attacks!</h1>
+    <h1 class="screen-title" id="start-title">Bax Attacks!</h1>
     <img src="https://i.postimg.cc/Z5ZjFDVg/88mxfq.png" class="start-image">
     <p class="start-message">Press Start To Begin</p>
     <button class="button" id="start-button">Start</button>
@@ -78,9 +78,13 @@
 
   <!-- Screen shown after player wins every battle -->
 
-  <div class="game-completion-screen">
-    <h3 class="victory-message">You have proven yourself worthy... you may pet the Bax</h3>
-    <button class="button" id="reset-button">Reset</button>
+  <div class="between-screen" id="game-completion-screen">
+    <h1 class="screen-title" id="completion-title">Congratulations!</h1>
+    <h3 class="between-message">You have proven yourself worthy... you may pet the Bax</h3>
+    <div class="between-button-container">
+      <button class="button between-button" id="completion-reset-button">Reset</button>
+    </div>
+    <img src="https://i.postimg.cc/QxYwjw09/cute-bax.png" class="between-image" id="completion-image">
   </div>
 
   <!-- Battle screen starts here - these are shown while the battles are taking place -->
