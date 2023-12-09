@@ -33,6 +33,38 @@ In between battles, you can click the buttons to either continue (if you had won
 
 If you are able to reach the game completion screen, you can... well, you'll see!
 
+PLAYER MOVES:
+
+Bark - increase player's attack
+
+Bite - strong physical attack on opponent
+
+Dash - physical attack on opponent that also lowers their defense
+
+Cuteness - decrease opponent's attack accuracy
+
+CHARACTER STATS:
+
+Attack - base damage for character's attacks
+
+Defense - amount of damage a character can absorb without losing hit points
+
+Hit Points - once a character loses all of their hit points, they are defeated
+
+Attack Accuracy - the likelihood that a character's offensive move against the opponent will hit
+
+Buff Accuracy = the likelihood that a character's move will successfully boost their own stats
+
+Use Act 1-4: the limit number of uses for each move
+
+STATUS EFFECTS:
+
+Sleep/Stun - character will be unable to perform a move for a set number of turns
+
+Confused - 50% chance that a character will be unable to perform a move each turn until effect disappears
+
+Charge - some moves require a turn to charge before being unleashed on the opponent
+
 SCREENSHOTS: 
 
 ![StartScreen](https://i.imgur.com/jWpta2R.png)
@@ -59,4 +91,4 @@ Add a level up system that allows the player to improve stats based on experienc
 
 Add an element system that the player can use to exploit enemy weaknesses. For instance, one enemy could be weak to fire attacks.
 
-As a bonus reward for completing the game, allow player to play as one of the enemy characters.
+As a bonus reward for completing the game, allow player to fight as one of the enemy characters.
