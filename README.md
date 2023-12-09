@@ -1,4 +1,4 @@
-# Baxter-Battle
+# Bax Attacks!
 Project 1 - turn based battle
 
 This is a turn-based fighting game heavily inspired by Pokemon Red, Mike Tyson's Punch-Out, and about a thousand other things. You play as a dog named Little Bax who must defeat six opponents, each of which are variations of Baxter from different genres. You must help Little Bax defeat his inner demons and face his greatest fears! If you succeed, you will receive the greatest reward possible.  Do you have what it takes to survive the Baxter gauntlet? 
