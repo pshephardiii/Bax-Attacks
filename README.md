@@ -79,6 +79,10 @@ TECHNOLOGIES USED:
 - CSS
 - Javascript
 
+PROJECT LINK:
+
+https://pshephardiii.github.io/Bax-Attacks/
+
 NEXT STEPS:
 
 Balance the player and enemy attacks, adjust move uses, and set all status effects to stay active for only a few turns.
