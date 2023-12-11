@@ -66,10 +66,10 @@ class Player extends Character {
     if (this.useAct2 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
-        if (Math.random() < this.attackAcc) {
+        if (Math.random() < this.attackAcc - .1) {
           biteSound.play()
           biteSound.volume = .5
-          let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
+          let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 4) - target.defense)
           // Make sure player attack has not been lowered below 0. We don't want their attack to add to enemy HP.
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
@@ -98,7 +98,7 @@ class Player extends Character {
           dashSound.play()
           dashSound.volume = .3
           let defenseDecrease = randomizer (1, 2)
-          let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
+          let attackDamage = randomizer((this.attack - 4) - target.defense, (this.attack - 2) - target.defense)
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           if ((target.defense - defenseDecrease) >= 0) {
@@ -132,7 +132,7 @@ class Player extends Character {
         setTimeout( () => {
           document.getElementById('hearts-animation-player').style.display = 'none'
         }, 2000)
-        if (Math.random() < this.attackAcc) {
+        if (Math.random() < this.attackAcc - .15) {
           enemyImage.classList.add('take-hit')
           let accuracyDecrease = randomizer(1, 2)/10
           target.attackAcc = target.attackAcc - accuracyDecrease
@@ -363,7 +363,7 @@ class Enemy3 extends Character {
     setTimeout( () => {
       document.getElementById('scoff-animation-enemy').style.display = 'none'
     }, 2000)
-    if (Math.random() < this.attackAcc) {
+    if (Math.random() < this.attackAcc - .15) {
       let defenseDecrease = randomizer(2, 3)
       if (target.defense - defenseDecrease >= 0) {
       target.defense = target.defense - defenseDecrease
@@ -386,17 +386,16 @@ class Enemy3 extends Character {
     if (Math.random() < this.attackAcc) {
       bribeSound.play()
       bribeSound.volume = .3
-      let randomNum = randomizer(1, 2)
       // add damage to a global attack build counter to permanently increase move damage throughout rest of battle
-      attackBuildCounter = attackBuildCounter + randomNum
-      let attackDamage = (this.attack - 3) + attackBuildCounter
+      attackBuildCounter = attackBuildCounter + 1
+      let attackDamage = (this.attack - 4) + attackBuildCounter
       if (attackDamage > 0) {
         target.hitPoints = target.hitPoints - attackDamage
         this.useAct1 = this.useAct2 - 1
         playerImage.classList.add('take-hit')
-        battleMessages.textContent = `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does ${attackDamage} damage.` 
+        battleMessages.textContent = `${this.name} bribes ${target.name}! Raised bribe attack by 1 and does ${attackDamage} damage.` 
       } else {
-        `${this.name} bribes ${target.name}! Raised bribe attack by ${randomNum} and does 0 damage.`
+        `${this.name} bribes ${target.name}! Raised bribe attack by 1 and does 0 damage.`
       }
     } else {
       battleMessages.textContent = `${this.name} tries to bribe ${target.name}, but ${target.name}'s integrity holds firm!`
@@ -430,7 +429,7 @@ class Enemy3 extends Character {
     setTimeout(() => {
       document.getElementById('shock-animation-enemy').style.display = 'none'
     }, 2000)
-    if (Math.random() < this.attackAcc) {
+    if (Math.random() < this.attackAcc -.2) {
       shockedSound.play()
       shockedSound.volume = .2
       let attackDamage = randomizer((this.attack + 5) - target.defense, (this.attack + 7) - target.defense)
@@ -456,7 +455,7 @@ class Enemy4 extends Character {
     if (Math.random() < this.buffAcc - .2) {
       // use global counter variable so that the move and its effects only last for a set number of turns
       playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter + 3
-      let loweredAccuracy = randomizer(3, 4)/10
+      let loweredAccuracy = randomizer(2, 3)/10
       target.attackAcc = target.attackAcc - loweredAccuracy
       this.useAct1 = this.useAct1 - 1
       enemyImage.classList.add('enemy-transform-slide')
@@ -723,31 +722,31 @@ class Enemy6 extends Character {
 
 // Little Bax
 
-const player = new Player('Little Bax', 15, 5, 50, .95, .9, 3, 12, 12, 3)
+const player = new Player('Little Bax', 8, 5, 50, .95, .9, 3, 12, 12, 3)
 
 // Baxter the Malcontent
 
-const enemy1 = new Enemy1('Baxter the Malcontent', 5, 0, 30, .8, .8, 5, 5, 2, 18)
+const enemy1 = new Enemy1('Baxter the Malcontent', 7, 0, 30, .85, .8, 5, 5, 2, 18)
 
 // Baxtreet Boy
 
-const enemy2 = new Enemy2('Baxtreet Boy', 7, 0, 40, .85, .9, 12, 5, 10, 3)
+const enemy2 = new Enemy2('Baxtreet Boy', 7, 3, 40, .85, .9, 12, 5, 10, 3)
 
 // Fancy Pants Bax
 
-const enemy3 = new Enemy3('Fancy Pants Bax', 5, 5, 50, .9, .8, 10, 17, 3, 5)
+const enemy3 = new Enemy3('Fancy Pants Bax', 7, 3, 50, .9, .8, 10, 17, 3, 5)
 
 // Metal Gear Bax
 
-const enemy4 = new Enemy4('Metal Gear Bax', 10, 0, 60, .9, .9, 7, 15, 1, 7)
+const enemy4 = new Enemy4('Metal Gear Bax', 10, 4, 60, .9, .9, 7, 15, 1, 7)
 
 // Count Baxula
 
-const enemy5 = new Enemy5('Count Baxula', 10, 7, 40, .9, .9, 5, 3, 8, 17)
+const enemy5 = new Enemy5('Count Baxula', 10, 10, 40, .9, .9, 5, 3, 8, 17)
 
 // Baxter Prime
 
-const enemy6 = new Enemy6('Baxter Prime', 12, 5, 70, .95, .9, 3, 5, 18, 5)
+const enemy6 = new Enemy6('Baxter Prime', 12, 7, 70, .95, .9, 3, 5, 18, 5)
 
 // STATE VARIABLES
 
@@ -895,7 +894,7 @@ const vampireBiteSound = new Audio('./sound-effects/enemy5/vampire_bite.mp3')
 // Sound Effects - Enemy 6
 const waterSound = new Audio('./sound-effects/enemy6/water.mp3')
 const whimperingSound = new Audio('./sound-effects/enemy6/dog_whimper.mp3')
-const vacuumSound = new Audio('/sound-effects/enemy6/vacuum.mp3')
+const vacuumSound = new Audio('./sound-effects/enemy6/vacuum.mp3')
 const warningSound = new Audio('./sound-effects/enemy6/groomer_warning.mp3')
 const superchargingSound = new Audio('./sound-effects/enemy6/charge-final-boss.mp3')
 
@@ -1053,15 +1052,15 @@ function initBattleBtns() {
 
 function initPlayerStats() {
   playerName.textContent = `${player.name}`
-  player.attack = 15
+  player.attack = 8
   player.defense = 5
   player.hitPoints = 50
   player.attackAcc = .95
   player.buffAcc = .9
-  player.useAct1 = 3
+  player.useAct1 = 4
   player.useAct2 = 12
   player.useAct3 = 12
-  player.useAct4 = 3
+  player.useAct4 = 2
   playerHealth.value = player.hitPoints
   playerHealthNum.textContent = `${player.hitPoints}`
   playerImageContainer.classList.add('move-in-left')
@@ -1132,7 +1131,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyDefaultStats = [[5, 0, 30, .8, .8, 5, 5, 2, 18], [7, 0, 40, .85, .9, 12, 5, 10, 3], [5, 5, 50, .9, .8, 10, 17, 3, 5], [10, 0, 60, .9, .9, 7, 15, 1, 7], [10, 7, 40, .9, .9, 5, 3, 8, 17], [12, 5, 70, .95, .9, 3, 5, 18, 5]]
+  enemyDefaultStats = [[7, 0, 30, .85, .8, 5, 5, 2, 18], [7, 3, 40, .85, .9, 12, 5, 10, 3], [7, 3, 50, .9, .8, 10, 17, 3, 5], [10, 4, 60, .9, .9, 7, 15, 1, 7], [10, 10, 40, .9, .9, 5, 3, 8, 17], [12, 7, 70, .95, .9, 3, 5, 18, 5]]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['./background-music/Unite The Clans.mp3', './background-music/Bad Boys.mp3', './background-music/Dance With Fate.mp3', './background-music/thriller_music.mp3', './background-music/Unholy Knight.mp3', './background-music/Arasaka.mp3']
@@ -1365,10 +1364,10 @@ function fightRound1() {
 
     let randomNum = Math.random()
 
-    // If enemy health is low, enemy will have an equal chance of using canteen swill and epic thrust
+    // If enemy health is low, enemy will have 75% chance of using epic thrust
 
     if (enemy1.hitPoints <= 15) {
-      if ((randomNum > .5) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+      if ((randomNum > .75) && (enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
         enemy1.canteenSwill()
       } else if (enemy1.useAct3 > 0) {
         enemy1.epicThrust(player)
@@ -1386,18 +1385,20 @@ function fightRound1() {
       }
    }
 
-    // If enemy health is high, has a 75% chance of using half-hearted swipe and a 25% chance of lore dump
+    // If enemy health is high, has a 50% chance of using half-hearted swipe and a 50% chance of using either canteen swill or lore dump
 
     if (enemy1.hitPoints > 15) {
       if ((randomNum > .75) && (enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
+      } else if ((randomNum < .25) && (enemy1.useAct1 > 0)) {
+        enemy1.canteenSwill()
       } else if (enemy1.useAct4 > 0) {
         enemy1.halfHeartedSwipe(player)
       } else if ((enemy1.useAct2 > 0) && (playerSleepCounter === 0)) {
         enemy1.loreDump(player)
       } else if (enemy1.useAct3 > 0) {
         enemy1.epicThrust(player)
-      } else if ((enemy1.useAct1 > 0) && (enemy1.hitPoints > 5)) {
+      } else if ((enemy1.useAct1 > 0)) {
         enemy1.canteenSwill()
       } else {
         battleMessages.textContent = `${enemy1.name} skips his turn!`
@@ -1516,7 +1517,7 @@ function fightRound4() {
    }
   }
 
-  if ((enemy4.hitPoints < 50) && (enemy4.useAct3 > 0)) {
+  if ((enemy4.hitPoints <= 40) && (enemy4.useAct3 > 0)) {
     enemy4.landmine(player)
   } else {
     if (enemyEpicAttackCounter > 0) {

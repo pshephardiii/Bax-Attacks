@@ -140,7 +140,7 @@ body {
 }
 
 .start-message {
-  font-size: 6min;
+  font-size: 6vmin;
   font-family: "Dhurjati", serif;
   color: white;
   animation: blinking 1.5s linear infinite;
