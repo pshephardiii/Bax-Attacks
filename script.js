@@ -28,16 +28,22 @@ class Player extends Character {
 
   bark() {
     let confuseNum = Math.random()
+    // check if player has enough move uses left and if they are confused. 
+    // If player is confused, give them a 50% chance of still being able to move
     if (this.useAct1 > 0 && ((playerConfuseCounter === 0) || (confuseNum > .5))) {
+      // check if player is asleep or stunned.  If they are either, they can't move
       if ((playerSleepCounter === 0) && (playerStunCounter === 0)) {
         playerImage.classList.add('player-physical-attack')
+        // generate a random number to give the player a percentage chance of their move being effective based on buff accuracy
         if (Math.random() < this.buffAcc) {
           barkSound.play()
           barkSound.volume = .3
           document.getElementById('noise-animation-player').style.display = 'inline'
+          // use setTimeout to make animation image disappear after half a second
           setTimeout( () => {
             document.getElementById('noise-animation-player').style.display = 'none'
           }, 500)
+          // Randomly increase attack by 1, 2, or 3
           let attackIncrease = randomizer(1, 3)
           this.attack = this.attack + attackIncrease
           this.useAct1 = this.useAct1 - 1
@@ -64,11 +70,12 @@ class Player extends Character {
           biteSound.play()
           biteSound.volume = .5
           let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 4) - target.defense)
+          // Make sure player attack has not been lowered below 0. We don't want their attack to add to enemy HP.
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           this.useAct2 = this.useAct2 - 1
           enemyImage.classList.add('take-hit')
-          battleMessages.textContent = `${this.name} bites ${target.name}!  Causes ${attackDamage} damage.`
+          battleMessages.textContent = `${this.name} bites ${target.name}! Causes ${attackDamage} damage.`
         } else {
           battleMessages.textContent = `${this.name} tries to bite ${target.name} but misses!`
         }
@@ -188,6 +195,7 @@ class Enemy1 extends Character {
   
   epicThrust(target) { 
     enemyChargeCounter++
+    // if enemy has not charged up previously, will charge up here. If they charged up last turn, they'll launch the attack.
     if (enemyChargeCounter === 1) {
       chargingSound.play()
       chargingSound.volume = .3
@@ -251,6 +259,7 @@ class Enemy2 extends Character {
       let attackDamage = randomizer((this.attack) - target.defense, (this.attack + 2) - target.defense)
       attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
+      // This attack raises their HP, so we want to make sure they can't exceed their max HP.
       if ((this.hitPoints + attackDamage) < 40) {
         this.hitPoints = this.hitPoints + attackDamage
       } else {
@@ -378,6 +387,7 @@ class Enemy3 extends Character {
       bribeSound.play()
       bribeSound.volume = .3
       let randomNum = randomizer(1, 2)
+      // add damage to a global attack build counter to permanently increase move damage throughout rest of battle
       attackBuildCounter = attackBuildCounter + randomNum
       let attackDamage = (this.attack - 3) + attackBuildCounter
       if (attackDamage > 0) {
@@ -444,6 +454,7 @@ class Enemy4 extends Character {
 
   hideInBox(target) {
     if (Math.random() < this.buffAcc - .2) {
+      // use global counter variable so that the move and its effects only last for a set number of turns
       playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter + 3
       let loweredAccuracy = randomizer(3, 4)/10
       target.attackAcc = target.attackAcc - loweredAccuracy
@@ -452,6 +463,7 @@ class Enemy4 extends Character {
       setTimeout(() => {
         boxSound.play()
         boxSound.volume = .7
+        // change enemy image to a box
         enemyImage.src = 'https://i.postimg.cc/Y92qRHvh/1149.png'
       }, 1000)
       battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
@@ -489,6 +501,7 @@ class Enemy4 extends Character {
       }, 2000)
     }
 
+    // After a countdown of turns, bomb will explode doing huge damage to player
     if (enemyEpicAttackCounter === 1) {
       enemyEpicAttackCounter = 0
       let attackDamage = randomizer(this.attack + 20, this.attack + 30)
@@ -643,6 +656,7 @@ class Enemy6 extends Character {
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('player-transform-slide')
       setTimeout(() => {
+        // turns player image into a crate until they are no longer stunned.
         playerImage.src = 'https://i.postimg.cc/1RdJqx5H/pet-travel-plastic-cage-carrier-box-wooden-table-3d-rendering.png'
       }, 1000)
       battleMessages.textContent = `${this.name} puts ${target.name} in the crate! ${target.name} is stunned by this madness!`
@@ -885,7 +899,7 @@ const vacuumSound = new Audio('/sound-effects/enemy6/vacuum.mp3')
 const warningSound = new Audio('./sound-effects/enemy6/groomer_warning.mp3')
 const superchargingSound = new Audio('./sound-effects/enemy6/charge-final-boss.mp3')
 
-// Cute Bax Sound (Game Completion Award)
+// Cute Bax Sound (Game Completion Reward)
 const cuteBaxSound = new Audio('./sound-effects/misc/completion-whimper.mp3')
 
 // Background Music
@@ -1126,6 +1140,7 @@ function initFirstBattle() {
 }
 
 function initNextBattle() {
+  // Remove first item in each array to shift everything forward for the next battle
   enemyArr.shift()
   enemyDefaultStats.shift()
   enemyImageArr.shift()
@@ -1234,10 +1249,6 @@ function healthUpdates() {
   enemyHealthNum.textContent = enemyArr[0].hitPoints < 0 ? '0' : `${enemyArr[0].hitPoints}`
 }
 
-function resetHealth() {
-  
-}
-
 // checks to see if there's a winner and triggers victory/defeat messages, animations, and sounds
 
 function checkWinner() {
@@ -1320,6 +1331,7 @@ function fightRound() {
 
   if ((enemySleepCounter === 0) && (enemyStunCounter === 0) && (winner === null)) {
 
+    // Determine enemy battle logic based on which enemy it is
     if (enemyArr[0] === enemy1) {
       fightRound1()
     }
@@ -1496,6 +1508,7 @@ function fightRound4() {
 
   let randomNum = Math.random()
 
+  // sets player attack accuracy back to default once the accuracy decrease counter reached 0
   if (playerAccuracyDecreaseCounter > 0) {
    playerAccuracyDecreaseCounter = playerAccuracyDecreaseCounter - 1
    if (playerAccuracyDecreaseCounter === 0) {
@@ -1503,7 +1516,7 @@ function fightRound4() {
    }
   }
 
-  if ((enemy4.hitPoints < 25) && (enemy4.useAct3 > 0)) {
+  if ((enemy4.hitPoints < 50) && (enemy4.useAct3 > 0)) {
     enemy4.landmine(player)
   } else {
     if (enemyEpicAttackCounter > 0) {
@@ -1755,14 +1768,8 @@ document.addEventListener('keydown', function(event) {
 })
 
 document.addEventListener('keydown', function(event) {
-  if (event.key === '5') {
-    enemy2.breakDance()
-  }
-})
-
-document.addEventListener('keydown', function(event) {
   if (event.key === '6') {
-    enemy3.hideInBox(player)
+    enemy4.hideInBox(player)
   }
 })
 

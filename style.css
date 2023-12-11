@@ -140,7 +140,7 @@ body {
 }
 
 .start-message {
-  font-size: 6vmin;
+  font-size: 6min;
   font-family: "Dhurjati", serif;
   color: white;
   animation: blinking 1.5s linear infinite;
@@ -153,7 +153,7 @@ body {
   font-size: 6vh;
   background-color: red;
   color: white;
-  margin-top: 27vmin;
+  margin-top: 27vmin
 }
 
 #start-button:hover {
@@ -185,7 +185,7 @@ body {
   display: flex;
   gap: 5vmin;
   margin-top: .5vmin;
-  margin-bottom: 2vmin;
+  margin-bottom: 2vmin
 }
 
 .between-button {
@@ -199,7 +199,7 @@ body {
   height: 80vmin;
   border-radius: 10%;
   border: 10px solid red;
-  margin-bottom: 8vmin;
+  margin-bottom: 8vmin
 }
 
 /* Game Completion screen */
