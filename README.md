@@ -85,6 +85,8 @@ https://pshephardiii.github.io/Bax-Attacks/
 
 NEXT STEPS:
 
+Make the visuals more responsive so that it looks and plays well on smaller screens.
+
 Balance the player and enemy attacks, adjust move uses, and set all status effects to stay active for only a few turns.
 
 Give the player a choice of moves, either by adding more moves to the player class, letting them choose a number of moves from a set list, or creating other player characters that one could select.
