@@ -544,8 +544,8 @@ class Enemy5 extends Character {
     enemyImage.classList.add('up-and-down-slightly')
     laughSound.play()
     laughSound.volume = .2
-    if (Math.random() < this.attackAcc) {
-      let randomNum = randomizer(1, 5)
+    if (Math.random() < this.attackAcc - .1) {
+      let randomNum = randomizer(1, 4)
       playerConfuseCounter = playerConfuseCounter + randomNum
       playerConfuse.style.display = 'inline'
       playerConfuse.classList.add('waggle-back-and-forth')
@@ -580,7 +580,7 @@ class Enemy5 extends Character {
     setTimeout(() => {
       document.getElementById('psybark-animation-enemy').style.display = 'none'
     }, 2000)
-    if (Math.random() < this.attackAcc) {
+    if (Math.random() < this.attackAcc - .1) {
       psychicBarkSound.play()
       psychicBarkSound.volume = .3
       let defenseDecrease = randomizer(1, 2)
@@ -603,7 +603,7 @@ class Enemy5 extends Character {
     if (Math.random() < this.attackAcc) {
       vampireBiteSound.play()
       vampireBiteSound.volume = .3
-      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 7) - target.defense) 
+      let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 5) - target.defense) 
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${this.name} uses vampire bite on ${target.name}! He suffers ${attackDamage} damage.`
@@ -650,8 +650,8 @@ class Enemy6 extends Character {
   }
 
   crate(target) {
-    if (Math.random() < this.attackAcc - .2) {
-      playerStunCounter = playerStunCounter + randomizer(2, 4)
+    if (Math.random() < this.attackAcc - .25) {
+      playerStunCounter = playerStunCounter + randomizer(1, 2)
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('player-transform-slide')
       setTimeout(() => {
@@ -666,7 +666,8 @@ class Enemy6 extends Character {
 
   vacuum(target) {
     if (Math.random() < this.attackAcc) {
-      let attackDamage = randomizer(this.attack, this.attack + 4) - target.defense
+      let attackDamage = randomizer(this.attack - 2, this.attack) - target.defense
+      attackDamage = attackDamage < 0 ? 0 : attackDamage
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct3 = this.useAct3 - 1
       battleMessages.textContent = `${this.name} brings out the vacuum, and ${player.name} can't handle it! It does ${attackDamage} damage.`
@@ -693,8 +694,8 @@ class Enemy6 extends Character {
       battleMessages.textContent = `${this.name} is charging up an attack!`
     } else if (enemyChargeCounter === 2) {
         enemyImage.classList.add('enemy-physical-attack')
-        if(Math.random() < this.attackAcc) {
-          let attackDamage = randomizer((this.attack + 6), (this.attack + 9))
+        if(Math.random() < this.attackAcc - .2) {
+          let attackDamage = randomizer((this.attack + 4), (this.attack + 6))
           attackDamage = attackDamage < 0 ? 0 : attackDamage
           target.hitPoints = target.hitPoints - attackDamage
           enemyChargeCounter = 0
@@ -742,11 +743,11 @@ const enemy4 = new Enemy4('Metal Gear Bax', 10, 4, 60, .9, .9, 7, 15, 1, 7)
 
 // Count Baxula
 
-const enemy5 = new Enemy5('Count Baxula', 10, 10, 40, .9, .9, 5, 3, 8, 17)
+const enemy5 = new Enemy5('Count Baxula', 8, 5, 40, .9, .9, 5, 3, 8, 17)
 
 // Baxter Prime
 
-const enemy6 = new Enemy6('Baxter Prime', 12, 7, 70, .95, .9, 3, 5, 18, 5)
+const enemy6 = new Enemy6('Baxter Prime', 12, 3, 70, .95, .9, 3, 5, 18, 3)
 
 // STATE VARIABLES
 
@@ -915,7 +916,7 @@ document.getElementById('launch-button').addEventListener('click', () => {
   startScreen.style.display = 'flex'
   volumeBtnContainer.style.display = 'flex'
   musicTrack.play()
-  currentVolume = .1
+  currentVolume = .05
   musicTrack.volume = currentVolume
   musicTrack.loop = true
 })
@@ -1152,7 +1153,7 @@ function initDefeatMessages() {
 
 function initFirstBattle() {
   enemyArr = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6]
-  enemyDefaultStats = [[7, 0, 30, .85, .8, 5, 5, 2, 18], [7, 3, 40, .85, .9, 12, 5, 10, 3], [7, 3, 50, .9, .8, 10, 17, 3, 5], [10, 4, 60, .9, .9, 7, 15, 1, 7], [10, 10, 40, .9, .9, 5, 3, 8, 17], [12, 7, 70, .95, .9, 3, 5, 18, 5]]
+  enemyDefaultStats = [[7, 0, 30, .85, .8, 5, 5, 2, 18], [7, 3, 40, .85, .9, 12, 5, 10, 3], [7, 3, 50, .9, .8, 10, 17, 3, 5], [10, 4, 60, .9, .9, 7, 15, 1, 7], [8, 5, 40, .9, .9, 5, 3, 8, 17], [12, 3, 70, .95, .9, 3, 5, 18, 3]]
   enemyImageArr = ['https://i.postimg.cc/MZ5z6T94/Baxter-The-Malcontent.png', 'https://i.postimg.cc/9M3Q7n9n/072drbw.png', 'https://i.postimg.cc/kgfSW-qMh/fancy-Bax-final.png', 'https://i.postimg.cc/MZNf6nc5/solidBAX.png', 'https://i.postimg.cc/5xm6P23y/Baxula-final.png', 'https://i.postimg.cc/KvD0y8dj/baxter-prime.png']
   backgroundImageArr = ["url('https://static9.depositphotos.com/1550726/1156/i/450/depositphotos_11560376-stock-photo-fantasy-autumn-forest-with-fog.jpg')", "url('https://i.imgur.com/I2xaf7U.jpg')", "url('https://i.imgur.com/XI4qNhj.jpeg')", "url('https://i.imgur.com/lz5ukSl.png')", "url('https://i.imgur.com/yz15RI8.jpg')", "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2d3MDkyeDk0MGRvam00NXplaTVpaDM2NWcxY3Z4c2JpZml5N3d6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6sV5haPBF8ZYIHOoeK/giphy.gif')"]
   musicArr = ['./background-music/Unite The Clans.mp3', './background-music/Bad Boys.mp3', './background-music/Dance With Fate.mp3', './background-music/thriller_music.mp3', './background-music/Unholy Knight.mp3', './background-music/Arasaka.mp3']
