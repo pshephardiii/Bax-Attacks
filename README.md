@@ -55,7 +55,7 @@ Attack Accuracy - the likelihood that a character's offensive move against the o
 
 Buff Accuracy = the likelihood that a character's move will successfully boost their own stats
 
-Use Act 1-4: the limit number of uses for each move
+Use Act 1-4: the limited number of uses for each move
 
 STATUS EFFECTS:
 
