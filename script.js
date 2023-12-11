@@ -833,8 +833,11 @@ const actionBtn3 = document.getElementById('action-3')
 const actionBtn4 = document.getElementById('action-4')
 const nextMoveBtn = document.getElementById('next-move')
 
-// Mute Button
+// Volume Buttons
+const volumeBtnContainer = document.querySelector('.mute-btn-container')
 const muteBtn = document.querySelector('.mute-button')
+const volumeUpBtn = document.getElementById('volume-increase-button')
+const volumeDownBtn = document.getElementById('volume-decrease-button')
 
 // Status Effect Items 
 const playerSleep = document.getElementById('sleep-image-player')
@@ -910,7 +913,7 @@ const musicTrack = document.getElementById('music-track')
 document.getElementById('launch-button').addEventListener('click', () => {
   document.querySelector('.default-screen').style.display = 'none'
   startScreen.style.display = 'flex'
-  muteBtn.style.display = 'inline'
+  volumeBtnContainer.style.display = 'flex'
   musicTrack.play()
   currentVolume = .1
   musicTrack.volume = currentVolume
@@ -992,6 +995,24 @@ muteBtn.addEventListener('click', () => {
   }
 })
 
+volumeDownBtn.addEventListener('click', () => {
+  volumeDownBtn.classList.add('clicked')
+  setTimeout(() => {
+    volumeDownBtn.classList.remove('clicked')
+  }, 500)
+  currentVolume = currentVolume - .02
+  musicTrack.volume = currentVolume
+})
+
+volumeUpBtn.addEventListener('click', () => {
+  volumeUpBtn.classList.add('clicked')
+  setTimeout(() => {
+    volumeUpBtn.classList.remove('clicked')
+  }, 500)
+  currentVolume = currentVolume + .02
+  musicTrack.volume = currentVolume
+})
+
 // keydown event listeners
 
 document.addEventListener('keydown', function(event) {
@@ -1017,14 +1038,14 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '-') {
-    currentVolume = currentVolume - .01
+    currentVolume = currentVolume - .02
     musicTrack.volume = currentVolume
   }
 })
 
 document.addEventListener('keydown', function(event) {
   if (event.key === '+') {
-    currentVolume = currentVolume + .01
+    currentVolume = currentVolume + .02
     musicTrack.volume = currentVolume
   }
 })

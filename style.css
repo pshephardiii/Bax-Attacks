@@ -42,19 +42,34 @@ body {
 }
 
 .mute-btn-container {
+  display: none;
+  flex-direction: column;
   height: 0;
   position: relative;
   margin: 0 auto
 }
 
 .mute-button {
-  display: none;
   position: absolute;
   height: 1.5rem;
   border: 2px solid white;
   border-radius: 30%;
   background-color: white;
-  right: .5rem
+  right: .5rem;
+  top: 2.5rem;
+}
+
+#volume-increase-button {
+  position: absolute;
+  height: 2rem;
+  right: .5rem;
+}
+
+#volume-decrease-button {
+  position: absolute;
+  height: 2rem;
+  right: .5rem;
+  top: 4.5rem;
 }
 
 /* Default Screen */
