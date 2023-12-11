@@ -55,7 +55,7 @@ Attack Accuracy - the likelihood that a character's offensive move against the o
 
 Buff Accuracy = the likelihood that a character's move will successfully boost their own stats
 
-Use Act 1-4: the limit number of uses for each move
+Use Act 1-4: the limited number of uses for each move
 
 STATUS EFFECTS:
 
@@ -84,6 +84,8 @@ PROJECT LINK:
 https://pshephardiii.github.io/Bax-Attacks/
 
 NEXT STEPS:
+
+Make the visuals more responsive so that it looks and plays well on smaller screens.
 
 Balance the player and enemy attacks, adjust move uses, and set all status effects to stay active for only a few turns.
 
