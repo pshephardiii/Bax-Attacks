@@ -857,68 +857,7 @@ body {
 
 /* Media Queries */
 
-/* .start-screen {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-image: url('https://i.postimg.cc/ryPGv4Dj/9548381.jpg');
-  text-align: center;
-  height: 100vh;
-  width: 100vw
-}
-
-.start-welcome {
-  font-size: 4vmin;
-  color: white;
-  font-family: "Fuzzy Bubbles", serif;
-  margin-bottom: 1rem
-}
-
-.screen-title {
-  font-size: 6vmin;
-  color: red;
-  text-shadow:
-  0.07em 0 black,
-  0 0.07em black,
-  -0.07em 0 black,
-  0 -0.07em black;
-  font-family: "Fuzzy Bubbles", serif;
-  margin-top: 0
-}
-
-.start-image {
-  position: absolute;
-  height: 60vmin;
-  top: 20vmin
-}
-
-.start-message {
-  font-size: 6vmin;
-  font-family: "Dhurjati", serif;
-  color: white;
-  animation: blinking 1.5s linear infinite;
-  z-index: 1;
-  margin-top: 20vmin
-}
-
-#start-button {
-  display: block;
-  font-size: 6vh;
-  background-color: red;
-  color: white;
-  margin-top: 27vmin
-}
-
-#start-button:hover {
-  background-color: black;
-  color: white
-} */
-
-
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 80rem) {
   .start-welcome {
      font-size: 4vh
   }
