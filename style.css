@@ -857,26 +857,6 @@ body {
 
 /* Media Queries */
 
-/* .between-message {
-  font-family: "Libre Baskerville";
-  font-size: 4vmin;
-  margin: 6vmin auto 0 auto
-}
-
-.between-button-container {
-  display: flex;
-  gap: 5vmin;
-  margin-top: .5vmin;
-  margin-bottom: 2vmin
-}
-
-.between-button {
-  font-size: 3vmin;
-  font-weight: bold;
-  text-align: center;
-  width: 25vmin
-} */
-
 @media screen and (max-width: 80rem) {
   .start-welcome {
      font-size: 4vh
@@ -914,8 +894,6 @@ body {
     font-size: 2.5vh
   }
 }
-  
-
 
 /* Keyframe animations */
 

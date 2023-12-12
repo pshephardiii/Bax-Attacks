@@ -370,7 +370,7 @@ class Enemy3 extends Character {
     }, 2000)
     if (Math.random() < this.attackAcc - .15) {
       let defenseDecrease = randomizer(2, 3)
-      if (target.defense - defenseDecrease >= 0) {
+      if (target.defense - defenseDecrease > 0) {
       target.defense = target.defense - defenseDecrease
       } else {
         target.defense = 0
@@ -574,7 +574,7 @@ class Enemy5 extends Character {
       this.hitPoints = this.hitPoints + healthNum
       this.attack = this.attack + attackNum
       this.useAct2 = this.useAct2 - 1
-      battleMessages.textContent = `${this.name} enjoys some Blood on the Rocks! He gained ${healthNum} hit points and his strength is increased by ${attackNum}.`
+      battleMessages.textContent = `${this.name} enjoys some Blood on the Rocks! He gains ${healthNum} hit points and his strength is increased by ${attackNum}.`
     } else {
       battleMessages.textContent = `${this.name} tries to enjoy his Blood on the Rocks, but ${player.name}'s bad jokes ruin his appetite!`
     }
@@ -958,7 +958,6 @@ actionBtn2.addEventListener('click', () => {
 actionBtn3.addEventListener('click', () => {
   player.dash(enemyArr[0])
 })
-
 
 actionBtn4.addEventListener('click', () => {
   player.cuteness(enemyArr[0])
