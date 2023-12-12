@@ -43,11 +43,16 @@ class Player extends Character {
           setTimeout( () => {
             document.getElementById('noise-animation-player').style.display = 'none'
           }, 500)
-          // Randomly increase attack by 1, 2, or 3
-          let attackIncrease = randomizer(1, 3)
+          let attackIncrease = randomizer(1, 2)
           this.attack = this.attack + attackIncrease
+          let healthIncrease = randomizer(5, 7)
+          if (this.hitPoints + healthIncrease < 50) {
+            this.hitPoints = this.hitPoints + healthIncrease
+          } else {
+            this.hitPoints = 50
+          }
           this.useAct1 = this.useAct1 - 1
-          battleMessages.textContent = `${this.name} uses bark! ${this.name}'s attack increased by ${attackIncrease}.`
+          battleMessages.textContent = `${this.name} uses bark! ${this.name} recovers ${healthIncrease} hit points and increases attack by ${attackIncrease}.`
         } else {
           battleMessages.textContent = `${this.name} tries to bark, but his throat is sore!`
         } 
@@ -388,7 +393,7 @@ class Enemy3 extends Character {
       bribeSound.volume = .3
       // add damage to a global attack build counter to permanently increase move damage throughout rest of battle
       attackBuildCounter = attackBuildCounter + 1
-      let attackDamage = (this.attack - 4) + attackBuildCounter
+      let attackDamage = ((this.attack) + attackBuildCounter) - target.defense
       if (attackDamage > 0) {
         target.hitPoints = target.hitPoints - attackDamage
         this.useAct1 = this.useAct2 - 1
@@ -545,7 +550,7 @@ class Enemy5 extends Character {
     laughSound.play()
     laughSound.volume = .2
     if (Math.random() < this.attackAcc - .1) {
-      let randomNum = randomizer(1, 4)
+      let randomNum = randomizer(2, 4)
       playerConfuseCounter = playerConfuseCounter + randomNum
       playerConfuse.style.display = 'inline'
       playerConfuse.classList.add('waggle-back-and-forth')
@@ -603,7 +608,7 @@ class Enemy5 extends Character {
     if (Math.random() < this.attackAcc) {
       vampireBiteSound.play()
       vampireBiteSound.volume = .3
-      let attackDamage = randomizer((this.attack + 2) - target.defense, (this.attack + 5) - target.defense) 
+      let attackDamage = randomizer((this.attack + 4) - target.defense, (this.attack + 6) - target.defense) 
       target.hitPoints = target.hitPoints - attackDamage
       this.useAct4 = this.useAct4 - 1
       battleMessages.textContent = `${this.name} uses vampire bite on ${target.name}! He suffers ${attackDamage} damage.`
