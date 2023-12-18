@@ -656,7 +656,7 @@ class Enemy6 extends Character {
 
   crate(target) {
     if (Math.random() < this.attackAcc - .25) {
-      playerStunCounter = playerStunCounter + randomizer(1, 2)
+      playerStunCounter = playerStunCounter + randomizer(1, 3)
       this.useAct2 = this.useAct2 - 1
       playerImage.classList.add('player-transform-slide')
       setTimeout(() => {
@@ -1458,9 +1458,7 @@ function fightRound2() {
       } else {
           battleMessages.textContent = `${enemy2.name} skips his turn!`
         }
-      }
-
-    if (enemy2.hitPoints > 20) {
+    } else if (enemy2.hitPoints > 20) {
       if ((randomNum > .66) && (enemy2.useAct3 > 0)) {
         enemy2.breakDance()
       } else if ((randomNum > .33) && (enemy2.useAct1 > 0) && (enemy2.hitPoints < 40)) {
@@ -1607,7 +1605,7 @@ function fightRound5() {
         battleMessages.textContent = `${enemy5.name} skips his turn!`
       }
     }
-  } else  if (enemy5.hitPoints >= 20) {
+  } else if (enemy5.hitPoints >= 20) {
     if ((randomNum < .33) && (enemy5.useAct1 > 0) && (playerConfuseCounter === 0)) {
       enemy5.maniacalLaugh(player)
     } else if ((randomNum > .66) && (enemy5.useAct3 > 0) && (player.defense > 0)) {
@@ -1630,7 +1628,7 @@ function fightRound6() {
     enemy6.groomer(player)
   } else {
     let randomNum = Math.random()
-    if (enemy6.hitPoints <= 35) {
+    if (enemy6.hitPoints <= 45) {
       if ((randomNum > .5) && (enemy6.useAct1 > 0)) {
         enemy6.squirtBottle(player)
       } else if (enemy6.useAct4 > 0) {

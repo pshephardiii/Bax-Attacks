@@ -886,7 +886,7 @@ body {
   }
 }
 
-@media screen and (max-width: 40rem) and (max-height: 45rem) {
+@media screen and (max-width: 40rem) and (max-height: 35rem) {
   .battle-message-container {
     font-size: 3vh
   }
