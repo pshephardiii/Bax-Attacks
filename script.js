@@ -934,6 +934,7 @@ startBtn.addEventListener('click', () => {
 document.getElementById('continue-button').addEventListener('click', () => {
   initNextBattle()
   init()
+  nextMoveBtn.style.display = 'none'
 })
 
 document.getElementById('reset-button').addEventListener('click', resetToStart)
@@ -1376,6 +1377,10 @@ function fightRound() {
       fightRound6()
     }
   }
+
+  setTimeout(() => {
+    nextMoveBtn.style.display = 'inline'
+  }, 2000)
 }  
 
 // The battle logic of the first enemy, Baxter the Malcontent
@@ -1436,7 +1441,6 @@ function fightRound1() {
 
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 function fightRound2() {
@@ -1481,7 +1485,6 @@ function fightRound2() {
 
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 function fightRound3() {
@@ -1526,7 +1529,6 @@ function fightRound3() {
 
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 function fightRound4() {
@@ -1584,7 +1586,6 @@ function fightRound4() {
   }
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 function fightRound5() {
@@ -1619,7 +1620,6 @@ function fightRound5() {
 
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 function fightRound6() {
@@ -1659,7 +1659,6 @@ function fightRound6() {
   
   healthUpdates()
   checkWinner()
-  displayNextTurnBtn()
 }
 
 // Removes the classes associated with various animations to prime the player and enemy to repeat animations if necessary
@@ -1703,10 +1702,6 @@ function displayActionButtons() {
   for (let button of actionBtnArr) {
     button.style.display = 'inline'
   }
-}
-
-function displayNextTurnBtn() {
-  nextMoveBtn.style.display = 'inline'
 }
 
 // This triggers enemy4's animation to leave box
