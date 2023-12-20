@@ -1679,6 +1679,7 @@ function resetToStart() {
   victoryScreen.style.display = 'none'
   gameOverScreen.style.display = 'none'
   gameCompletionScreen.style.display = 'none'
+  nextMoveBtn.style.display = 'none'
   startScreen.style.display = 'flex'
   musicTrack.src = './background-music/Play.mp3'
   if (muteBtn.src === 'https://i.postimg.cc/d1nRNwnX/greens2150520-06.png') {
