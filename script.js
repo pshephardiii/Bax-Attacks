@@ -470,9 +470,9 @@ class Enemy4 extends Character {
         // change enemy image to a box
         enemyImage.src = 'https://i.postimg.cc/Y92qRHvh/1149.png'
       }, 1000)
-      battleMessages.textContent = `${this.name} hides in a box! ${this.name}'s accuracy is lowered by ${loweredAccuracy}.`
+      battleMessages.textContent = `${this.name} hides in a box! ${target.name}'s accuracy is lowered by ${loweredAccuracy}.`
     }  else {
-      battleMessages.textContent = `${this.name} tries to hide in a box, but ${this.name} isn't fooled!`
+      battleMessages.textContent = `${this.name} tries to hide in a box, but ${target.name} isn't fooled!`
     }
   }
   
@@ -1569,7 +1569,7 @@ function fightRound4() {
     } else {
       if ((enemy4.hitPoints >= 25) || (enemy4.useAct3 === 0)) {
         if ((randomNum > .66) && (enemy4.useAct2 > 0)) { 
-          enemy4.cqc(player) 
+          enemy4.cqc(player)
         } else if ((randomNum > .33) && (enemy4.useAct4 > 0) && (playerSleepCounter === 0)) {
           enemy4.tranqDart(player)
         } else if ((enemy4.useAct1 > 0) && (playerAccuracyDecreaseCounter === 0) && !(enemyImage.classList.contains('enemy-transform-slide'))) {
@@ -1642,7 +1642,7 @@ function fightRound6() {
       }
     }
 
-    if (enemy6.hitPoints > 35) {
+    if (enemy6.hitPoints > 45) {
       if ((randomNum < .33) && (enemy6.useAct2 > 0) && (playerStunCounter === 0)) {
         enemy6.crate(player)
       } else if ((randomNum > .66) && (enemy6.useAct4 > 0)) {
